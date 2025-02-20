@@ -49,7 +49,7 @@ public class User implements UserDetails {
     @Builder.Default
     private Instant createdAt = Instant.now();
 
-    @ManyToMany(fetch = FetchType.LAZY)
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "interest_id")

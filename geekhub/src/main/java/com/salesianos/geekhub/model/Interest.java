@@ -26,7 +26,7 @@ public class Interest {
     private String picture;
 
 
-    @ManyToMany(mappedBy = "interests", fetch = FetchType.LAZY)
+    @ManyToMany(mappedBy = "interests", fetch = FetchType.EAGER)
     @ToString.Exclude
     @Builder.Default
     private Set<User> users = new HashSet<>();
