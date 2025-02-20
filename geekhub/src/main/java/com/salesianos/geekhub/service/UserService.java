@@ -2,6 +2,7 @@ package com.salesianos.geekhub.service;
 
 import com.salesianos.geekhub.dto.CreateUserRequest;
 import com.salesianos.geekhub.error.ActivationExpiredException;
+import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Role;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.repository.UserRepository;
@@ -73,5 +74,10 @@ public class UserService {
                 })
                 .orElseThrow(() -> new ActivationExpiredException("El código de activación no existe o ha caducado"));
     }
+
+    public User findById(UUID id) {
+        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
 
 }

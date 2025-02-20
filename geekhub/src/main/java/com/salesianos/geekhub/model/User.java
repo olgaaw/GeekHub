@@ -36,6 +36,7 @@ public class User implements UserDetails {
     private String gender;
     private Date birthday;
     private String profilePicture;
+    private String bio;
 
     @ElementCollection(fetch = FetchType.EAGER)
     private Set<Role> roles;
