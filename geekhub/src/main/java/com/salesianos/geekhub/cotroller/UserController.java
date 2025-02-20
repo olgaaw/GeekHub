@@ -22,6 +22,7 @@ public class UserController {
     @PostMapping("/auth/register")
     public ResponseEntity<UserResponse> register(@RequestBody CreateUserRequest createUserRequest) {
         User user = userService.createUser(createUserRequest);
+        System.out.println(user);
 
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(UserResponse.of(user));

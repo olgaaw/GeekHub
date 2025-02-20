@@ -46,6 +46,8 @@ public class UserService {
                 .activationToken(generateRandomActivationCode())
                 .build();
 
+        System.out.println(user);
+
         try {
             mailSender.sendMail(createUserRequest.email(), "Activación de cuenta", user.getActivationToken());
         } catch (Exception e) {
