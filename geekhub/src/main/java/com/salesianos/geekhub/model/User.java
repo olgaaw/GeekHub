@@ -57,6 +57,11 @@ public class User implements UserDetails {
     @Builder.Default
     private Set<Interest> interests = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @Builder.Default
+    @ToString.Exclude
+    private List<Post> posts = new ArrayList<>();
+
 
 
     //helpers
