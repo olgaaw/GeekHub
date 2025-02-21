@@ -59,6 +59,34 @@ public class UserService {
         return userRepository.save(user);
     }
 
+    public User createUserAdmin(CreateUserRequest createUserRequest) {
+        User user = User.builder()
+                .username(createUserRequest.username())
+                .email(createUserRequest.email())
+                .password(passwordEncoder.encode(createUserRequest.password()))
+                .name(createUserRequest.name())
+                .surname(createUserRequest.surname())
+                .phone(createUserRequest.phone())
+                .address(createUserRequest.adress())
+                .cp(createUserRequest.cp())
+                .gender(createUserRequest.gender())
+                .birthday(createUserRequest.birthday())
+                .roles(Set.of(Role.ADMIN))
+                .activationToken(generateRandomActivationCode())
+                .build();
+
+        System.out.println(user);
+
+        try {
+            mailSender.sendMail(createUserRequest.email(), "Activación de cuenta", user.getActivationToken());
+        } catch (Exception e) {
+            throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Error al enviar el email de activación");
+        }
+
+
+        return userRepository.save(user);
+    }
+
     public String generateRandomActivationCode() {
         return UUID.randomUUID().toString();
     }
