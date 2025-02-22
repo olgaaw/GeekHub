@@ -1,5 +1,5 @@
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f4', 'jdoe', 'jdoe@example.com', 'hashed_password_1', 'John', 'Doe', '1234567890', '123 Elm St', 90210, 'Male', '1990-01-01', 'profile1.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f4', 'jdoe', 'jdoe@example.com', '{bcrypt}hashed_password_1', 'John', 'Doe', '1234567890', '123 Elm St', 90210, 'Male', '1990-01-01', 'profile1.jpg', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
 VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f3','asmith', 'asmith@example.com', 'hashed_password_2', 'Alice', 'Smith', '0987654321', '456 Oak St', 90211, 'Female', '1992-02-02', 'profile2.jpg', 'Biography example',  true, NOW());
