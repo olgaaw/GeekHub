@@ -8,7 +8,7 @@ import java.util.UUID;
 
 public record CreatePostRequestDto(
         UUID userId,
-        @NotBlank
+        @NotBlank(message = "{createPostRequestDto.description.notblank}")
         String description,
         List<ImageRequestDto> images,
         Date fechaPublicacion
