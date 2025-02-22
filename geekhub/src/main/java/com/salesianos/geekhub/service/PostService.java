@@ -1,7 +1,7 @@
 package com.salesianos.geekhub.service;
 
 import com.salesianos.geekhub.dto.post.ImageRequestDto;
-import com.salesianos.geekhub.dto.post.PostRequestDto;
+import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
 import com.salesianos.geekhub.model.Image;
 import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.repository.ImageRepository;
@@ -21,7 +21,7 @@ public class PostService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
-    public Post crearPost(PostRequestDto postRequest) {
+    public Post crearPost(CreatePostRequestDto postRequest) {
 
         Post newPost = Post.builder()
                 .user(userRepository.findById(postRequest.userId()).orElseThrow())
