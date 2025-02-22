@@ -20,8 +20,7 @@ public class Image {
     private String imageUrl;
 
     @ManyToOne
-    @MapsId("user_id")
-    @JoinColumn(name = "user_id",
-            foreignKey = @ForeignKey(name = "fk_user_image"))
-    private User user;
+    @JoinColumn(name = "post_id",
+            foreignKey = @ForeignKey(name = "fk_post_image"))
+    private Post post;
 }

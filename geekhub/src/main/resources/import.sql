@@ -27,15 +27,15 @@ VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f5','ijones', 'ijones@example.com', '
 
 
 
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f4', 'ADMIN');
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f3', 'USER');
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f8', 'USER');
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f9', 'USER');
-INSERT INTO user_roles(user_id, role) VALUES ('b7c449e4-1316-4ffc-a218-7a585fa128f8', 'USER');
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f0', 'USER');
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f7', 'USER');
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f6', 'USER');
-INSERT INTO user_roles(user_id, role) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f5', 'USER');
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f4', 0);
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f3', 1);
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f8', 1);
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f9', 1);
+INSERT INTO user_roles(user_id, roles) VALUES ('b7c449e4-1316-4ffc-a218-7a585fa128f8', 1);
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f0', 1);
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f7', 1);
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f6', 1);
+INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f5', 1);
 
 -- random_uuid() para h2, gen_random_uuid() para postgres
 

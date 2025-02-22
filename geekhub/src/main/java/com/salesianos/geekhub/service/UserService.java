@@ -1,6 +1,6 @@
 package com.salesianos.geekhub.service;
 
-import com.salesianos.geekhub.dto.CreateUserRequest;
+import com.salesianos.geekhub.dto.user.CreateUserRequest;
 import com.salesianos.geekhub.error.ActivationExpiredException;
 import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Role;

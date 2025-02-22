@@ -1,8 +1,8 @@
-package com.salesianos.geekhub.dto;
+package com.salesianos.geekhub.dto.user;
 
+import com.salesianos.geekhub.dto.GetInterestDto;
 import com.salesianos.geekhub.model.User;
 
-import java.util.Date;
 import java.util.Set;
 import java.util.stream.Collectors;
 

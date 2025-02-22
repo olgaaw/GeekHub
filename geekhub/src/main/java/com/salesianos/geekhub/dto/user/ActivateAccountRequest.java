@@ -1,4 +1,4 @@
-package com.salesianos.geekhub.dto;
+package com.salesianos.geekhub.dto.user;
 
 public record ActivateAccountRequest(
         String token

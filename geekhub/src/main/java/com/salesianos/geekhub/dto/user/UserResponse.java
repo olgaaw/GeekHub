@@ -1,4 +1,4 @@
-package com.salesianos.geekhub.dto;
+package com.salesianos.geekhub.dto.user;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import com.salesianos.geekhub.model.User;
