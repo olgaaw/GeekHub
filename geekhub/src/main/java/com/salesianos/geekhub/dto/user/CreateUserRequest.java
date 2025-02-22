@@ -3,7 +3,7 @@ package com.salesianos.geekhub.dto.user;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import com.salesianos.geekhub.validation.FieldsValueMatch;
 import com.salesianos.geekhub.validation.UniqueUsername;
-import jakarta.validation.constraints.NotEmpty;
+import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 
 import java.util.Date;
@@ -16,25 +16,25 @@ import java.util.Date;
 })
 public record CreateUserRequest(
         @UniqueUsername
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.username.notblank}")
         String username,
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.email.notblank}")
         String email,
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.password.notblank}")
         String password,
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.verifyPassword.notblank}")
         String verifyPassword,
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.name.notblank}")
         String name,
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.surname.notblank}")
         String surname,
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.phone.notblank}")
         String phone,
-        @NotEmpty
-        String adress,
+        @NotBlank(message = "{createUserRequest.address.notblank}")
+        String address,
         @NotNull
         int cp,
-        @NotEmpty
+        @NotBlank(message = "{createUserRequest.gender.notblank}")
         String gender,
         @NotNull
         @JsonFormat(pattern = "yyyy-MM-dd")
