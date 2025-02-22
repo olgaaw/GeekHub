@@ -17,8 +17,11 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -26,6 +29,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -109,6 +113,7 @@ public class UserController {
                             )}
                     )}),
     })
+    @PostAuthorize("returnObject.body.enabled==true")
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
@@ -204,6 +209,7 @@ public class UserController {
     })
     @GetMapping("/me")
     public UserResponse me(@AuthenticationPrincipal User user) {
+        System.out.println(user.getAuthorities());
         return UserResponse.of(user);
     }
 
@@ -257,6 +263,7 @@ public class UserController {
     })
     @GetMapping("/me/admin")
     public User adminMe(@AuthenticationPrincipal User user) {
+        System.out.println(user.getAuthorities());
         return user;
     }
 
@@ -295,4 +302,101 @@ public class UserController {
 
 
     }
+
+
+    @Operation(summary = "Obtiene todos los usuarios")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado usuarios",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetUserProfileDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                               {
+                                                   "content": [
+                                                       {
+                                                           "username": "jdoe",
+                                                           "name": "John",
+                                                           "gender": "Male",
+                                                           "profilePicture": "profile1.jpg",
+                                                           "bio": "Biography example",
+                                                           "interests": []
+                                                       },
+                                                       {
+                                                           "username": "asmith",
+                                                           "name": "Alice",
+                                                           "gender": "Female",
+                                                           "profilePicture": "profile2.jpg",
+                                                           "bio": "Biography example",
+                                                           "interests": []
+                                                       },
+                                                       {
+                                                           "username": "bwhite",
+                                                           "name": "Bob",
+                                                           "gender": "Male",
+                                                           "profilePicture": "profile3.jpg",
+                                                           "bio": "Biography example",
+                                                           "interests": []
+                                                       },
+                                                       {
+                                                           "username": "dlee",
+                                                           "name": "Diana",
+                                                           "gender": "Female",
+                                                           "profilePicture": "profile5.jpg",
+                                                           "bio": "Biography example",
+                                                           "interests": []
+                                                       },
+                                                       {
+                                                           "username": "emartinez",
+                                                           "name": "Ethan",
+                                                           "gender": "Male",
+                                                           "profilePicture": "profile6.jpg",
+                                                           "bio": "Biography example",
+                                                           "interests": []
+                                                       }
+                                                   ],
+                                                   "pageable": {
+                                                       "pageNumber": 0,
+                                                       "pageSize": 5,
+                                                       "sort": {
+                                                           "empty": true,
+                                                           "sorted": false,
+                                                           "unsorted": true
+                                                       },
+                                                       "offset": 0,
+                                                       "paged": true,
+                                                       "unpaged": false
+                                                   },
+                                                   "last": false,
+                                                   "totalPages": 2,
+                                                   "totalElements": 10,
+                                                   "first": true,
+                                                   "size": 5,
+                                                   "number": 0,
+                                                   "sort": {
+                                                       "empty": true,
+                                                       "sorted": false,
+                                                       "unsorted": true
+                                                   },
+                                                   "numberOfElements": 5,
+                                                   "empty": false
+                                               }
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningún usuario",
+                    content = @Content),
+    })
+    @PreAuthorize("hasRole('ADMIN')")
+    @GetMapping("/user")
+    public ResponseEntity<Page<GetUserProfileDataDto>> getAll(Integer page,Integer size) {
+        Page<User> usersPage = userService.findAll(0, 10);
+        Page<GetUserProfileDataDto> usersDtoPage = usersPage.map(GetUserProfileDataDto::of);
+
+        return ResponseEntity.ok(usersDtoPage);
+    }
+
 }

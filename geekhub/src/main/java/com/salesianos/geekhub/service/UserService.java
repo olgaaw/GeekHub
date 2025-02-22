@@ -16,8 +16,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.List;
+import java.util.Random;
 import java.util.Set;
 import java.util.UUID;
+
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 
 
 @Service
@@ -75,7 +81,7 @@ public class UserService {
                 .activationToken(generateRandomActivationCode())
                 .build();
 
-        System.out.println(user);
+        System.out.println(user.getAuthorities());
 
         try {
             mailSender.sendMail(createUserRequest.email(), "Activación de cuenta", user.getActivationToken());
@@ -88,7 +94,9 @@ public class UserService {
     }
 
     public String generateRandomActivationCode() {
-        return UUID.randomUUID().toString();
+        Random random = new Random();
+        int randomCode = 1000 + random.nextInt(9000);
+        return String.valueOf(randomCode);
     }
 
     public User activateAccount(String token) {
@@ -105,6 +113,17 @@ public class UserService {
 
     public User findById(UUID id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    }
+
+    public Page<User> findAll(Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<User> result = userRepository.findAll(pageable);
+
+        if (result.isEmpty()) {
+            throw new UserNotFoundException();
+        }
+
+        return result;
     }
 
 
