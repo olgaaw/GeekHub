@@ -1,6 +1,6 @@
 package com.salesianos.geekhub.cotroller;
 
-import com.salesianos.geekhub.dto.*;
+import com.salesianos.geekhub.dto.user.*;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.security.jwt.access.JwtService;
 import com.salesianos.geekhub.security.jwt.refresh.RefreshToken;

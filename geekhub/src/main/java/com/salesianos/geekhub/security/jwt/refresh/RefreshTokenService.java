@@ -1,6 +1,6 @@
 package com.salesianos.geekhub.security.jwt.refresh;
 
-import com.salesianos.geekhub.dto.UserResponse;
+import com.salesianos.geekhub.dto.user.UserResponse;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.repository.UserRepository;
 import com.salesianos.geekhub.security.jwt.access.JwtService;
