@@ -18,7 +18,7 @@ public record PostResponseDto(
         return new PostResponseDto(
                 post.getUser().getId(),
                 post.getDescription(),
-                post.getDate(),
+                post.getDateP(),
                 post.getImages().stream()
                         .map(image -> new ImageRequestDto(image.getImageUrl()))
                         .collect(Collectors.toList())

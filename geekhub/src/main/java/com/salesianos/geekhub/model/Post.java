@@ -19,7 +19,7 @@ public class Post {
     private UUID id;
 
     private String description;
-    private Date date;
+    private Date dateP;
 
 
     @ManyToOne
