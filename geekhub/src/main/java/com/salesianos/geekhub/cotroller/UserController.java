@@ -278,10 +278,7 @@ public class UserController {
                     content = @Content),
     })
     @PutMapping("/user/{id}")
-    public ResponseEntity<GetUserPrivateDataDto> edit(
-            @RequestBody EditUserCmd editUserCmd,
-            @PathVariable UUID id,
-            @AuthenticationPrincipal UserDetails userDetails) {
+    public ResponseEntity<GetUserPrivateDataDto> edit(@RequestBody EditUserCmd editUserCmd, @PathVariable UUID id, @AuthenticationPrincipal UserDetails userDetails) {
 
         User authenticatedUser = (User) userDetails;
 

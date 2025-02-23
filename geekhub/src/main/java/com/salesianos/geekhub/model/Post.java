@@ -32,6 +32,9 @@ public class Post {
     @ToString.Exclude
     private List<Image> images = new ArrayList<>();
 
+    @OneToMany(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private List<Comment> comments;
+
 
 
 
