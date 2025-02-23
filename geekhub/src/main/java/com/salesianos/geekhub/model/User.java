@@ -2,7 +2,6 @@ package com.salesianos.geekhub.model;
 
 import jakarta.persistence.*;
 import lombok.*;
-import org.hibernate.annotations.NaturalId;
 import org.hibernate.proxy.HibernateProxy;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -74,7 +73,6 @@ public class User implements UserDetails {
         this.interests.remove(i);
         i.getUsers().remove(this);
     }
-
 
 
     @Override
