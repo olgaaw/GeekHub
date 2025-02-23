@@ -2,6 +2,7 @@ package com.salesianos.geekhub.cotroller;
 
 import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
 import com.salesianos.geekhub.dto.post.PostResponseDto;
+import com.salesianos.geekhub.dto.user.GetUserProfileDataDto;
 import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -16,9 +17,10 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
+import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
@@ -50,5 +52,103 @@ public class PostController {
     public ResponseEntity<PostResponseDto> crear(@Valid @RequestBody CreatePostRequestDto postRequest) {
         Post post = postService.crearPost(postRequest);
         return ResponseEntity.status(HttpStatus.CREATED).body(PostResponseDto.of(post));
+    }
+
+
+    @Operation(summary = "Obtiene los posts de un usuario por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PostResponseDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                   {
+                                                       "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                       "description": "Este es un post de prueba 2",
+                                                       "date": "2025-02-22T11:00:00.000+00:00",
+                                                       "images": [
+                                                           {
+                                                               "imageUrl": "https://example.com/imagen1.jpg"
+                                                           },
+                                                           {
+                                                               "imageUrl": "https://example.com/imagen2.jpg"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                       "description": "Este es un post de prueba de John Doe",
+                                                       "date": "2025-02-23T09:00:00.000+00:00",
+                                                       "images": [
+                                                           {
+                                                               "imageUrl": "https://example.com/jdoe_post_image.jpg"
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun post para el usuario",
+                    content = @Content),
+    })
+    @GetMapping("/post/user/{userId}")
+    public List<PostResponseDto> getAllByUserId(@PathVariable UUID userId) {
+        return postService.findAllByUserId(userId)
+                .stream()
+                .map(PostResponseDto::of)
+                .toList();
+    }
+
+
+    @Operation(summary = "Obtiene los posts de un usuario por su username")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PostResponseDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                    "description": "Este es un post de prueba 2",
+                                                    "date": "2025-02-22T11:00:00.000+00:00",
+                                                    "images": [
+                                                        {
+                                                            "imageUrl": "https://example.com/imagen1.jpg"
+                                                        },
+                                                        {
+                                                            "imageUrl": "https://example.com/imagen2.jpg"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                    "description": "Este es un post de prueba de John Doe",
+                                                    "date": "2025-02-23T09:00:00.000+00:00",
+                                                    "images": [
+                                                        {
+                                                            "imageUrl": "https://example.com/jdoe_post_image.jpg"
+                                                        }
+                                                    ]
+                                                }
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun post para el usuario",
+                    content = @Content),
+    })
+    @GetMapping("/post/username/{username}")
+    public List<PostResponseDto> getAllByUsername(@PathVariable String username) {
+        return postService.findAllByUsername(username)
+                .stream()
+                .map(PostResponseDto::of)
+                .toList();
     }
 }
