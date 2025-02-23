@@ -22,17 +22,31 @@ import java.util.Optional;
 @RestControllerAdvice
 public class GlobalErrorController  extends ResponseEntityExceptionHandler {
 
-        @ExceptionHandler(UserNotFoundException.class)
-        public ProblemDetail handleUserNotFoundException(UserNotFoundException ex) {
-            ProblemDetail result = ProblemDetail
-                    .forStatusAndDetail(HttpStatus.NOT_FOUND,
-                            ex.getMessage());
-            result.setTitle("usuario no encontrado");
-            result.setType(URI.create("https://www.salesianos-triana.edu/errors/user-not-found"));
+    @ExceptionHandler(UserNotFoundException.class)
+    public ProblemDetail handleUserNotFoundException(UserNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("usuario no encontrado");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/user-not-found"));
 
-            return result;
+        return result;
 
-        }
+    }
+
+    @ExceptionHandler(InterestNotFoundException.class)
+    public ProblemDetail handleInterestNotFoundException(InterestNotFoundException ex) {
+        ProblemDetail result = ProblemDetail
+                .forStatusAndDetail(HttpStatus.NOT_FOUND,
+                        ex.getMessage());
+        result.setTitle("interes no encontrado");
+        result.setType(URI.create("https://www.salesianos-triana.edu/errors/interest-not-found"));
+
+        return result;
+
+    }
+
+
 
     @ExceptionHandler(ConstraintViolationException.class)
     public ProblemDetail handleConstraintViolation(ConstraintViolationException ex) {

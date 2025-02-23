@@ -1,12 +1,18 @@
 package com.salesianos.geekhub.service;
 
+import com.salesianos.geekhub.dto.GetInterestDto;
 import com.salesianos.geekhub.dto.user.CreateUserRequest;
+import com.salesianos.geekhub.dto.user.EditUserCmd;
 import com.salesianos.geekhub.error.ActivationExpiredException;
+import com.salesianos.geekhub.error.InterestNotFoundException;
 import com.salesianos.geekhub.error.UserNotFoundException;
+import com.salesianos.geekhub.model.Interest;
 import com.salesianos.geekhub.model.Role;
 import com.salesianos.geekhub.model.User;
+import com.salesianos.geekhub.repository.InterestRepository;
 import com.salesianos.geekhub.repository.UserRepository;
 import com.salesianos.geekhub.util.SendGridMailSender;
+import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
@@ -16,14 +22,14 @@ import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
-import java.util.List;
-import java.util.Random;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
+import java.util.stream.Collectors;
 
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+
+import javax.swing.text.html.parser.Entity;
 
 
 @Service
@@ -32,6 +38,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     private final SendGridMailSender mailSender;
+    private final InterestRepository interestRepository;
 
 
     @Value("${activation.duration}")
@@ -126,5 +133,55 @@ public class UserService {
         return result;
     }
 
+    public User edit(EditUserCmd editUserCmd, UUID id) {
+        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+
+        if (editUserCmd.username() != null) {
+            user.setUsername(editUserCmd.username());
+        }
+        if (editUserCmd.email() != null) {
+            user.setEmail(editUserCmd.email());
+        }
+        if (editUserCmd.name() != null) {
+            user.setName(editUserCmd.name());
+        }
+        if (editUserCmd.surname() != null) {
+            user.setSurname(editUserCmd.surname());
+        }
+        if (editUserCmd.phone() != null) {
+            user.setPhone(editUserCmd.phone());
+        }
+        if (editUserCmd.address() != null) {
+            user.setAddress(editUserCmd.address());
+        }
+        if (editUserCmd.cp() != null) {
+            user.setCp(editUserCmd.cp());
+        }
+        if (editUserCmd.birthday() != null) {
+            user.setBirthday(editUserCmd.birthday());
+        }
+        if (editUserCmd.profilePicture() != null) {
+            user.setProfilePicture(editUserCmd.profilePicture());
+        }
+        if (editUserCmd.bio() != null) {
+            user.setBio(editUserCmd.bio());
+        }
+
+        Set<Interest> interests = new HashSet<>();
+
+        if (editUserCmd.interests() != null && !editUserCmd.interests().isEmpty()) {
+            interests = editUserCmd.interests().stream()
+                    .map(interestDto -> interestRepository.findByName(interestDto.name())
+                            .orElseThrow(() -> new InterestNotFoundException("Interés no encontrado: " + interestDto.name())))
+                    .collect(Collectors.toSet());
+        }
+
+        user.setInterests(interests);
+
+        return userRepository.save(user);
+    }
 
 }
+
+
+

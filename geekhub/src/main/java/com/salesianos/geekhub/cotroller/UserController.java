@@ -1,5 +1,6 @@
 package com.salesianos.geekhub.cotroller;
 
+
 import com.salesianos.geekhub.dto.user.*;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.security.jwt.access.JwtService;
@@ -27,9 +28,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -268,6 +269,31 @@ public class UserController {
     }
 
 
+    @Operation(summary = "Edita un usuario por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Usuario editado"),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado el usuario ",
+                    content = @Content),
+    })
+    @PutMapping("/user/{id}")
+    public ResponseEntity<GetUserPrivateDataDto> edit(
+            @RequestBody EditUserCmd editUserCmd,
+            @PathVariable UUID id,
+            @AuthenticationPrincipal UserDetails userDetails) {
+
+        User authenticatedUser = (User) userDetails;
+
+        if (!authenticatedUser.getId().equals(id)) {
+            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
+        }
+
+        User updatedUser = userService.edit(editUserCmd, id);
+
+        return ResponseEntity.ok(GetUserPrivateDataDto.of(updatedUser));
+    }
+
 
 
     @Operation(summary = "Obtiene los datos del perfil visible de un usuario por su id")
@@ -278,17 +304,17 @@ public class UserController {
                             array = @ArraySchema(schema = @Schema(implementation = GetUserProfileDataDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                                {
-                                                      "username": "jdoe",
-                                                      "name": "John",
-                                                      "gender": "Male",
-                                                      "profilePicture": "profile1.jpg",
-                                                      "bio": "Biography example",
-                                                      "interests": []
-                                                  }
-                                              ]
-                                            """
+                                                [
+                                                    {
+                                                          "username": "jdoe",
+                                                          "name": "John",
+                                                          "gender": "Male",
+                                                          "profilePicture": "profile1.jpg",
+                                                          "bio": "Biography example",
+                                                          "interests": []
+                                                      }
+                                                  ]
+                                                """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
@@ -312,78 +338,78 @@ public class UserController {
                             array = @ArraySchema(schema = @Schema(implementation = GetUserProfileDataDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
-                                               {
-                                                   "content": [
-                                                       {
-                                                           "username": "jdoe",
-                                                           "name": "John",
-                                                           "gender": "Male",
-                                                           "profilePicture": "profile1.jpg",
-                                                           "bio": "Biography example",
-                                                           "interests": []
+                                                [
+                                                   {
+                                                       "content": [
+                                                           {
+                                                               "username": "jdoe",
+                                                               "name": "John",
+                                                               "gender": "Male",
+                                                               "profilePicture": "profile1.jpg",
+                                                               "bio": "Biography example",
+                                                               "interests": []
+                                                           },
+                                                           {
+                                                               "username": "asmith",
+                                                               "name": "Alice",
+                                                               "gender": "Female",
+                                                               "profilePicture": "profile2.jpg",
+                                                               "bio": "Biography example",
+                                                               "interests": []
+                                                           },
+                                                           {
+                                                               "username": "bwhite",
+                                                               "name": "Bob",
+                                                               "gender": "Male",
+                                                               "profilePicture": "profile3.jpg",
+                                                               "bio": "Biography example",
+                                                               "interests": []
+                                                           },
+                                                           {
+                                                               "username": "dlee",
+                                                               "name": "Diana",
+                                                               "gender": "Female",
+                                                               "profilePicture": "profile5.jpg",
+                                                               "bio": "Biography example",
+                                                               "interests": []
+                                                           },
+                                                           {
+                                                               "username": "emartinez",
+                                                               "name": "Ethan",
+                                                               "gender": "Male",
+                                                               "profilePicture": "profile6.jpg",
+                                                               "bio": "Biography example",
+                                                               "interests": []
+                                                           }
+                                                       ],
+                                                       "pageable": {
+                                                           "pageNumber": 0,
+                                                           "pageSize": 5,
+                                                           "sort": {
+                                                               "empty": true,
+                                                               "sorted": false,
+                                                               "unsorted": true
+                                                           },
+                                                           "offset": 0,
+                                                           "paged": true,
+                                                           "unpaged": false
                                                        },
-                                                       {
-                                                           "username": "asmith",
-                                                           "name": "Alice",
-                                                           "gender": "Female",
-                                                           "profilePicture": "profile2.jpg",
-                                                           "bio": "Biography example",
-                                                           "interests": []
-                                                       },
-                                                       {
-                                                           "username": "bwhite",
-                                                           "name": "Bob",
-                                                           "gender": "Male",
-                                                           "profilePicture": "profile3.jpg",
-                                                           "bio": "Biography example",
-                                                           "interests": []
-                                                       },
-                                                       {
-                                                           "username": "dlee",
-                                                           "name": "Diana",
-                                                           "gender": "Female",
-                                                           "profilePicture": "profile5.jpg",
-                                                           "bio": "Biography example",
-                                                           "interests": []
-                                                       },
-                                                       {
-                                                           "username": "emartinez",
-                                                           "name": "Ethan",
-                                                           "gender": "Male",
-                                                           "profilePicture": "profile6.jpg",
-                                                           "bio": "Biography example",
-                                                           "interests": []
-                                                       }
-                                                   ],
-                                                   "pageable": {
-                                                       "pageNumber": 0,
-                                                       "pageSize": 5,
+                                                       "last": false,
+                                                       "totalPages": 2,
+                                                       "totalElements": 10,
+                                                       "first": true,
+                                                       "size": 5,
+                                                       "number": 0,
                                                        "sort": {
                                                            "empty": true,
                                                            "sorted": false,
                                                            "unsorted": true
                                                        },
-                                                       "offset": 0,
-                                                       "paged": true,
-                                                       "unpaged": false
-                                                   },
-                                                   "last": false,
-                                                   "totalPages": 2,
-                                                   "totalElements": 10,
-                                                   "first": true,
-                                                   "size": 5,
-                                                   "number": 0,
-                                                   "sort": {
-                                                       "empty": true,
-                                                       "sorted": false,
-                                                       "unsorted": true
-                                                   },
-                                                   "numberOfElements": 5,
-                                                   "empty": false
-                                               }
-                                            ]
-                                            """
+                                                       "numberOfElements": 5,
+                                                       "empty": false
+                                                   }
+                                                ]
+                                                """
                             )}
                     )}),
             @ApiResponse(responseCode = "404",
