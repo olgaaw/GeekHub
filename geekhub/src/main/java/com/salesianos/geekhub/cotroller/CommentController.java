@@ -16,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -48,8 +49,8 @@ public class CommentController {
                     )}),
     })
     @PostMapping("/{postId}/comment")
-    public ResponseEntity<CommentDto> createComment(@PathVariable UUID postId,@Valid @RequestBody CommentDto commentDto, @AuthenticationPrincipal UserDetails userDetails) {
-        Comment comment = commentService.createComment(postId, commentDto, userDetails);
-        return ResponseEntity.ok(CommentDto.of(comment));
+    public ResponseEntity<CommentDto> createComment(@PathVariable UUID postId,@Valid @RequestBody CommentDto commentDto, @AuthenticationPrincipal User user) {
+        Comment comment = commentService.createComment(postId, commentDto, user);
+        return ResponseEntity.status(HttpStatus.CREATED).body(CommentDto.of(comment));
     }
 }
