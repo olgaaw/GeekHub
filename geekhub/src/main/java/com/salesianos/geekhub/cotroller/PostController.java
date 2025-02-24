@@ -4,6 +4,7 @@ import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
 import com.salesianos.geekhub.dto.post.PostResponseDto;
 import com.salesianos.geekhub.dto.user.GetUserProfileDataDto;
 import com.salesianos.geekhub.model.Post;
+import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.PostService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -17,6 +18,7 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -39,18 +41,15 @@ public class PostController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                                    "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
-                                                    "description": "Este es un post de prueba",
-                                                    "date": "2025-02-22T11:39:21.307+00:00",
-                                                    "images": []
+                                               
                                                 }                                    
                                             """
                             )}
                     )}),
     })
     @PostMapping("/post")
-    public ResponseEntity<PostResponseDto> crear(@Valid @RequestBody CreatePostRequestDto postRequest) {
-        Post post = postService.crearPost(postRequest);
+    public ResponseEntity<PostResponseDto> crear(@Valid @RequestBody CreatePostRequestDto postRequest, @AuthenticationPrincipal User user) {
+        Post post = postService.crearPost(postRequest, user);
         return ResponseEntity.status(HttpStatus.CREATED).body(PostResponseDto.of(post));
     }
 

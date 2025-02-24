@@ -7,16 +7,12 @@ import java.time.Instant;
 
 public record CommentDto(
         @NotBlank(message = "{commentDto.content.notblank}")
-         String content,
-         String username,
-         Instant createdAt
+         String content
 
 ) {
     public static CommentDto of(Comment comment) {
         return new CommentDto(
-                comment.getContent(),
-                comment.getUser().getUsername(),
-                comment.getCreatedAt()
+                comment.getContent()
         );
     }
 

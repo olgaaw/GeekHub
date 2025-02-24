@@ -1,48 +1,47 @@
 package com.salesianos.geekhub.service;
 
-import com.salesianos.geekhub.dto.CommentDto;
+import com.salesianos.geekhub.dto.LikeDto;
 import com.salesianos.geekhub.error.UserNotFoundException;
-import com.salesianos.geekhub.model.Comment;
+import com.salesianos.geekhub.model.Like;
 import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.model.User;
-import com.salesianos.geekhub.repository.CommentRepository;
+import com.salesianos.geekhub.repository.LikeRepository;
 import com.salesianos.geekhub.repository.PostRepository;
 import com.salesianos.geekhub.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
-import lombok.AllArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.Optional;
 import java.util.UUID;
 
 @Service
 @RequiredArgsConstructor
-public class CommentService {
+public class LikeService {
 
-    private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public Comment createComment(UUID postId, CommentDto commentDto, User user) {
+    public Like addLike(UUID postId, LikeDto likeDto, User user) {
         String username = user.getUsername();
 
         User user1 = userRepository.findFirstByUsername(username)
-                .orElseThrow(() -> new UserNotFoundException("Usuario no encontrado"));
+                .orElseThrow(() -> new UserNotFoundException(username));
 
         Post post = postRepository.findById(postId)
                 .orElseThrow(() -> new EntityNotFoundException("Post no encontrado"));
 
-        Comment comment = Comment.builder()
-                .content(commentDto.content())
+        Like like = Like.builder()
                 .user(user1)
                 .post(post)
                 .createdAt(Instant.now())
+                .isLiked(true)
                 .build();
 
-        return commentRepository.save(comment);
+        return likeRepository.save(like);
     }
+
 
 }

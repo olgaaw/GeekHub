@@ -4,6 +4,7 @@ import com.salesianos.geekhub.model.Post;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
@@ -11,7 +12,7 @@ public record PostResponseDto(
         UUID userId,
         String description,
         Date date,
-        List<ImageRequestDto> images
+        Optional<List<ImageRequestDto>> images
 ) {
 
     public static PostResponseDto of(Post post) {
@@ -19,9 +20,9 @@ public record PostResponseDto(
                 post.getUser().getId(),
                 post.getDescription(),
                 post.getDateP(),
-                post.getImages().stream()
+                Optional.of(post.getImages().stream()
                         .map(image -> new ImageRequestDto(image.getImageUrl()))
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList()))
         );
     }
 }

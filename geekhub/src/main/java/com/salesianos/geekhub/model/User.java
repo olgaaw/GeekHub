@@ -61,6 +61,11 @@ public class User implements UserDetails {
     @ToString.Exclude
     private List<Post> posts = new ArrayList<>();
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @Builder.Default
+    @ToString.Exclude
+    private List<Like> likes = new ArrayList<>();
+
 
 
     //helpers

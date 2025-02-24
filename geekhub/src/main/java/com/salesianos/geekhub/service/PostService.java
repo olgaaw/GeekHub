@@ -2,8 +2,10 @@ package com.salesianos.geekhub.service;
 
 import com.salesianos.geekhub.dto.post.ImageRequestDto;
 import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
+import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Image;
 import com.salesianos.geekhub.model.Post;
+import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.repository.ImageRepository;
 import com.salesianos.geekhub.repository.PostRepository;
 import com.salesianos.geekhub.repository.UserRepository;
@@ -24,30 +26,37 @@ public class PostService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
 
-    public Post crearPost(CreatePostRequestDto postRequest) {
+    @Transactional
+    public Post crearPost(CreatePostRequestDto postRequest, User user) {
 
-        Post newPost = Post.builder()
-                .user(userRepository.findById(postRequest.userId()).orElseThrow())
+        String username = user.getUsername();
+
+        User user1 = userRepository.findFirstByUsername(username)
+                .orElseThrow(() -> new UserNotFoundException(username));
+
+        Post post = Post.builder()
+                .user(user1)
                 .description(postRequest.description())
                 .dateP(new Date())
                 .build();
 
-        postRepository.save(newPost);
+        postRepository.save(post);
 
 
         List<Image> images = new ArrayList<>();
         for (ImageRequestDto imageRequest : postRequest.images()) {
             Image newImage = new Image();
-            newImage.setPost(newPost);
+            newImage.setPost(post);
             newImage.setImageUrl(imageRequest.imageUrl());
             images.add(newImage);
+            System.out.println(newImage);
         }
 
         if (!images.isEmpty()) {
             imageRepository.saveAll(images);
         }
 
-        return newPost;
+        return post;
     }
 
     @Transactional
