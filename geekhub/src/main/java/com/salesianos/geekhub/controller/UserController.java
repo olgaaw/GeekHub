@@ -114,7 +114,7 @@ public class UserController {
                             )}
                     )}),
     })
-    @PostAuthorize("returnObject.body.enabled==true")
+    //@PostAuthorize("returnObject.body.enabled==true")
     @PostMapping("/auth/login")
     public ResponseEntity<?> login(@RequestBody LoginRequest loginRequest) {
 
@@ -413,7 +413,7 @@ public class UserController {
                     description = "No se ha encontrado ningún usuario",
                     content = @Content),
     })
-    @PreAuthorize("hasRole('ADMIN')")
+    @PostAuthorize("hasRole('ADMIN')")
     @GetMapping("/user")
     public ResponseEntity<Page<GetUserProfileDataDto>> getAll(Integer page,Integer size) {
         Page<User> usersPage = userService.findAll(0, 10);
