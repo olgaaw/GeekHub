@@ -1,7 +1,6 @@
-package com.salesianos.geekhub.cotroller;
+package com.salesianos.geekhub.controller;
 
 import com.salesianos.geekhub.dto.LikeDto;
-import com.salesianos.geekhub.dto.post.PostResponseDto;
 import com.salesianos.geekhub.model.Like;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.LikeService;
@@ -12,7 +11,7 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
-import jakarta.validation.Valid;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,6 +23,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/post")
+@Tag(name = "Likes", description = "Like controller")
 public class LikeController {
 
     private final LikeService likeService;

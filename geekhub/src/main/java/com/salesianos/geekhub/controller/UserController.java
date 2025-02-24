@@ -1,4 +1,4 @@
-package com.salesianos.geekhub.cotroller;
+package com.salesianos.geekhub.controller;
 
 
 import com.salesianos.geekhub.dto.user.*;
@@ -421,5 +421,13 @@ public class UserController {
 
         return ResponseEntity.ok(usersDtoPage);
     }
+
+    @DeleteMapping("/user/{id}")
+    public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal User user) {
+        userService.delete(user);
+        return ResponseEntity.noContent().build();
+
+    }
+
 
 }
