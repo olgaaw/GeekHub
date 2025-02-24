@@ -19,6 +19,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -40,18 +41,25 @@ public class PostController {
                             examples = {@ExampleObject(
                                     value = """
                                                 {
-                                               
-                                                }                                    
+                                                    "userId": "c6bc7533-fa3b-4e1c-b2ba-e9260888c4e4",
+                                                    "description": "Post de prueba con subida de ficheros",
+                                                    "date": "2025-02-24T22:41:16.540+00:00",
+                                                    "images": [
+                                                        {
+                                                            "imageUrl": "http://localhost:8080/download/gato_876543.jpg"
+                                                        }
+                                                    ]
+                                                }
                                             """
                             )}
                     )}),
     })
     @PostMapping("/post")
-    public ResponseEntity<PostResponseDto> crear(@Valid @RequestBody CreatePostRequestDto postRequest, @AuthenticationPrincipal User user) {
-        Post post = postService.crearPost(postRequest, user);
+    public ResponseEntity<PostResponseDto> crear(@RequestPart("files") MultipartFile[] files, @Valid @RequestPart("post") CreatePostRequestDto createPostRequestDto, @AuthenticationPrincipal User user) {
+        Post post = postService.crearPost(createPostRequestDto, files, user);
+
         return ResponseEntity.status(HttpStatus.CREATED).body(PostResponseDto.of(post));
     }
-
 
     @Operation(summary = "Obtiene los posts de un usuario por su id")
     @ApiResponses(value = {
