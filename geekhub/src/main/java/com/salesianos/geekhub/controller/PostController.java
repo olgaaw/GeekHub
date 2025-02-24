@@ -1,8 +1,7 @@
-package com.salesianos.geekhub.cotroller;
+package com.salesianos.geekhub.controller;
 
 import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
 import com.salesianos.geekhub.dto.post.PostResponseDto;
-import com.salesianos.geekhub.dto.user.GetUserProfileDataDto;
 import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.PostService;

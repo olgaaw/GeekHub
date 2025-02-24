@@ -1,11 +1,8 @@
-package com.salesianos.geekhub.cotroller;
+package com.salesianos.geekhub.controller;
 
 import com.salesianos.geekhub.dto.CommentDto;
-import com.salesianos.geekhub.dto.user.ActivateAccountRequest;
-import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Comment;
 import com.salesianos.geekhub.model.User;
-import com.salesianos.geekhub.repository.UserRepository;
 import com.salesianos.geekhub.service.CommentService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
@@ -14,12 +11,12 @@ import io.swagger.v3.oas.annotations.media.ExampleObject;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
@@ -27,6 +24,7 @@ import java.util.UUID;
 @RestController
 @RequiredArgsConstructor
 @RequestMapping("/post")
+@Tag(name = "Comments", description = "Comment controller")
 public class CommentController {
 
     private final CommentService commentService;
