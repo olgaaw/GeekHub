@@ -1,17 +1,18 @@
 package com.salesianos.geekhub.dto.post;
 
+import com.salesianos.geekhub.model.Post;
 import jakarta.validation.constraints.NotBlank;
 
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 public record CreatePostRequestDto(
         @NotBlank(message = "{createPostRequestDto.description.notblank}")
         String description,
         List<ImageRequestDto> images
-){
+) {
 
 
+        public static CreatePostRequestDto of(Post post, List<ImageRequestDto> imageDtos) {
+                return new CreatePostRequestDto(post.getDescription(), imageDtos);
+        }
 }
-
