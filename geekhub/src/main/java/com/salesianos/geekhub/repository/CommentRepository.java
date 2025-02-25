@@ -9,6 +9,12 @@ import java.util.List;
 import java.util.UUID;
 
 public interface CommentRepository extends JpaRepository<Comment, UUID> {
-    @Query(" SELECT c FROM Comment c WHERE c.post.id = :postId ")
+    @Query("""
+                SELECT c FROM Comment c 
+                JOIN FETCH c.user 
+                WHERE c.post.id = :postId
+            """)
     List<Comment> findCommentsByPostId(@Param("postId") UUID postId);
+
+
 }
