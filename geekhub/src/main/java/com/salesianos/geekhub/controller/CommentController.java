@@ -1,6 +1,7 @@
 package com.salesianos.geekhub.controller;
 
-import com.salesianos.geekhub.dto.CommentDto;
+import com.salesianos.geekhub.dto.CreateCommentDto;
+import com.salesianos.geekhub.dto.GetCommentDto;
 import com.salesianos.geekhub.model.Comment;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.CommentService;
@@ -19,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -34,7 +36,7 @@ public class CommentController {
             @ApiResponse(responseCode = "201",
                     description = "Se ha creado el comentario",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = CommentDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = CreateCommentDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             {
@@ -47,8 +49,53 @@ public class CommentController {
                     )}),
     })
     @PostMapping("/{postId}/comment")
-    public ResponseEntity<CommentDto> createComment(@PathVariable UUID postId,@Valid @RequestBody CommentDto commentDto, @AuthenticationPrincipal User user) {
+    public ResponseEntity<GetCommentDto> createComment(@PathVariable UUID postId, @Valid @RequestBody CreateCommentDto commentDto, @AuthenticationPrincipal User user) {
         Comment comment = commentService.createComment(postId, commentDto, user);
-        return ResponseEntity.status(HttpStatus.CREATED).body(CommentDto.of(comment));
+        return ResponseEntity.status(HttpStatus.CREATED).body(GetCommentDto.of(comment));
+    }
+
+
+    @Operation(summary = "Obtiene los comnetarios del un post por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetCommentDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                                [
+                                                    {
+                                                        "username": "user1",
+                                                        "profilePicture": "profilePicture.jpg",
+                                                        "content": "Este es un comentario 1",
+                                                        "createdAt": "2025-02-25T11:42:53.060183Z"
+                                                    },
+                                                    {
+                                                        "username": "user1",
+                                                        "profilePicture": "profilePicture.jpg",
+                                                        "content": "Este es un comentario 1",
+                                                        "createdAt": "2025-02-25T11:42:54.231202Z"
+                                                    },
+                                                    {
+                                                        "username": "user1",
+                                                        "profilePicture": "profilePicture.jpg",
+                                                        "content": "Este es un comentario 1",
+                                                        "createdAt": "2025-02-25T11:42:55.400480Z"
+                                                    }
+                                                ]
+                                             """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun post con ese id",
+                    content = @Content),
+    })
+    @GetMapping("{postId}/comment/detail")
+    public List<GetCommentDto> getAllByPostId(@PathVariable UUID postId) {
+        return commentService.findByPostId(postId)
+                .stream()
+                .map(GetCommentDto::of)
+                .toList();
+
     }
 }

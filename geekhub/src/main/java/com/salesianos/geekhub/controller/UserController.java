@@ -279,6 +279,7 @@ public class UserController {
     })
     @PutMapping("/user/{id}")
     public ResponseEntity<GetUserPrivateDataDto> edit(@RequestBody EditUserCmd editUserCmd, @PathVariable UUID id, @AuthenticationPrincipal User user) {
+
         if (!user.getId().equals(id)) {
             return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
         }

@@ -1,6 +1,5 @@
 package com.salesianos.geekhub.service;
 
-import com.salesianos.geekhub.dto.GetInterestDto;
 import com.salesianos.geekhub.dto.user.CreateUserRequest;
 import com.salesianos.geekhub.dto.user.EditUserCmd;
 import com.salesianos.geekhub.error.ActivationExpiredException;
@@ -12,7 +11,6 @@ import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.repository.InterestRepository;
 import com.salesianos.geekhub.repository.UserRepository;
 import com.salesianos.geekhub.util.SendGridMailSender;
-import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
