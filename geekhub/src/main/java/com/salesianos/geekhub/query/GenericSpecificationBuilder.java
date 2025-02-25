@@ -1,14 +1,15 @@
 package com.salesianos.geekhub.query;
 
+import com.salesianos.geekhub.model.Interest;
 import com.salesianos.geekhub.util.SearchCriteria;
-import jakarta.persistence.criteria.CriteriaBuilder;
-import jakarta.persistence.criteria.CriteriaQuery;
-import jakarta.persistence.criteria.Predicate;
-import jakarta.persistence.criteria.Root;
+import jakarta.persistence.criteria.*;
 import lombok.AllArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.data.jpa.domain.Specification;
 
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 
 @Log
@@ -41,29 +42,45 @@ public abstract class GenericSpecificationBuilder<U> {
     }
 
     private Specification<U> build(SearchCriteria criteria) {
-        return new Specification<U>() {
-            @Override
-            public Predicate toPredicate(Root<U> root, CriteriaQuery<?> query, CriteriaBuilder builder) {
-                //log.info("Building specification: " + criteria.toString());
-                if (criteria.operation().equalsIgnoreCase(">")) {
-                    return builder.greaterThanOrEqualTo(
-                            root.<String> get(criteria.key()), criteria.value().toString());
-                }
-                else if (criteria.operation().equalsIgnoreCase("<")) {
-                    return builder.lessThanOrEqualTo(
-                            root.<String> get(criteria.key()), criteria.value().toString());
-                }
-                else if (criteria.operation().equalsIgnoreCase(":")) {
-                    if (root.get(criteria.key()).getJavaType() == String.class) {
-                        return builder.like(
-                                root.<String>get(criteria.key()), "%" + criteria.value() + "%");
-                    } else {
-                        return builder.equal(root.get(criteria.key()), criteria.value());
-                    }
-                }
-                return null;
+        return (Root<U> root, CriteriaQuery<?> query, CriteriaBuilder builder) -> {
+            if (criteria.key().equals("cp")) {
+                return builder.equal(root.get("cp"), criteria.value());
             }
+
+            if (criteria.key().equals("age")) {
+                int age = (int) criteria.value();
+                LocalDate today = LocalDate.now();
+                LocalDate limitDate = today.minusYears(age);
+                Date limitDateConverted = Date.from(limitDate.atStartOfDay(ZoneId.systemDefault()).toInstant());
+
+                if (criteria.operation().equals(">")) {
+                    return builder.lessThanOrEqualTo(root.get("birthday"), limitDateConverted);
+                } else {
+                    return builder.greaterThanOrEqualTo(root.get("birthday"), limitDateConverted);
+                }
+            }
+
+
+            if (criteria.key().equals("interests")) {
+                Join<U, Interest> interestsJoin = root.join("interests");
+
+                if (criteria.value() instanceof String) {
+                    return builder.like(builder.lower(interestsJoin.get("name")), "%" + ((String) criteria.value()).toLowerCase() + "%");
+                } else {
+                    return builder.equal(interestsJoin.get("name"), criteria.value());
+                }
+            }
+
+
+            if (criteria.operation().equals(":")) {
+                if (root.get(criteria.key()).getJavaType() == String.class) {
+                    return builder.like(root.get(criteria.key()), "%" + criteria.value() + "%");
+                } else {
+                    return builder.equal(root.get(criteria.key()), criteria.value());
+                }
+            }
+
+            return null;
         };
     }
-
 }

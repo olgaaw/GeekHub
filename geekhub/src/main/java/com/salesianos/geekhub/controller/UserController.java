@@ -435,17 +435,27 @@ public class UserController {
     }
 
     @GetMapping("/")
-    public List<GetUserProfileDataDto> buscar(@RequestParam(value="search", required = false) String search) {
-        log.info(search);
-        List<SearchCriteria> params = new ArrayList<SearchCriteria>();
+    public List<GetUserProfileDataDto> buscar(@RequestParam(value = "search", required = false) String search) {
+        log.info("Search Query: " + search);
+        List<SearchCriteria> params = new ArrayList<>();
+
         if (search != null) {
-            Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+            Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\"[^\"]+\"|[\\w\\s-]+),");
             Matcher matcher = pattern.matcher(search + ",");
+
             while (matcher.find()) {
-                log.info(matcher.group(1));
-                log.info(matcher.group(2));
-                log.info(matcher.group(3));
-                params.add(new SearchCriteria(matcher.group(1), matcher.group(2), matcher.group(3)));
+                String key = matcher.group(1);
+                String operation = matcher.group(2);
+                String value = matcher.group(3).replaceAll("^\"|\"$", "");
+
+                Object finalValue = value;
+                if ("cp".equals(key)) {
+                    finalValue = Integer.parseInt(value);
+                } else if ("age".equals(key)) {
+                    finalValue = Integer.parseInt(value);
+                }
+
+                params.add(new SearchCriteria(key, operation, finalValue));
             }
         }
 
@@ -453,9 +463,8 @@ public class UserController {
                 .stream()
                 .map(GetUserProfileDataDto::of)
                 .toList();
-
-
     }
+
 
 
 }
