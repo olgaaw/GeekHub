@@ -8,11 +8,14 @@ import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Interest;
 import com.salesianos.geekhub.model.Role;
 import com.salesianos.geekhub.model.User;
+import com.salesianos.geekhub.query.UserSpecificationBuilder;
 import com.salesianos.geekhub.repository.InterestRepository;
 import com.salesianos.geekhub.repository.UserRepository;
+import com.salesianos.geekhub.util.SearchCriteria;
 import com.salesianos.geekhub.util.SendGridMailSender;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -27,7 +30,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 
-import javax.swing.text.html.parser.Entity;
 
 
 @Service
@@ -70,6 +72,8 @@ public class UserService {
         return userRepository.save(user);
     }
 
+
+
     public User createUserAdmin(CreateUserRequest createUserRequest) {
         User user = User.builder()
                 .username(createUserRequest.username())
@@ -98,11 +102,15 @@ public class UserService {
         return userRepository.save(user);
     }
 
+
+
     public String generateRandomActivationCode() {
         Random random = new Random();
         int randomCode = 1000 + random.nextInt(9000);
         return String.valueOf(randomCode);
     }
+
+
 
     public User activateAccount(String token) {
 
@@ -116,9 +124,13 @@ public class UserService {
                 .orElseThrow(() -> new ActivationExpiredException("El código de activación no existe o ha caducado"));
     }
 
+
+
     public User findById(UUID id) {
         return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
     }
+
+
 
     public Page<User> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
@@ -130,6 +142,8 @@ public class UserService {
 
         return result;
     }
+
+
 
     public User edit(EditUserCmd editUserCmd, UUID id) {
         User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
@@ -179,8 +193,22 @@ public class UserService {
         return userRepository.save(user);
     }
 
+
+
     public void delete(User user) {
         userRepository.deleteById(user.getId());
+    }
+
+
+
+    public List<User> search(List<SearchCriteria> searchCriteriaList) {
+
+        UserSpecificationBuilder userSpecificationBuilder
+                = new UserSpecificationBuilder(searchCriteriaList);
+
+        Specification<User> where = userSpecificationBuilder.build();
+
+        return userRepository.findAll(where);
     }
 
 }

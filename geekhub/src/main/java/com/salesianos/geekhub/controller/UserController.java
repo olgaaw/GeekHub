@@ -8,6 +8,7 @@ import com.salesianos.geekhub.security.jwt.refresh.RefreshToken;
 import com.salesianos.geekhub.security.jwt.refresh.RefreshTokenRequest;
 import com.salesianos.geekhub.security.jwt.refresh.RefreshTokenService;
 import com.salesianos.geekhub.service.UserService;
+import com.salesianos.geekhub.util.SearchCriteria;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
@@ -18,6 +19,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -31,8 +33,13 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
+@Log
 @RestController
 @RequiredArgsConstructor
 @Tag(name = "Users", description = "User controller")
@@ -424,6 +431,29 @@ public class UserController {
     public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal User user) {
         userService.delete(user);
         return ResponseEntity.noContent().build();
+
+    }
+
+    @GetMapping("/")
+    public List<GetUserProfileDataDto> buscar(@RequestParam(value="search", required = false) String search) {
+        log.info(search);
+        List<SearchCriteria> params = new ArrayList<SearchCriteria>();
+        if (search != null) {
+            Pattern pattern = Pattern.compile("(\\w+?)(:|<|>)(\\w+?),");
+            Matcher matcher = pattern.matcher(search + ",");
+            while (matcher.find()) {
+                log.info(matcher.group(1));
+                log.info(matcher.group(2));
+                log.info(matcher.group(3));
+                params.add(new SearchCriteria(matcher.group(1), matcher.group(2), matcher.group(3)));
+            }
+        }
+
+        return userService.search(params)
+                .stream()
+                .map(GetUserProfileDataDto::of)
+                .toList();
+
 
     }
 
