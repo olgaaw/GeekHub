@@ -1,6 +1,7 @@
 package com.salesianos.geekhub.repository;
 
 import com.salesianos.geekhub.model.Post;
+import com.salesianos.geekhub.model.User;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -21,6 +22,9 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
 
     @Query("SELECT p FROM Post p WHERE p.id = :postId")
     Post findPostById(@Param("postId") UUID postId);
+
+    @Query("SELECT l.user FROM Like l WHERE l.post.id = :postId")
+    List<User> findUsersLikedPost(@Param("postId") UUID postId);
 
 
 
