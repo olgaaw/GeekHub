@@ -19,5 +19,12 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     @Query("SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.username = :username")
     List<Post> findPostsByUsername(@Param("username") String username);
 
+    @Query("SELECT p FROM Post p WHERE p.id = :postId")
+    Post findPostById(@Param("postId") UUID postId);
+
+
+
+
+
 
 }

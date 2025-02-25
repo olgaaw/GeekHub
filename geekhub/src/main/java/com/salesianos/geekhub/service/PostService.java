@@ -1,17 +1,12 @@
 package com.salesianos.geekhub.service;
 
-import com.salesianos.geekhub.dto.post.ImageRequestDto;
 import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
 import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.files.exception.StorageException;
 import com.salesianos.geekhub.files.model.FileMetadata;
 import com.salesianos.geekhub.files.service.StorageService;
-import com.salesianos.geekhub.model.Image;
-import com.salesianos.geekhub.model.Post;
-import com.salesianos.geekhub.model.User;
-import com.salesianos.geekhub.repository.ImageRepository;
-import com.salesianos.geekhub.repository.PostRepository;
-import com.salesianos.geekhub.repository.UserRepository;
+import com.salesianos.geekhub.model.*;
+import com.salesianos.geekhub.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +14,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.*;
-import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -28,6 +22,8 @@ public class PostService {
     private final UserRepository userRepository;
     private final ImageRepository imageRepository;
     private final StorageService storageService;
+    private final CommentRepository commentRepository;
+    private final LikeRepository likeRepository;
 
     @Transactional
     public Post crearPost(CreatePostRequestDto postRequest, MultipartFile[] files, User user) {
@@ -65,11 +61,11 @@ public class PostService {
 
 
     @Transactional
-    public List<Post> findAllByUserId(UUID user_id) {
-        List<Post> posts = postRepository.findPostsByUserIdWithImages(user_id);
+    public List<Post> findAllByUserId(UUID userId) {
+        List<Post> posts = postRepository.findPostsByUserIdWithImages(userId);
 
         if (posts.isEmpty()) {
-            throw new EntityNotFoundException("No existen posts del usuario con el id"+user_id);
+            throw new EntityNotFoundException("No existen posts del usuario con el id"+userId);
         }
 
         return posts;
@@ -85,5 +81,22 @@ public class PostService {
 
         return posts;
     }
+
+    @Transactional
+    public Post findDetailsById(UUID postId) {
+        Post post = postRepository.findPostById(postId);
+
+        List<Comment> comments = commentRepository.findCommentsByPostId(postId);
+        List<Image> images = imageRepository.findImagesByPostId(postId);
+        List<Like> likes = likeRepository.findLikesByPostId(postId);
+
+        post.setComments(comments);
+        post.setImages(images);
+        post.setLikes(likes);
+
+        return post;
+    }
+
+
 
 }

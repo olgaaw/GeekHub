@@ -1,6 +1,7 @@
 package com.salesianos.geekhub.controller;
 
 import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
+import com.salesianos.geekhub.dto.post.GetPostDetailsDto;
 import com.salesianos.geekhub.dto.post.PostResponseDto;
 import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.model.User;
@@ -156,5 +157,49 @@ public class PostController {
                 .stream()
                 .map(PostResponseDto::of)
                 .toList();
+    }
+
+
+    @Operation(summary = "Obtiene los detalles de un post junto a su numero de likes y comentarios")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetPostDetailsDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                     "post": {
+                                                         "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                         "username": "jdoe",
+                                                         "description": "Este es un post de prueba 2",
+                                                         "date": "2025-02-22T11:00:00.000+00:00",
+                                                         "images": [
+                                                             {
+                                                                 "imageUrl": "https://example.com/imagen1.jpg"
+                                                             },
+                                                             {
+                                                                 "imageUrl": "https://example.com/imagen2.jpg"
+                                                             }
+                                                         ]
+                                                     },
+                                                     "commentNum": 3,
+                                                     "commentLike": 1
+                                                 }
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun post",
+                    content = @Content),
+    })
+    @GetMapping("/post/{id}")
+    public GetPostDetailsDto getDetailsById(@PathVariable UUID id) {
+        Post post = postService.findDetailsById(id);
+
+        return GetPostDetailsDto.of(post);
+
     }
 }
