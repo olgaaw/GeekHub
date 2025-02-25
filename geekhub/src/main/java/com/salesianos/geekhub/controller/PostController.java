@@ -3,6 +3,7 @@ package com.salesianos.geekhub.controller;
 import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
 import com.salesianos.geekhub.dto.post.GetPostDetailsDto;
 import com.salesianos.geekhub.dto.post.PostResponseDto;
+import com.salesianos.geekhub.dto.user.GetUserProfileDataDto;
 import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.PostService;
@@ -27,6 +28,7 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/post/")
 @Tag(name = "Posts", description = "Post controller")
 public class PostController {
 
@@ -55,7 +57,7 @@ public class PostController {
                             )}
                     )}),
     })
-    @PostMapping("/post")
+    @PostMapping
     public ResponseEntity<PostResponseDto> crear(@RequestPart("files") MultipartFile[] files, @Valid @RequestPart("post") CreatePostRequestDto createPostRequestDto, @AuthenticationPrincipal User user) {
         Post post = postService.crearPost(createPostRequestDto, files, user);
 
@@ -102,7 +104,7 @@ public class PostController {
                     description = "No se ha encontrado ningun post para el usuario",
                     content = @Content),
     })
-    @GetMapping("/post/user/{userId}")
+    @GetMapping("user/{userId}")
     public List<PostResponseDto> getAllByUserId(@PathVariable UUID userId) {
         return postService.findAllByUserId(userId)
                 .stream()
@@ -151,7 +153,7 @@ public class PostController {
                     description = "No se ha encontrado ningun post para el usuario",
                     content = @Content),
     })
-    @GetMapping("/post/username/{username}")
+    @GetMapping("username/{username}")
     public List<PostResponseDto> getAllByUsername(@PathVariable String username) {
         return postService.findAllByUsername(username)
                 .stream()
@@ -168,7 +170,7 @@ public class PostController {
                             array = @ArraySchema(schema = @Schema(implementation = GetPostDetailsDto.class)),
                             examples = {@ExampleObject(
                                     value = """
-                                            [
+                                            
                                                 {
                                                      "post": {
                                                          "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
@@ -187,6 +189,39 @@ public class PostController {
                                                      "commentNum": 3,
                                                      "commentLike": 1
                                                  }
+                                            
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun post",
+                    content = @Content),
+    })
+    @GetMapping("{id}")
+    public GetPostDetailsDto getDetailsById(@PathVariable UUID id) {
+        Post post = postService.findDetailsById(id);
+
+        return GetPostDetailsDto.of(post);
+
+    }
+
+    @Operation(summary = "Obtiene los usuarios que han dado like a un post")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetUserProfileDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "username": "user1",
+                                                    "name": "Juan",
+                                                    "gender": "male",
+                                                    "profilePicture": null,
+                                                    "bio": null,
+                                                    "interests": []
+                                                }
                                             ]
                                             """
                             )}
@@ -195,11 +230,11 @@ public class PostController {
                     description = "No se ha encontrado ningun post",
                     content = @Content),
     })
-    @GetMapping("/post/{id}")
-    public GetPostDetailsDto getDetailsById(@PathVariable UUID id) {
-        Post post = postService.findDetailsById(id);
-
-        return GetPostDetailsDto.of(post);
-
+    @GetMapping("/{postId}/likes")
+    public List<GetUserProfileDataDto> getUsersLikedPost(@PathVariable UUID postId) {
+        List<User> users = postService.getUsersLikedPost(postId);
+        return users.stream()
+                .map(GetUserProfileDataDto::of)
+                .toList();
     }
 }

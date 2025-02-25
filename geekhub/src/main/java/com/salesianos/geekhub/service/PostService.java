@@ -97,6 +97,10 @@ public class PostService {
         return post;
     }
 
+    public List<User> getUsersLikedPost(UUID postId) {
+        return postRepository.findUsersLikedPost(postId);
+    }
+
 
 
 }
