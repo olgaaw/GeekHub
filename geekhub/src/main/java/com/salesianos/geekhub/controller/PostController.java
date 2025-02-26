@@ -251,7 +251,7 @@ public class PostController {
 
     @Operation(summary = "Elimina un post del usuario loggeado por su id")
     @ApiResponses(value = {
-            @ApiResponse(responseCode = "200",
+            @ApiResponse(responseCode = "204",
                     description = "Se ha eliminado un post",
                     content = @Content),
     })
