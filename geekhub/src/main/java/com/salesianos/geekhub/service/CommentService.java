@@ -74,14 +74,8 @@ public class CommentService {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No existe comentario con el id " + id));
 
-        boolean isAdmin = user.getAuthorities().stream()
-                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+        commentRepository.deleteById(id);
 
-        if (isAdmin) {
-            commentRepository.deleteById(id);
-        } else {
-            throw new RuntimeException("No tienes permisos para eliminar este comentario.");
-        }
     }
 
 
