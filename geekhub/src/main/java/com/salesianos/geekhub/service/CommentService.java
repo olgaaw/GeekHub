@@ -17,7 +17,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
-import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -59,7 +58,7 @@ public class CommentService {
         return comments;
     }
 
-    public void delete(UUID id, User user) {
+    public void deletebyUser(UUID id, User user) {
         Comment comment = commentRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("No existe comentario con el id"+id));
 
@@ -69,6 +68,23 @@ public class CommentService {
             throw new RuntimeException("Error al eliminar el comentario. El comentario no pertenece al usuario loggeado");
         }
     }
+
+
+    public void deleteByAdmin(UUID id, User user) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No existe comentario con el id " + id));
+
+        boolean isAdmin = user.getAuthorities().stream()
+                .anyMatch(auth -> auth.getAuthority().equals("ROLE_ADMIN"));
+
+        if (isAdmin) {
+            commentRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("No tienes permisos para eliminar este comentario.");
+        }
+    }
+
+
 
 
 }

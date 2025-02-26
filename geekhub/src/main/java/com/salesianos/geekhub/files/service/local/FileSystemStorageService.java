@@ -90,7 +90,7 @@ public class FileSystemStorageService implements StorageService {
         try {
             Files.delete(load(filename));
         } catch (IOException e) {
-            throw new StorageException("Could not delete file:" + filename);
+            throw new StorageException("Could not deletebyUser file:" + filename);
         }
     }
 
@@ -140,7 +140,7 @@ public class FileSystemStorageService implements StorageService {
         try {
             FileSystemUtils.deleteRecursively(rootLocation);
         } catch (IOException e) {
-            throw new StorageException("Could not delete all");
+            throw new StorageException("Could not deletebyUser all");
         }
     }
 }

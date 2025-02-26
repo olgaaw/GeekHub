@@ -19,10 +19,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -100,6 +101,8 @@ public class CommentController {
         return ResponseEntity.ok(PaginationDto.of(commentsDtoPage));
     }
 
+
+
     @Operation(summary = "Elimina un comentario del usuario loggeado por su id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
@@ -107,8 +110,23 @@ public class CommentController {
                     content = @Content),
     })
     @DeleteMapping("/comment/{commentId}/delete")
-    public ResponseEntity<?> deleteById(@PathVariable UUID commentId, @AuthenticationPrincipal User user){
-        commentService.delete(commentId, user);
+    public ResponseEntity<?> deleteByIdUser(@PathVariable UUID commentId, @AuthenticationPrincipal User user){
+        commentService.deletebyUser(commentId, user);
+        return ResponseEntity.noContent().build();
+    }
+
+
+
+    @Operation(summary = "Un usuaio con rol ADMIN elimina un comentario del usuario loggeado por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha eliminado un comentario",
+                    content = @Content),
+    })
+    @PostAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/comment/{commentId}/delete/admin")
+    public ResponseEntity<?> deleteByIdAdmin(@PathVariable UUID commentId, @AuthenticationPrincipal User user){
+        commentService.deleteByAdmin(commentId, user);
         return ResponseEntity.noContent().build();
     }
 
