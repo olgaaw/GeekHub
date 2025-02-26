@@ -174,3 +174,43 @@ VALUES ('eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'b7c449e4-1316-4ffc-a218-7a585fa
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
 ('6f264004-2674-48d6-bc83-15c7b915b429', 'eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'https://example.com/emartinez_post_image.jpg');
+
+
+INSERT INTO comment_entity(id, post_id, user_id, content, created_at)
+VALUES ('6f264004-2674-48d6-bc83-15c7b915b418', 'aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'a7c449e4-1316-4ffc-a218-7a585fa128f8', 'comentario de ejemplo', '2025-02-23T18:15:00');
+
+INSERT INTO comment_entity (id, post_id, user_id, content, created_at) VALUES
+('6f264004-2674-48d6-bc83-15c7b915b419', 'aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'a7c449e4-1316-4ffc-a218-7a585fa128f4', '¡Muy buen post, Diana!', '2025-02-23T16:05:00');
+
+INSERT INTO comment_entity (id, post_id, user_id, content, created_at) VALUES
+('7b3d2291-5c4b-4d56-b89e-91547f8b123c', 'eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'Gran contenido, Ethan.', '2025-02-23T18:20:00');
+
+INSERT INTO comment_entity (id, post_id, user_id, content, created_at) VALUES
+('3fa85f64-5717-4562-b3fc-2c963f66afa6', 'b9c58d6c-5bb7-4967-97cb-0b0b9d01876c', 'a7c449e4-1316-4ffc-a218-7a585fa128f3', '¡Me encanta este post, Alice!', '2025-02-23T12:35:00');
+
+INSERT INTO comment_entity (id, post_id, user_id, content, created_at) VALUES
+('f28d36a9-9c4a-4d3a-94c2-678c93cf4b3d', 'dca6c6d5-5d91-479b-9fa6-eaa96d87060f', 'a7c449e4-1316-4ffc-a218-7a585fa128f8', 'Buena información, Bob.', '2025-02-23T14:50:00');
+
+INSERT INTO comment_entity (id, post_id, user_id, content, created_at) VALUES
+('9ab48e6b-82c8-4f6a-9405-714e872945cb', 'f1e8c11e-7890-48fc-9ad6-d9b1cf9819f2', 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'Excelente aporte, John.', '2025-02-23T10:05:00');
+
+INSERT INTO comment_entity (id, post_id, user_id, content, created_at) VALUES
+('c8a2e8eb-4fcb-4d6f-b8c3-b68a91b8c123', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'Interesante perspectiva.', '2025-02-22T12:05:00');
+
+INSERT INTO like_entity(id, post_id, user_id, is_liked, created_at)
+VALUES ('6795a345-622e-4e96-971e-4f826a2b1707', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'a7c449e4-1316-4ffc-a218-7a585fa128f8', true ,'2025-02-22T12:05:00');
+
+INSERT INTO like_entity(id, post_id, user_id, is_liked, created_at)
+VALUES ('6795a345-622e-4e96-971e-4f826a2b1706', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'b7c449e4-1316-4ffc-a218-7a585fa128f8', true ,'2025-02-22T12:05:00');
+
+INSERT INTO like_entity(id, post_id, user_id, is_liked, created_at)
+VALUES ('6795a345-622e-4e96-971e-4f826a2b1705', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'a7c449e4-1316-4ffc-a218-7a585fa128f0', true ,'2025-02-22T12:05:00');
+
+
+
+
+
+
+
+
+
