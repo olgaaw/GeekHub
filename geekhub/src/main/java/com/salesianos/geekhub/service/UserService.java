@@ -11,8 +11,10 @@ import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.query.UserSpecificationBuilder;
 import com.salesianos.geekhub.repository.InterestRepository;
 import com.salesianos.geekhub.repository.UserRepository;
+import com.salesianos.geekhub.security.jwt.refresh.RefreshTokenRepository;
 import com.salesianos.geekhub.util.SearchCriteria;
 import com.salesianos.geekhub.util.SendGridMailSender;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.data.jpa.domain.Specification;
@@ -43,6 +45,7 @@ public class UserService {
 
     @Value("${activation.duration}")
     private int activationDuration;
+    private final RefreshTokenRepository refreshTokenRepository;
 
     public User createUser(CreateUserRequest createUserRequest) {
         User user = User.builder()
@@ -195,9 +198,12 @@ public class UserService {
     }
 
 
-
+    @Transactional
     public void delete(User user) {
-        userRepository.deleteById(user.getId());
+        if(user != null) {
+            refreshTokenRepository.deleteByUser(user);
+            userRepository.delete(user);
+        }
     }
 
 
