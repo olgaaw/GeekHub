@@ -1,0 +1,1032 @@
+{
+	"info": {
+		"_postman_id": "842e4d39-53c5-487d-8785-6d7b3ecfc20e",
+		"name": "GeekHub",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "38689358"
+	},
+	"item": [
+		{
+			"name": "User",
+			"item": [
+				{
+					"name": "Register user",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"user1\",\r\n    \"email\": \"olga.i.valor.wu@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"verifyPassword\" : \"12345678\",\r\n    \"name\": \"Juan\",\r\n    \"surname\": \"Garcia\",\r\n    \"phone\": \"678904532\",\r\n    \"address\":\"Calle Fuentes, 24\",\r\n    \"cp\":41006,\r\n    \"gender\":\"male\",\r\n    \"birthday\": \"2003-02-21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/register",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"register"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Register admin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\":\"admin1\",\r\n    \"email\": \"olga.i.valor.wu@gmail.com\",\r\n    \"password\": \"12345678\",\r\n    \"verifyPassword\" : \"12345678\",\r\n    \"name\": \"Juan\",\r\n    \"surname\": \"Garcia\",\r\n    \"phone\": 678904532,\r\n    \"adress\":\"Calle Fuentes, 24\",\r\n    \"cp\":41006,\r\n    \"gender\":\"male\",\r\n    \"birthday\": \"2003-02-21\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/register/admin",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"register",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Activate account",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"token\" : \"8586\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/activate/account/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"activate",
+								"account",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"var json = pm.response.json();\r",
+									"pm.collectionVariables.set(\"token\", json.token);\r",
+									"pm.collectionVariables.set(\"refreshToken\", json.refreshToken);"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"admin\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/auth/login",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Refresh Token",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/auth/refresh/token",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"auth",
+								"refresh",
+								"token"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/me",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUserProfileDataById",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/a7c449e4-1316-4ffc-a218-7a585fa128f4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"a7c449e4-1316-4ffc-a218-7a585fa128f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllUsers",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "EditProfileData",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"usuario1editado\",\r\n    \"name\" : \"Nombre editado\",\r\n    \"surname\" : \"Nuevo Apellido\",\r\n    \"bio\" : \"Ejemplo de biografia\",\r\n    \"profilePicture\" : \"profilePicture.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/user/edit",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"edit"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/user/delete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"user",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Post",
+			"item": [
+				{
+					"name": "Create Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "post",
+									"type": "file",
+									"src": "postman-cloud:///1eff2fbf-f25d-4fc0-91d1-7beb77a91301"
+								},
+								{
+									"key": "files",
+									"type": "file",
+									"src": "postman-cloud:///1eff2f83-018d-4640-abdb-321464b28133"
+								}
+							]
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/post/",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GETAllPostsByUserId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/user/a7c449e4-1316-4ffc-a218-7a585fa128f4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"user",
+								"a7c449e4-1316-4ffc-a218-7a585fa128f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetAllPostsByUsername",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/username/dlee",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"username",
+								"dlee"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetPostDetailsById",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetUsersLikePost",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77/likes",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77",
+								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/93add001-a67d-4366-bbb8-b5084bd1b71e/delete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"93add001-a67d-4366-bbb8-b5084bd1b71e",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Create Comment Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"content\": \"Este es un comentario 1\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/post/b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77/comment",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "GetCommentsByPostId",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77/comment/detail",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77",
+								"comment",
+								"detail"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete commnet by user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/comment/6f264004-2674-48d6-bc83-15c7b915b418/delete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comment",
+								"6f264004-2674-48d6-bc83-15c7b915b418",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete comment by admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/comment/e873382c-5a24-4369-a155-bbacc09a4615/delete/admin",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"comment",
+								"e873382c-5a24-4369-a155-bbacc09a4615",
+								"delete",
+								"admin"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Like",
+			"item": [
+				{
+					"name": "Create Like Post",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"isLiked\" : false\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/post/b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77/like",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77",
+								"like"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete like",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/like/6795a345-622e-4e96-971e-4f826a2b1707/delete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"like",
+								"6795a345-622e-4e96-971e-4f826a2b1707",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Interest",
+			"item": [
+				{
+					"name": "Create Interest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"World of Warcraft\",\r\n    \"picture\" : \"wow.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/interest",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"interest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Edit interest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"League of Legends\",\r\n    \"picture\": \"lol.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/interest/d1c449e4-1316-4ffc-a218-7a585fa128f0",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"interest",
+								"d1c449e4-1316-4ffc-a218-7a585fa128f0"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete interest by admin",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/interest/4fd3db3e-0de5-4fa3-9137-440df7e6e0f7/delete",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"interest",
+								"4fd3db3e-0de5-4fa3-9137-440df7e6e0f7",
+								"delete"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Search",
+			"item": [
+				{
+					"name": "serach username",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/?search=username:jdoe,",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "username:jdoe,"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search interest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/?search=interests:Magic,",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "interests:Magic,"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search gender",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/?search=gender:Female,",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "gender:Female,"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search gender and interest",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/?search=gender:Female,interests:\"Uno\",",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "gender:Female,interests:\"Uno\","
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search age",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/?search=gender:Female,interests:\"Uno\",",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "gender:Female,interests:\"Uno\","
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "search age and gender and interest",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/?search=age:25>,gender:Female,interests:Uno,",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								""
+							],
+							"query": [
+								{
+									"key": "search",
+									"value": "age:25>,gender:Female,interests:Uno,"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BASE_URL",
+			"value": "localhost:8080",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
+		},
+		{
+			"key": "refreshToken",
+			"value": ""
+		},
+		{
+			"key": "token_admin",
+			"value": ""
+		}
+	]
+}

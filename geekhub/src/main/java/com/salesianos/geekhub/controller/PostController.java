@@ -255,7 +255,7 @@ public class PostController {
                     description = "Se ha eliminado un post",
                     content = @Content),
     })
-    @DeleteMapping("/{postId}/deletebyUser")
+    @DeleteMapping("/{postId}/delete")
     public ResponseEntity<?> deleteByUser(@PathVariable UUID postId, @AuthenticationPrincipal User user){
         postService.deleteByUser(postId, user);
         return ResponseEntity.noContent().build();
