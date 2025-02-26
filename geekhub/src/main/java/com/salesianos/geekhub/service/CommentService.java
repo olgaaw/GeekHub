@@ -59,5 +59,16 @@ public class CommentService {
         return comments;
     }
 
+    public void delete(UUID id, User user) {
+        Comment comment = commentRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No existe comentario con el id"+id));
+
+        if (comment.getUser().getId().equals(user.getId())) {
+            commentRepository.deleteById(id);
+        } else {
+            throw new RuntimeException("Error al eliminar el comentario. El comentario no pertenece al usuario loggeado");
+        }
+    }
+
 
 }

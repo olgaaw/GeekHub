@@ -27,7 +27,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/post")
 @Tag(name = "Comments", description = "Comment controller")
 public class CommentController {
 
@@ -50,7 +49,7 @@ public class CommentController {
                             )}
                     )}),
     })
-    @PostMapping("/{postId}/comment")
+    @PostMapping("/post/{postId}/comment")
     public ResponseEntity<GetCommentDto> createComment(@PathVariable UUID postId, @Valid @RequestBody CreateCommentDto commentDto, @AuthenticationPrincipal User user) {
         Comment comment = commentService.createComment(postId, commentDto, user);
         return ResponseEntity.status(HttpStatus.CREATED).body(GetCommentDto.of(comment));
@@ -92,7 +91,7 @@ public class CommentController {
                     description = "No se ha encontrado ningun post con ese id",
                     content = @Content),
     })
-    @GetMapping("{postId}/comment/detail")
+    @GetMapping("/post/{postId}/comment/detail")
     public ResponseEntity<PaginationDto<GetCommentDto>> getAllByPostId(@PathVariable UUID postId, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
 
         Page<Comment> commentsPage = commentService.findByPostId(postId, page, size);
@@ -100,5 +99,18 @@ public class CommentController {
 
         return ResponseEntity.ok(PaginationDto.of(commentsDtoPage));
     }
+
+    @Operation(summary = "Elimina un comentario del usuario loggeado por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha eliminado un comentario",
+                    content = @Content),
+    })
+    @DeleteMapping("/comment/{commentId}/delete")
+    public ResponseEntity<?> deleteById(@PathVariable UUID commentId, @AuthenticationPrincipal User user){
+        commentService.delete(commentId, user);
+        return ResponseEntity.noContent().build();
+    }
+
 
 }
