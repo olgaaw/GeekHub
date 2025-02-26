@@ -3,12 +3,18 @@ package com.salesianos.geekhub.service;
 import com.salesianos.geekhub.dto.interest.EditInterestCmd;
 import com.salesianos.geekhub.dto.interest.GetInterestDto;
 import com.salesianos.geekhub.error.InterestNotFoundException;
+import com.salesianos.geekhub.model.Comment;
 import com.salesianos.geekhub.model.Interest;
+import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.repository.InterestRepository;
+import com.salesianos.geekhub.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -16,6 +22,7 @@ import java.util.UUID;
 public class InterestService {
 
     private final InterestRepository interestRepository;
+    private final UserRepository userRepository;
 
     public Interest create(GetInterestDto interestDto) {
 
@@ -35,6 +42,21 @@ public class InterestService {
         interest.setPicture(editInterest.picture());
 
         return interestRepository.save(interest);
+    }
+
+    @Transactional
+    public void delete (UUID id, User userP) {
+        Interest interest = interestRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("No existe interés con el id " + id));
+
+        List<User> users = new ArrayList<>(interest.getUsers());
+        for (User user : users) {
+            interest.removeUser(user);
+            userRepository.save(user);
+        }
+
+        interestRepository.deleteById(id);
+
     }
 
 }
