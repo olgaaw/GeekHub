@@ -249,4 +249,16 @@ public class PostController {
         return PaginationDto.of(usersDtoPage);
     }
 
+    @Operation(summary = "Elimina un post del usuario loggeado por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se ha eliminado un post",
+                    content = @Content),
+    })
+    @DeleteMapping("/{postId}/delete")
+    public ResponseEntity<?> deleteByUser(@PathVariable UUID postId, @AuthenticationPrincipal User user){
+        postService.deleteByUser(postId, user);
+        return ResponseEntity.noContent().build();
+    }
+
 }

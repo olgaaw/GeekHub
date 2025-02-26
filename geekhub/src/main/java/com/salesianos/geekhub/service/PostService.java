@@ -108,6 +108,20 @@ public class PostService {
         return postRepository.findUsersLikedPost(postId, pageable);
     }
 
+    @Transactional
+    public void deleteByUser(UUID postId, User user) {
+
+        Post post = postRepository.findPostById(postId);
+
+        if (post.getUser().getId().equals(user.getId())) {
+            postRepository.delete(post);
+
+        } else {
+            throw new RuntimeException("Error al eliminar. El post no pertenece al usuario loggeado");
+        }
+
+    }
+
 
 
 
