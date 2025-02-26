@@ -423,8 +423,9 @@ public class UserController {
         return ResponseEntity.ok(usersDtoPage);
     }
 
-    @DeleteMapping("/user/{id}")
-    public ResponseEntity<?> delete(@PathVariable Long id, @AuthenticationPrincipal User user) {
+    @PostAuthorize("hasRole('USER')")
+    @DeleteMapping("/user/delete")
+    public ResponseEntity<?> delete(@AuthenticationPrincipal User user) {
         userService.delete(user);
         return ResponseEntity.noContent().build();
 
