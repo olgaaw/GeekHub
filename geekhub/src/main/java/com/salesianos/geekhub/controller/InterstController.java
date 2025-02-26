@@ -61,8 +61,8 @@ public class InterstController {
                             examples = {@ExampleObject(
                                     value = """
                                             {
-                                                "name": "World of Warcraft",
-                                                "picture": "wow.jpg"
+                                                "name": "League of Legends",
+                                                "picture": "lol.jpg"
                                             }
                                             """
                             )}
