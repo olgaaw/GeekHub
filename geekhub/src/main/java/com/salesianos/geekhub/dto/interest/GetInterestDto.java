@@ -1,4 +1,4 @@
-package com.salesianos.geekhub.dto;
+package com.salesianos.geekhub.dto.interest;
 
 import com.salesianos.geekhub.model.Interest;
 

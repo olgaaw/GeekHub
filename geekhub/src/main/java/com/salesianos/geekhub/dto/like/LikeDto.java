@@ -1,4 +1,4 @@
-package com.salesianos.geekhub.dto;
+package com.salesianos.geekhub.dto.like;
 
 import com.salesianos.geekhub.model.Like;
 

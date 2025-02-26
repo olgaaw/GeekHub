@@ -1,6 +1,6 @@
 package com.salesianos.geekhub.service;
 
-import com.salesianos.geekhub.dto.CreateCommentDto;
+import com.salesianos.geekhub.dto.comment.CreateCommentDto;
 import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Comment;
 import com.salesianos.geekhub.model.Post;

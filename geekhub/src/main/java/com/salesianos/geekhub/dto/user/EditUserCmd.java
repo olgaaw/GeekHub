@@ -1,10 +1,7 @@
 package com.salesianos.geekhub.dto.user;
 
-import com.salesianos.geekhub.dto.GetInterestDto;
-import lombok.Getter;
-import lombok.Setter;
+import com.salesianos.geekhub.dto.interest.GetInterestDto;
 
-import java.time.Instant;
 import java.util.Date;
 import java.util.Set;
 

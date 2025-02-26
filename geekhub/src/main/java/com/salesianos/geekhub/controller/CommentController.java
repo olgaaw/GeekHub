@@ -1,7 +1,7 @@
 package com.salesianos.geekhub.controller;
 
-import com.salesianos.geekhub.dto.CreateCommentDto;
-import com.salesianos.geekhub.dto.GetCommentDto;
+import com.salesianos.geekhub.dto.comment.CreateCommentDto;
+import com.salesianos.geekhub.dto.comment.GetCommentDto;
 import com.salesianos.geekhub.model.Comment;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.CommentService;
