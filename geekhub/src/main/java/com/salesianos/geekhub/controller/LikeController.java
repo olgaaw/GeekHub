@@ -55,7 +55,7 @@ public class LikeController {
                     description = "Se ha eliminado un like",
                     content = @Content),
     })
-    @DeleteMapping("/like/{likeId}/delete")
+    @DeleteMapping("/like/{likeId}/deletebyUser")
     public ResponseEntity<?> deleteById(@PathVariable UUID likeId, @AuthenticationPrincipal User user){
         likeService.delete(likeId, user);
         return ResponseEntity.noContent().build();
