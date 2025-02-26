@@ -10,6 +10,9 @@ import com.salesianos.geekhub.repository.*;
 import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -61,26 +64,29 @@ public class PostService {
 
 
     @Transactional
-    public List<Post> findAllByUserId(UUID userId) {
-        List<Post> posts = postRepository.findPostsByUserIdWithImages(userId);
+    public Page<Post> findAllByUserId(UUID userId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> posts = postRepository.findPostsByUserIdWithImages(userId, pageable);
 
         if (posts.isEmpty()) {
-            throw new EntityNotFoundException("No existen posts del usuario con el id"+userId);
+            throw new EntityNotFoundException("No existen posts del usuario con el id " + userId);
         }
 
         return posts;
     }
 
     @Transactional
-    public List<Post> findAllByUsername(String username) {
-        List<Post> posts = postRepository.findPostsByUsername(username);
+    public Page<Post> findAllByUsername(String username, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Post> posts = postRepository.findPostsByUsername(username, pageable);
 
         if (posts.isEmpty()) {
-            throw new EntityNotFoundException("No existen posts del usuario "+username);
+            throw new EntityNotFoundException("No existen posts del usuario " + username);
         }
 
         return posts;
     }
+
 
     @Transactional
     public Post findDetailsById(UUID postId) {
@@ -97,9 +103,11 @@ public class PostService {
         return post;
     }
 
-    public List<User> getUsersLikedPost(UUID postId) {
-        return postRepository.findUsersLikedPost(postId);
+    public Page<User> getUsersLikedPost(UUID postId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        return postRepository.findUsersLikedPost(postId, pageable);
     }
+
 
 
 

@@ -284,14 +284,10 @@ public class UserController {
                     description = "No se ha encontrado el usuario ",
                     content = @Content),
     })
-    @PutMapping("/user/{id}")
-    public ResponseEntity<GetUserPrivateDataDto> edit(@RequestBody EditUserCmd editUserCmd, @PathVariable UUID id, @AuthenticationPrincipal User user) {
+    @PutMapping("/user/edit")
+    public ResponseEntity<GetUserPrivateDataDto> edit(@RequestBody EditUserCmd editUserCmd, @AuthenticationPrincipal User user) {
 
-        if (!user.getId().equals(id)) {
-            return ResponseEntity.status(HttpStatus.FORBIDDEN).build();
-        }
-
-        User updatedUser = userService.edit(editUserCmd, id);
+        User updatedUser = userService.edit(editUserCmd, user);
 
         return ResponseEntity.ok(GetUserPrivateDataDto.of(updatedUser));
     }

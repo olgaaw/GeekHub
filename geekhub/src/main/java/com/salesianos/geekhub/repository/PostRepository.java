@@ -2,6 +2,8 @@ package com.salesianos.geekhub.repository;
 
 import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.model.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,18 +15,20 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
 
     List<Post> findByUserId(UUID userId);
 
-    @Query("SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.id = :userId")
-    List<Post> findPostsByUserIdWithImages(@Param("userId") UUID userId);
+    @Query(value = "SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.id = :userId",
+            countQuery = "SELECT COUNT(p) FROM Post p WHERE p.user.id = :userId")
+    Page<Post> findPostsByUserIdWithImages(@Param("userId") UUID userId, Pageable pageable);
+
 
 
     @Query("SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.username = :username")
-    List<Post> findPostsByUsername(@Param("username") String username);
+    Page<Post> findPostsByUsername(@Param("username") String username, Pageable page);
 
     @Query("SELECT p FROM Post p WHERE p.id = :postId")
     Post findPostById(@Param("postId") UUID postId);
 
     @Query("SELECT l.user FROM Like l WHERE l.post.id = :postId")
-    List<User> findUsersLikedPost(@Param("postId") UUID postId);
+    Page<User> findUsersLikedPost(@Param("postId") UUID postId, Pageable pageable);
 
 
 

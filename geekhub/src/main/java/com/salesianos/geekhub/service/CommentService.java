@@ -9,7 +9,11 @@ import com.salesianos.geekhub.repository.CommentRepository;
 import com.salesianos.geekhub.repository.PostRepository;
 import com.salesianos.geekhub.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
+import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;
@@ -43,15 +47,17 @@ public class CommentService {
         return commentRepository.save(comment);
     }
 
-    public List<Comment> findByPostId (UUID postId) {
-        List<Comment> comments = commentRepository.findCommentsByPostId(postId);
+    @Transactional
+    public Page<Comment> findByPostId(UUID postId, Integer page, Integer size) {
+        Pageable pageable = PageRequest.of(page, size);
+        Page<Comment> comments = commentRepository.findCommentsByPostIdPageable(postId, pageable);
 
         if (comments.isEmpty()) {
-            throw new EntityNotFoundException("No existen comentarios en el post");
+            throw new EntityNotFoundException("No existen comentarios en el post con id " + postId);
         }
 
         return comments;
-
     }
+
 
 }

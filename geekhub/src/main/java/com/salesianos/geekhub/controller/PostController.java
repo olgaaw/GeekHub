@@ -1,5 +1,6 @@
 package com.salesianos.geekhub.controller;
 
+import com.salesianos.geekhub.dto.PaginationDto;
 import com.salesianos.geekhub.dto.post.CreatePostRequestDto;
 import com.salesianos.geekhub.dto.post.GetPostDetailsDto;
 import com.salesianos.geekhub.dto.post.PostResponseDto;
@@ -17,6 +18,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -105,11 +107,12 @@ public class PostController {
                     content = @Content),
     })
     @GetMapping("user/{userId}")
-    public List<PostResponseDto> getAllByUserId(@PathVariable UUID userId) {
-        return postService.findAllByUserId(userId)
-                .stream()
-                .map(PostResponseDto::of)
-                .toList();
+    public ResponseEntity<Page<PostResponseDto>> getAllByUserId(@PathVariable UUID userId, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
+
+        Page<Post> postsPage = postService.findAllByUserId(userId, page, size);
+        Page<PostResponseDto> postsDtoPage = postsPage.map(PostResponseDto::of);
+
+        return ResponseEntity.ok(postsDtoPage);
     }
 
 
@@ -154,11 +157,15 @@ public class PostController {
                     content = @Content),
     })
     @GetMapping("username/{username}")
-    public List<PostResponseDto> getAllByUsername(@PathVariable String username) {
-        return postService.findAllByUsername(username)
-                .stream()
-                .map(PostResponseDto::of)
-                .toList();
+    public ResponseEntity<PaginationDto<PostResponseDto>> getAllByUsername(
+            @PathVariable String username,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
+
+        Page<Post> postsPage = postService.findAllByUsername(username, page, size);
+        Page<PostResponseDto> postsDtoPage = postsPage.map(PostResponseDto::of);
+
+        return ResponseEntity.ok(PaginationDto.of(postsDtoPage));
     }
 
 
@@ -231,10 +238,15 @@ public class PostController {
                     content = @Content),
     })
     @GetMapping("/{postId}/likes")
-    public List<GetUserProfileDataDto> getUsersLikedPost(@PathVariable UUID postId) {
-        List<User> users = postService.getUsersLikedPost(postId);
-        return users.stream()
-                .map(GetUserProfileDataDto::of)
-                .toList();
+    public PaginationDto<GetUserProfileDataDto> getUsersLikedPost(
+            @PathVariable UUID postId,
+            @RequestParam(defaultValue = "0") Integer page,
+            @RequestParam(defaultValue = "10") Integer size) {
+
+        Page<User> usersPage = postService.getUsersLikedPost(postId, page, size);
+        Page<GetUserProfileDataDto> usersDtoPage = usersPage.map(GetUserProfileDataDto::of);
+
+        return PaginationDto.of(usersDtoPage);
     }
+
 }
