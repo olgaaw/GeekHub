@@ -1,6 +1,6 @@
 package com.salesianos.geekhub.service;
 
-import com.salesianos.geekhub.dto.LikeDto;
+import com.salesianos.geekhub.dto.like.LikeDto;
 import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Like;
 import com.salesianos.geekhub.model.Post;
@@ -10,7 +10,6 @@ import com.salesianos.geekhub.repository.PostRepository;
 import com.salesianos.geekhub.repository.UserRepository;
 import jakarta.persistence.EntityNotFoundException;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import java.time.Instant;

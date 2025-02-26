@@ -1,6 +1,6 @@
 package com.salesianos.geekhub.controller;
 
-import com.salesianos.geekhub.dto.LikeDto;
+import com.salesianos.geekhub.dto.like.LikeDto;
 import com.salesianos.geekhub.model.Like;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.LikeService;

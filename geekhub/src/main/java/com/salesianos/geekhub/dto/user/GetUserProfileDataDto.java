@@ -1,6 +1,6 @@
 package com.salesianos.geekhub.dto.user;
 
-import com.salesianos.geekhub.dto.GetInterestDto;
+import com.salesianos.geekhub.dto.interest.GetInterestDto;
 import com.salesianos.geekhub.model.User;
 
 import java.util.Set;
