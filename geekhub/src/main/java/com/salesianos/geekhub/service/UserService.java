@@ -63,7 +63,8 @@ public class UserService {
         System.out.println(user);
 
         try {
-            mailSender.sendMail(createUserRequest.email(), "Activación de cuenta", user.getActivationToken());
+            String texto = "Su código de activación es: ";
+            mailSender.sendMail(createUserRequest.email(), "Activación de cuenta", texto+user.getActivationToken());
         } catch (Exception e) {
             throw new ResponseStatusException(HttpStatus.INTERNAL_SERVER_ERROR,"Error al enviar el email de activación");
         }

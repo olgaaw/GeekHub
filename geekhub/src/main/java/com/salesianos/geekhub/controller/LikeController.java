@@ -22,7 +22,6 @@ import java.util.UUID;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/post")
 @Tag(name = "Likes", description = "Like controller")
 public class LikeController {
 
@@ -44,9 +43,21 @@ public class LikeController {
                             )}
                     )}),
     })
-    @PostMapping("/{postId}/like")
+    @PostMapping("/post/{postId}/like")
     public ResponseEntity<LikeDto> createLike(@PathVariable UUID postId, @RequestBody LikeDto likeDto , @AuthenticationPrincipal User user) {
         Like like = likeService.addLike(postId, likeDto ,user);
         return ResponseEntity.status(HttpStatus.CREATED).body(LikeDto.of(like));
+    }
+
+    @Operation(summary = "Elimina un like del usuario loggeado por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha eliminado un like",
+                    content = @Content),
+    })
+    @DeleteMapping("/like/{likeId}/delete")
+    public ResponseEntity<?> deleteById(@PathVariable UUID likeId, @AuthenticationPrincipal User user){
+        likeService.delete(likeId, user);
+        return ResponseEntity.noContent().build();
     }
 }
