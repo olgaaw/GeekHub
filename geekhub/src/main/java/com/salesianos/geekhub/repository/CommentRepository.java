@@ -1,6 +1,8 @@
 package com.salesianos.geekhub.repository;
 
 import com.salesianos.geekhub.model.Comment;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -15,6 +17,13 @@ public interface CommentRepository extends JpaRepository<Comment, UUID> {
                 WHERE c.post.id = :postId
             """)
     List<Comment> findCommentsByPostId(@Param("postId") UUID postId);
+
+    @Query("""
+                SELECT c FROM Comment c 
+                JOIN FETCH c.user 
+                WHERE c.post.id = :postId
+            """)
+    Page<Comment> findCommentsByPostIdPageable(@Param("postId") UUID postId, Pageable pageable);
 
 
 }

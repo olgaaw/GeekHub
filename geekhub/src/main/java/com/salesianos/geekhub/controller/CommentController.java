@@ -1,5 +1,6 @@
 package com.salesianos.geekhub.controller;
 
+import com.salesianos.geekhub.dto.PaginationDto;
 import com.salesianos.geekhub.dto.comment.CreateCommentDto;
 import com.salesianos.geekhub.dto.comment.GetCommentDto;
 import com.salesianos.geekhub.model.Comment;
@@ -15,6 +16,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponses;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
@@ -91,11 +93,12 @@ public class CommentController {
                     content = @Content),
     })
     @GetMapping("{postId}/comment/detail")
-    public List<GetCommentDto> getAllByPostId(@PathVariable UUID postId) {
-        return commentService.findByPostId(postId)
-                .stream()
-                .map(GetCommentDto::of)
-                .toList();
+    public ResponseEntity<PaginationDto<GetCommentDto>> getAllByPostId(@PathVariable UUID postId, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
 
+        Page<Comment> commentsPage = commentService.findByPostId(postId, page, size);
+        Page<GetCommentDto> commentsDtoPage = commentsPage.map(GetCommentDto::of);
+
+        return ResponseEntity.ok(PaginationDto.of(commentsDtoPage));
     }
+
 }

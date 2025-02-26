@@ -145,8 +145,8 @@ public class UserService {
 
 
 
-    public User edit(EditUserCmd editUserCmd, UUID id) {
-        User user = userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+    public User edit(EditUserCmd editUserCmd, User userP) {
+        User user = userRepository.findById(userP.getId()).orElseThrow(() -> new UserNotFoundException(userP.getId()));
 
         if (editUserCmd.username() != null) {
             user.setUsername(editUserCmd.username());
