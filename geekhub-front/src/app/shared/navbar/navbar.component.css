@@ -1,0 +1,28 @@
+.sidebar {
+    background-color: #121212;
+    color: white;
+    width: 240px;
+    border-right: 1px solid #272727;
+}
+
+.nav-link {
+    color: white;
+    font-weight: 500;
+    transition: color 0.3s ease;
+}
+
+.nav-link:hover {
+    color: #6f42c1;
+}
+
+.nav-link.active {
+    color: #6f42c1;
+}
+
+.sidebar h4 {
+    color: white;
+}
+
+.sidebar .text-primary {
+    color: #6f42c1;
+}
