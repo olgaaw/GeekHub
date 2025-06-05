@@ -1,0 +1,23 @@
+{
+    "es": {
+      "WELCOME": "Bienvenido a la red social alternativa",
+      "USERNAME": "Usuario",
+      "PASSWORD": "Contraseña",
+      "FORGOT_PASSWORD": "¿Ha olvidado su contraseña?",
+      "SIGN_IN": "Entrar",
+      "NO_ACCOUNT": "¿No tiene una cuenta?",
+      "CREATE": "Crear",
+      "INVALID_CREDENTIALS": "Usuario o contraseña incorrectos"
+    },
+    "en": {
+      "WELCOME": "Welcome to the alternative social network",
+      "USERNAME": "Username",
+      "PASSWORD": "Password",
+      "FORGOT_PASSWORD": "Forgot your password?",
+      "SIGN_IN": "Sign in",
+      "NO_ACCOUNT": "You don't have an account?",
+      "CREATE": "Create",
+      "INVALID_CREDENTIALS": "Invalid username or password"
+    }
+  }
+  

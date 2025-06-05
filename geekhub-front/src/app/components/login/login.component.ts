@@ -1,0 +1,65 @@
+import { Component, OnInit } from '@angular/core';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
+import { AuthService } from '../../services/auth.service';
+
+@Component({
+  selector: 'app-login',
+  styleUrls: ['./login.component.css'],
+  templateUrl: './login.component.html',
+})
+export class LoginComponent implements OnInit {
+
+  loginForm!: FormGroup;
+  hidePassword = true;
+
+  alertMessage: string | null = null;
+  alertType: string = '';
+
+  selectedLang = localStorage.getItem('language') || 'es';
+
+  constructor(
+    private formBuilder: FormBuilder,
+    private authService: AuthService,
+    private router: Router
+  ) {}
+
+  ngOnInit() {
+    this.loginForm = this.formBuilder.group({
+      username: ['', Validators.required],
+      password: ['', Validators.required]
+    });
+  }
+
+  togglePassword() {
+    this.hidePassword = !this.hidePassword;
+  }
+
+  showAlert(message: string, type: string) {
+    this.alertMessage = message;
+    this.alertType = type;
+    setTimeout(() => {
+      this.alertMessage = null;
+    }, 3000);
+  }
+
+  onSubmit() {
+    if (this.loginForm.invalid) return;
+
+    const { username, password } = this.loginForm.value;
+    this.authService.login({ username, password }).subscribe({
+      next: () => {
+        this.router.navigate(['/home']);
+      },
+      error: () => {
+        this.showAlert('INVALID_CREDENTIALS', 'danger');
+      }
+    });
+  }
+
+  changeLanguage(event: Event) {
+    const select = event.target as HTMLSelectElement;
+    this.selectedLang = select.value;
+    localStorage.setItem('language', this.selectedLang);
+  }
+}
