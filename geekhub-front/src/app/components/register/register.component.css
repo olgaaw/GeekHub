@@ -21,44 +21,46 @@
     background: rgba(0, 0, 0, 0.87);
     z-index: 0;
 }
-
-.login-form,h1,h2,p,a {
+  
+.login-form,
+.login-form h1,
+.login-form h2,
+.login-form p,
+.login-form a {
     position: relative;
     z-index: 1;
 }
-
+  
 .logo {
-    width: 500px;
+    width: 350px;
     height: auto;
     position: relative;
     z-index: 1;
+    margin-bottom: 16px;
 }
-
+  
+.login-form {
+    background-color: rgba(0, 0, 0, 0.6);
+    padding: 24px;
+    border-radius: 8px;
+    z-index: 1;
+}
+  
 .login-form .form-control {
     background-color: #111111e5;
     color: white;
     border: 1px solid #272727;
 }
-
+  
 .login-form .form-control::placeholder {
     color: #bbb;
 }
-
+  
 .login-form .form-control:focus {
     background-color: #1b1b1bf8;
     color: white;
     border-color: #272727;
     box-shadow: none;
-}
-
-.login-alert {
-    position: absolute;
-    top: 50px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 20%;
-    z-index: 1;
-    text-align: center;
 }
   
 .btn-password {
@@ -81,7 +83,17 @@
     background-color: #5a32a3;
     border-color: #5a32a3;
 }
-
+  
+.login-alert {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    z-index: 10;
+    text-align: center;
+}
+  
 .language-switcher {
     position: absolute;
     top: 15px;
@@ -89,18 +101,17 @@
     z-index: 1;
     width: auto;
 }
-
+  
 .language-switcher select.form-select {
     background-color: #111111;
     color: white;
     border: 1px solid #272727;
     appearance: none;
 }
-
+  
 .language-switcher select.form-select:focus {
     border-color: #272727;
     background-color: #111111;
     box-shadow: none;
 }
-
   

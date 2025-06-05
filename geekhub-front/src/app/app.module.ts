@@ -9,12 +9,16 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { provideHttpClient } from '@angular/common/http';
 import { provideAnimationsAsync } from '@angular/platform-browser/animations/async';
 import { TranslatePipe } from './pipes/translate.pipe';
+import { RegisterComponent } from './components/register/register.component';
+import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     TranslatePipe,
+    RegisterComponent,
+    ActivateAccountComponent,
   ],
   imports: [
     BrowserModule,

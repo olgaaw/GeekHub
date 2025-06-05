@@ -11,7 +11,7 @@ import { AuthService } from '../../services/auth.service';
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  hidePassword = true;
+  showPassword = true;
 
   alertMessage: string | null = null;
   alertType: string = '';
@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
   }
 
   togglePassword() {
-    this.hidePassword = !this.hidePassword;
+    this.showPassword = !this.showPassword;
   }
 
   showAlert(message: string, type: string) {
