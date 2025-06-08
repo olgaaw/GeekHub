@@ -34,7 +34,7 @@ export class ActivateAccountComponent {
     this.authService.verifyActivation(token).subscribe({
       next: () => {
         this.showAlert('ACCOUNT_VERIFIED', 'success');
-        setTimeout(() => this.router.navigate(['/home']), 1500);
+        setTimeout(() => this.router.navigate(['/login']), 1500);
       },
       error: () => this.showAlert('INVALID_OR_EXPIRED', 'danger')
     });

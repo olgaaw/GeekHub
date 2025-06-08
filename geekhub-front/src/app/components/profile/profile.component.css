@@ -1,0 +1,111 @@
+.profile-container {
+    background-color: #121212;
+    color: white;
+    min-height: 600px;
+}
+
+.profile-content {
+    padding: 32px;
+    position: relative;
+}
+
+.btn-settings {
+    position: absolute;
+    top: 16px;
+    right: 125px;
+    color: white;
+    background: none;
+    border: none;
+    font-size: 24px;
+}
+
+.btn-settings:hover {
+    color: #6f42c1;
+}
+
+.profile-header {
+    margin-bottom: 32px;
+}
+
+.profile-picture {
+    width: 200px;
+    height: 200px;
+    object-fit: cover;
+    border: 2px solid #272727;
+}
+
+.profile-stats {
+    margin-top: 16px;
+}
+
+.profile-stats div {
+    text-align: center;
+    min-width: 60px;
+}
+
+.nav-tabs .nav-link {
+    color: #ffffff;
+    border: none;
+    font-size: 16px;
+}
+
+.nav-tabs .nav-link.active {
+    background-color: #6e42c100;
+    color: #6f42c1;
+    border-radius: 4px;
+}
+
+.interest-badge {
+    background-color: #444;
+    color: white;
+    padding: 8px 16px;
+    border-radius: 24px;
+    transition: background-color 0.3s ease;
+    font-size: 14px;
+}
+
+.interest-badge:hover {
+    background-color: #6f42c1;
+}
+
+.profile-picture-post {
+    width: 70px;
+    height: 70px;
+    object-fit: cover;
+    border-radius: 50%;
+}
+
+.card-post {
+    background-color: #121212;
+    padding: 16px;
+    border-radius: 8px;
+}
+
+.card-post .d-flex {
+    align-items: flex-start;
+}
+
+.card-post .flex-grow-1 {
+    display: flex;
+    flex-direction: column;
+    margin-left: 16px;
+}
+
+.card-post p.text {
+    font-size: 15px;
+    color: #ccc;
+    margin-top: 0;
+}
+
+.card-post .post-image {
+    max-height: 150px;
+    max-width: 100%;
+    margin-right: 5px;
+}
+
+.post-separator {
+    border: none;
+    border-bottom: 1px solid #444;
+    margin-top: 16px;
+}
+

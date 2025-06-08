@@ -1,8 +1,8 @@
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f4', 'admin', 'jdoe@example.com', '{noop}admin', 'John', 'Doe', '1234567890', '123 Elm St', 90210, 'Male', '1990-01-01', 'profile1.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f4', 'admin', 'jdoe@example.com', '{noop}admin', 'John', 'Doe', '1234567890', '123 Elm St', 90210, 'Male', '1990-01-01', 'https://images.theconversation.com/files/651621/original/file-20250226-32-jxjhmy.jpg?ixlib=rb-4.1.0&rect=0%2C377%2C6000%2C3000&q=45&auto=format&w=668&h=324&fit=crop', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f3','user', 'asmith@example.com', '{noop}1234', 'Alice', 'Smith', '0987654321', '456 Oak St', 90211, 'Female', '1992-02-02', 'profile2.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f3','user', 'asmith@example.com', '{noop}1234', 'Alice', 'Smith', '0987654321', '456 Oak St', 90211, 'Female', '1992-02-02', 'https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
 VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f8','bwhite', 'bwhite@example.com', '{noop}hashed_password_3', 'Bob', 'White', '5555555555', '789 Pine St', 90212, 'Male', '1988-03-03', 'profile3.jpg', 'Biography example',  true, NOW());
@@ -137,43 +137,43 @@ INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'Este es un post de prueba 2', '2025-02-22T12:00:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('123e4567-e89b-12d3-a456-426614174000', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'https://example.com/imagen1.jpg'),
-('123e4567-e89b-12d3-a456-426614174001', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'https://example.com/imagen2.jpg');
+('123e4567-e89b-12d3-a456-426614174000', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'https://cdn.hobbyconsolas.com/sites/navi.axelspringer.es/public/media/image/2015/01/433436-guia-final-fantasy-x.jpg?tf=3840x'),
+('123e4567-e89b-12d3-a456-426614174001', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77', 'https://i.blogs.es/e5f26e/ffx-steam/500_333.webp');
 
 
 INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('f1e8c11e-7890-48fc-9ad6-d9b1cf9819f2', 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'Este es un post de prueba de John Doe', '2025-02-23T10:00:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('ce8e6c8a-47a2-4cfb-8b9a-948c9c1ca2e4', 'f1e8c11e-7890-48fc-9ad6-d9b1cf9819f2', 'https://example.com/jdoe_post_image.jpg');
+('ce8e6c8a-47a2-4cfb-8b9a-948c9c1ca2e4', 'f1e8c11e-7890-48fc-9ad6-d9b1cf9819f2', 'https://i.blogs.es/e5f26e/ffx-steam/500_333.webp');
 
 
 INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('b9c58d6c-5bb7-4967-97cb-0b0b9d01876c', 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'Este es un post de prueba de Alice Smith', '2025-02-23T12:30:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('89c598db-35c9-450d-91ff-6347f1acdf2f', 'b9c58d6c-5bb7-4967-97cb-0b0b9d01876c', 'https://example.com/asmith_post_image.jpg');
+('89c598db-35c9-450d-91ff-6347f1acdf2f', 'b9c58d6c-5bb7-4967-97cb-0b0b9d01876c', 'https://static.posters.cz/image/750/24270.jpg');
 
 
 INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('dca6c6d5-5d91-479b-9fa6-eaa96d87060f', 'a7c449e4-1316-4ffc-a218-7a585fa128f8', 'Este es un post de prueba de Bob White', '2025-02-23T14:45:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('dbb56fcb-8724-44b2-b15b-8f2188a38f30', 'dca6c6d5-5d91-479b-9fa6-eaa96d87060f', 'https://example.com/bwhite_post_image.jpg');
+('dbb56fcb-8724-44b2-b15b-8f2188a38f30', 'dca6c6d5-5d91-479b-9fa6-eaa96d87060f', 'https://static.posters.cz/image/750/24270.jpg');
 
 
 INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'a7c449e4-1316-4ffc-a218-7a585fa128f9', 'Este es un post de prueba de Diana Lee', '2025-02-23T16:00:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('3722a2b4-b372-4ca4-a9b1-d824295dc244', 'aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'https://example.com/dlee_post_image.jpg');
+('3722a2b4-b372-4ca4-a9b1-d824295dc244', 'aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime.jpg');
 
 
 INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'Este es un post de prueba de Ethan Martinez', '2025-02-23T18:15:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('6f264004-2674-48d6-bc83-15c7b915b429', 'eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'https://example.com/emartinez_post_image.jpg');
+('6f264004-2674-48d6-bc83-15c7b915b429', 'eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime.jpg');
 
 
 INSERT INTO comment_entity(id, post_id, user_id, content, created_at)

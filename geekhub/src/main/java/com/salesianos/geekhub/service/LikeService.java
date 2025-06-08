@@ -24,7 +24,7 @@ public class LikeService {
     private final PostRepository postRepository;
     private final UserRepository userRepository;
 
-    public Like addLike(UUID postId, LikeDto likeDto, User user) {
+    public Like addLike(UUID postId, User user) {
         String username = user.getUsername();
 
         User user1 = userRepository.findFirstByUsername(username)
@@ -42,6 +42,7 @@ public class LikeService {
 
         return likeRepository.save(like);
     }
+
 
     public void delete(UUID likeId, User user) {
         Like like = likeRepository.findById(likeId)

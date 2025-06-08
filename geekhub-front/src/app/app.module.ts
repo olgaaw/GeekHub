@@ -12,6 +12,7 @@ import { TranslatePipe } from './pipes/translate.pipe';
 import { RegisterComponent } from './components/register/register.component';
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { NavbarComponent } from './shared/navbar/navbar.component';
     RegisterComponent,
     ActivateAccountComponent,
     NavbarComponent,
+    ProfileComponent,
   ],
   imports: [
     BrowserModule,
