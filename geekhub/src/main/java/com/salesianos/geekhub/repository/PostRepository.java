@@ -4,6 +4,7 @@ import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -13,7 +14,10 @@ import java.util.UUID;
 
 public interface PostRepository extends JpaRepository<Post, UUID> {
 
-    List<Post> findByUserId(UUID userId);
+    @EntityGraph(attributePaths = {"user", "images"})
+    List<Post> findAllByUserId(UUID userId);
+
+
 
     @Query(value = "SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.id = :userId",
             countQuery = "SELECT COUNT(p) FROM Post p WHERE p.user.id = :userId")

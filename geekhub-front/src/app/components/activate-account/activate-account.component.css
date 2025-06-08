@@ -1,0 +1,118 @@
+.login-background {
+    background-image: url('/assets/background.jpg');
+    background-size: cover;
+    background-position: center;
+    height: 100vh;
+    position: relative;
+    color: white;
+    padding: 16px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.login-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.87);
+    z-index: 0;
+}
+
+.login-form,
+h1,
+h2,
+p,
+a {
+    position: relative;
+    z-index: 1;
+}
+
+.logo {
+    width: 500px;
+    height: auto;
+    position: relative;
+    z-index: 1;
+}
+
+.login-form .form-control {
+    background-color: #111111e5;
+    color: white;
+    border: 1px solid #272727;
+}
+
+.login-form .form-control::placeholder {
+    color: #bbb;
+}
+
+.login-form .form-control:focus {
+    background-color: #1b1b1bf8;
+    color: white;
+    border-color: #272727;
+    box-shadow: none;
+}
+
+.login-alert {
+    position: absolute;
+    top: 50px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 20%;
+    z-index: 1;
+    text-align: center;
+}
+
+.btn-password {
+    background-color: #111111;
+    border-color: #272727;
+    color: white;
+}
+
+.btn-password:hover {
+    background-color: #1a1a1a;
+}
+
+.btn-primary {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+}
+
+.btn-primary:hover,
+.btn-primary:focus {
+    background-color: #5a32a3;
+    border-color: #5a32a3;
+}
+
+.language-switcher {
+    position: absolute;
+    top: 15px;
+    right: 15px;
+    z-index: 1;
+    width: auto;
+}
+
+.language-switcher select.form-select {
+    background-color: #111111;
+    color: white;
+    border: 1px solid #272727;
+    appearance: none;
+}
+
+.language-switcher select.form-select:focus {
+    border-color: #272727;
+    background-color: #111111;
+    box-shadow: none;
+}
+
+.code-box {
+    width: 60px;
+    height: 60px;
+    font-size: 2rem;
+    background-color: #2a2a2a;
+    border-radius: 12px;
+    border: 1px solid #444;
+    color: white;
+}

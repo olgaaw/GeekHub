@@ -75,6 +75,17 @@ public class PostService {
         return posts;
     }
 
+    @Transactional()
+    public List<Post> findAllByUserId(UUID userId) {
+        List<Post> posts = postRepository.findAllByUserId(userId);
+
+        if (posts.isEmpty()) {
+            throw new EntityNotFoundException("No existen posts del usuario con el id " + userId);
+        }
+
+        return posts;
+    }
+
     @Transactional
     public Page<Post> findAllByUsername(String username, Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
