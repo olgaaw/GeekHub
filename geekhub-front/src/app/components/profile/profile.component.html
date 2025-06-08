@@ -1,0 +1,96 @@
+<div class="d-flex profile-container">
+  <app-navbar></app-navbar>
+
+  <div class="flex-grow-1 profile-content mx-5 mt-5">
+    <div class="container-fluid position-relative">
+
+      <button class="btn btn-settings position-absolute" type="button">
+        <i class="bi bi-pencil-square me-5"></i>
+      </button>
+
+      <button class="btn btn-settings position-absolute" type="button">
+        <i class="bi bi-gear-fill"></i>
+      </button>
+
+      <div class="row justify-content-center">
+        <div class="col-10">
+          <div class="d-flex align-items-center gap-4 profile-header">
+            <img [src]="profileImageUrl ? profileImageUrl : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'" class="rounded-circle profile-picture" />
+            <div>
+              <h4>{{ userProfile.name }}</h4>
+              <p class="text">{{ userProfile.username }}</p>
+              <p>{{ userProfile.bio }}</p>
+              <div class="d-flex gap-4 profile-stats">
+                <div><strong>{{ totalPosts }}</strong><br /><small>{{'POSTS' | translate}}</small></div>
+                <div><strong>x</strong><br /><small>{{'FOLLOWING' | translate}}</small></div>
+                <div><strong>x</strong><br /><small>{{'FOLLOWERS' | translate}}</small></div>
+              </div>
+            </div>
+          </div>
+
+          <ul class="nav nav-tabs mb-4 justify-content-center">
+            <li class="nav-item me-5">
+              <a class="nav-link" [class.active]="activeTab === 'details'" (click)="activeTab = 'details'">
+                {{ 'DETAILS' | translate }}
+              </a>
+            </li>
+            <li class="nav-item ms-5">
+              <a class="nav-link" [class.active]="activeTab === 'posts'" (click)="activeTab = 'posts'">
+                {{ 'POSTS' | translate }}
+              </a>
+            </li>
+          </ul>
+
+
+          <!-- DETALLES -->
+          <div *ngIf="activeTab === 'details'">
+            <h5 class="mt-4">{{'INTERESTS' | translate}}</h5>
+            <div class="d-flex flex-wrap gap-2">
+              <ng-container *ngFor="let interest of userProfile.interests">
+                <span class="badge interest-badge">{{ interest.name }}</span>
+              </ng-container>
+            </div>
+
+            <h5 class="mt-4">{{'LOCATION' | translate}}</h5>
+            <p class="text">{{userProfile.cp}}</p>
+          </div>
+
+          <!-- POSTS -->
+          <div *ngIf="activeTab === 'posts'">
+            <ng-container *ngFor="let post of userPosts">
+              <div class="card-post mb-4 p-3 text-white rounded">
+                <div class="d-flex">
+
+                  <div class="me-3">
+                    <img [src]="profileImageUrl" class="rounded-circle profile-picture-post" />
+                  </div>
+
+                  <div class="flex-grow-1">
+                    <h6 class="mb-1">{{ userProfile.username }}</h6>
+                    <p class="text mb-2">{{ post.post.description }}</p>
+
+                    <div class="d-flex flex-wrap gap-2 mt-2">
+                      <img *ngFor="let img of post.post.images" [src]="img.imageUrl" class="post-image" />
+                    </div>
+
+                    <div class="d-flex gap-4 mt-3 text-secondary align-items-center">
+                      <div class="d-flex align-items-center gap-1">
+                        <button class="btn btn-link p-0 text-danger" (click)="toggleLike(post)">
+                          <i class="bi" [ngClass]="post.likedByUser ? 'bi-heart-fill' : 'bi-heart'"></i>
+                        </button>
+                        <span>{{ post.commentLike }}</span>
+                      </div>
+                      <div><i class="bi bi-chat-left-text"></i> {{ post.commentNum }}</div>
+                    </div>                    
+
+                  </div>
+                </div>
+              </div>
+              <hr class="post-separator" />
+            </ng-container>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

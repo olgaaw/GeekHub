@@ -4,16 +4,9 @@ import { Observable, tap } from 'rxjs';
 import { environment } from '../../environments/environment';
 import { CreateUserRequest } from '../models/create-user-request.model';
 import { ActivateAccountRequest } from '../models/activate-account-request.model';
+import { LoginRequest, LoginResponse } from '../models/login.model';
 
-interface LoginRequest {
-  username: string;
-  password: string;
-}
 
-interface LoginResponse {
-  accessToken: string;
-  refreshToken: string;
-}
 
 @Injectable({
   providedIn: 'root'
@@ -26,23 +19,25 @@ export class AuthService {
     return this.http.post<LoginResponse>(`${environment.apiBaseUrl}/auth/login`, credentials)
       .pipe(
         tap(response => {
-          localStorage.setItem('accessToken', response.accessToken);
+          localStorage.setItem('token', response.token);
           localStorage.setItem('refreshToken', response.refreshToken);
+          localStorage.setItem('userId', response.id);
+          localStorage.setItem('username', response.username);
         })
       );
   }
 
   logout(): void {
-    localStorage.removeItem('accessToken');
+    localStorage.removeItem('token');
     localStorage.removeItem('refreshToken');
   }
 
   getAccessToken(): string | null {
-    return localStorage.getItem('accessToken');
+    return localStorage.getItem('token');
   }
 
   getRefreshToken(): string | null {
-    return localStorage.getItem('refreshToken');
+    return localStorage.getItem('token');
   }
 
   isLoggedIn(): boolean {

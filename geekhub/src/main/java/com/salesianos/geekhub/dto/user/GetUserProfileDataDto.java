@@ -12,6 +12,7 @@ public record GetUserProfileDataDto(
         String gender,
         String profilePicture,
         String bio,
+        int cp,
         Set<GetInterestDto> interests
 ) {
     public static GetUserProfileDataDto of(User user) {
@@ -21,6 +22,7 @@ public record GetUserProfileDataDto(
                 user.getGender(),
                 user.getProfilePicture(),
                 user.getBio(),
+                user.getCp(),
                 user.getInterests().stream()
                         .map(GetInterestDto::of)
                         .collect(Collectors.toSet())

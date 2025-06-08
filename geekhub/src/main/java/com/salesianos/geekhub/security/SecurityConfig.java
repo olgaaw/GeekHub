@@ -69,9 +69,11 @@ public class SecurityConfig {
                 .accessDeniedHandler(accessDeniedHandler)
         );
         http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(HttpMethod.GET,  "/user/{id}").permitAll()
+                .requestMatchers(HttpMethod.GET,  "/user/{id}", "post/user/{userId}", "/post/{id}", "/post/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/activate/account/", "/auth/refresh/token", "/auth/register/admin").permitAll()
+                .requestMatchers(HttpMethod.POST, "/post/{postId}/like").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/comment/{commentId}/delete/admin").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/like/{likeId}/deletebyUser").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/interest/{id}").hasRole("ADMIN")
                 .requestMatchers("/me/admin", "/user", "/interest").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**").permitAll()

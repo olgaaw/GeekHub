@@ -106,13 +106,63 @@ public class PostController {
                     description = "No se ha encontrado ningun post para el usuario",
                     content = @Content),
     })
-    @GetMapping("user/{userId}")
+    @GetMapping("user/{userId}/page")
     public ResponseEntity<Page<PostResponseDto>> getAllByUserId(@PathVariable UUID userId, @RequestParam(defaultValue = "0") Integer page, @RequestParam(defaultValue = "10") Integer size) {
 
         Page<Post> postsPage = postService.findAllByUserId(userId, page, size);
         Page<PostResponseDto> postsDtoPage = postsPage.map(PostResponseDto::of);
 
         return ResponseEntity.ok(postsDtoPage);
+    }
+
+    @Operation(summary = "Obtiene los posts de un usuario por su id")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = PostResponseDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                   {
+                                                       "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                       "description": "Este es un post de prueba 2",
+                                                       "date": "2025-02-22T11:00:00.000+00:00",
+                                                       "images": [
+                                                           {
+                                                               "imageUrl": "https://example.com/imagen1.jpg"
+                                                           },
+                                                           {
+                                                               "imageUrl": "https://example.com/imagen2.jpg"
+                                                           }
+                                                       ]
+                                                   },
+                                                   {
+                                                       "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                       "description": "Este es un post de prueba de John Doe",
+                                                       "date": "2025-02-23T09:00:00.000+00:00",
+                                                       "images": [
+                                                           {
+                                                               "imageUrl": "https://example.com/jdoe_post_image.jpg"
+                                                           }
+                                                       ]
+                                                   }
+                                               ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun post para el usuario",
+                    content = @Content),
+    })
+    @GetMapping("user/{userId}")
+    public ResponseEntity<List<PostResponseDto>> getAllByUserIdNoPagination(@PathVariable UUID userId) {
+        List<Post> posts = postService.findAllByUserId(userId);
+        List<PostResponseDto> response = posts.stream()
+                .map(PostResponseDto::of)
+                .toList();
+
+        return ResponseEntity.ok(response);
     }
 
 

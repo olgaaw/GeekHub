@@ -44,8 +44,8 @@ public class LikeController {
                     )}),
     })
     @PostMapping("/post/{postId}/like")
-    public ResponseEntity<LikeDto> createLike(@PathVariable UUID postId, @RequestBody LikeDto likeDto , @AuthenticationPrincipal User user) {
-        Like like = likeService.addLike(postId, likeDto ,user);
+    public ResponseEntity<LikeDto> createLike(@PathVariable UUID postId, @AuthenticationPrincipal User user) {
+        Like like = likeService.addLike(postId,user);
         return ResponseEntity.status(HttpStatus.CREATED).body(LikeDto.of(like));
     }
 

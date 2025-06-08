@@ -49,8 +49,9 @@ export class LoginComponent implements OnInit {
     const { username, password } = this.loginForm.value;
     this.authService.login({ username, password }).subscribe({
       next: () => {
-        this.router.navigate(['/home']);
-      },
+        const userId = localStorage.getItem('userId');
+        this.router.navigate(['/profile', userId]);
+      },      
       error: () => {
         this.showAlert('INVALID_CREDENTIALS', 'danger');
       }
