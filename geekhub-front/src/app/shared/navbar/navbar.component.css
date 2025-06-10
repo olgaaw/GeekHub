@@ -1,7 +1,7 @@
 .sidebar {
     background-color: #121212;
     color: white;
-    width: 240px;
+    width: 275px;
     border-right: 1px solid #272727;
 }
 
@@ -25,4 +25,12 @@
 
 .sidebar .text-primary {
     color: #6f42c1;
+}
+
+.logo {
+    width: 150px;
+}
+
+.icon {
+    width: 60px;
 }
