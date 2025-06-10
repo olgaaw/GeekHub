@@ -1,5 +1,6 @@
 package com.salesianos.geekhub.service;
 
+import com.salesianos.geekhub.dto.favourite.FavouriteUserDto;
 import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Favourite;
 import com.salesianos.geekhub.model.User;
@@ -12,6 +13,8 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 @RequiredArgsConstructor
@@ -53,6 +56,15 @@ public class FavouriteService {
 
         favouriteRepository.deleteByUserAndFavouriteUser(currentUser, favouriteUser);
     }
+
+    public List<Favourite> getMyFavourites(User user) {
+        return favouriteRepository.findAllByUserWithFavouriteUser(user);
+    }
+
+    public List<Favourite> getUsersWhoFavouritedMe(User user) {
+        return favouriteRepository.findAllByFavouriteUserWithUser(user);
+    }
+
 
 
 }
