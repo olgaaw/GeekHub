@@ -32,6 +32,14 @@
     height: auto;
     position: relative;
     z-index: 1;
+    top: -40px;
+}
+
+.icon {
+    width: 250px;
+    height: auto;
+    position: relative;
+    z-index: 1;
 }
 
 .login-form .form-control {
