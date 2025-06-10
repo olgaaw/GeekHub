@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { Router } from '@angular/router';
 import { AuthService } from '../../services/auth.service';
+import { TranslateService } from '../../services/translate.service';
 
 @Component({
   selector: 'app-login',
@@ -16,13 +17,20 @@ export class LoginComponent implements OnInit {
   alertMessage: string | null = null;
   alertType: string = '';
 
-  selectedLang = localStorage.getItem('language') || 'es';
+  selectedLang: string;
 
   constructor(
     private formBuilder: FormBuilder,
     private authService: AuthService,
+    private translateService: TranslateService,
     private router: Router
-  ) {}
+  ) {
+    this.selectedLang = this.translateService.currentLanguageValue;
+
+    this.translateService.currentLanguage$.subscribe(lang => {
+      this.selectedLang = lang;
+    });
+  }
 
   ngOnInit() {
     this.loginForm = this.formBuilder.group({
@@ -60,7 +68,6 @@ export class LoginComponent implements OnInit {
 
   changeLanguage(event: Event) {
     const select = event.target as HTMLSelectElement;
-    this.selectedLang = select.value;
-    localStorage.setItem('language', this.selectedLang);
+    this.translateService.setLanguage(select.value);
   }
 }
