@@ -48,7 +48,7 @@ public class User implements UserDetails {
     @Builder.Default
     private Instant createdAt = Instant.now();
 
-    @ManyToMany(fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(
             joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "interest_id")
