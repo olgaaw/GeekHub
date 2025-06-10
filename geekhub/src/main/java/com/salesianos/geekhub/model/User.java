@@ -66,6 +66,19 @@ public class User implements UserDetails {
     @ToString.Exclude
     private List<Like> likes = new ArrayList<>();
 
+    // Usuarios favoritos de este usuario (following)
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    @ToString.Exclude
+    private Set<Favourite> favourites = new HashSet<>();
+
+    // Usuarios que han marcado como favorito a este usuario (followers)
+    @OneToMany(mappedBy = "favouriteUser", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    @ToString.Exclude
+    private Set<Favourite> favoritedBy = new HashSet<>();
+
+
 
 
     //helpers
@@ -78,6 +91,21 @@ public class User implements UserDetails {
         this.interests.remove(i);
         i.getUsers().remove(this);
     }
+
+    public void addFavourite(User userToFavorite) {
+        Favourite fav = Favourite.builder()
+                .user(this)
+                .favouriteUser(userToFavorite)
+                .build();
+        this.favourites.add(fav);
+        userToFavorite.getFavoritedBy().add(fav);
+    }
+
+    public void removeFavourite(User userToRemove) {
+        this.favourites.removeIf(f -> f.getFavouriteUser().equals(userToRemove));
+        userToRemove.getFavoritedBy().removeIf(f -> f.getUser().equals(this));
+    }
+
 
 
     @Override
