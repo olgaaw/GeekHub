@@ -129,13 +129,12 @@ public class UserService {
     }
 
 
-
+    @Transactional
     public User findById(UUID id) {
-        return userRepository.findById(id).orElseThrow(() -> new UserNotFoundException(id));
+        return userRepository.findByIdWithInterests(id).orElseThrow(() -> new UserNotFoundException(id));
     }
 
-
-
+    @Transactional
     public Page<User> findAll(Integer page, Integer size) {
         Pageable pageable = PageRequest.of(page, size);
         Page<User> result = userRepository.findAll(pageable);
