@@ -69,7 +69,7 @@ public class SecurityConfig {
                 .accessDeniedHandler(accessDeniedHandler)
         );
         http.authorizeHttpRequests(authz -> authz
-                .requestMatchers(HttpMethod.GET,  "/user/{id}", "post/user/{userId}", "/post/{id}", "/post/**").permitAll()
+                .requestMatchers(HttpMethod.GET,  "/user/{id}", "post/user/{userId}", "/post/{id}", "/post/**", "/favourite/**").permitAll()
                 .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/activate/account/", "/auth/refresh/token", "/auth/register/admin").permitAll()
                 .requestMatchers(HttpMethod.POST, "/post/{postId}/like").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/comment/{commentId}/delete/admin").hasRole("ADMIN")

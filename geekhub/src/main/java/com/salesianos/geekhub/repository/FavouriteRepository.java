@@ -16,11 +16,12 @@ public interface FavouriteRepository extends JpaRepository<Favourite, UUID> {
 
     void deleteByUserAndFavouriteUser(User user, User favouriteUser);
 
-    @Query("SELECT f FROM Favourite f JOIN FETCH f.favouriteUser WHERE f.user = :user")
-    List<Favourite> findAllByUserWithFavouriteUser(@Param("user") User user);
+    @Query("SELECT f FROM Favourite f JOIN FETCH f.favouriteUser WHERE f.user.id = :userId")
+    List<Favourite> findAllByUserIdWithFavouriteUser(@Param("userId") UUID userId);
 
-    @Query("SELECT f FROM Favourite f JOIN FETCH f.user WHERE f.favouriteUser = :user")
-    List<Favourite> findAllByFavouriteUserWithUser(@Param("user") User user);
+    @Query("SELECT f FROM Favourite f JOIN FETCH f.user WHERE f.favouriteUser.id = :userId")
+    List<Favourite> findAllByFavouriteUserIdWithUser(@Param("userId") UUID userId);
+
 
 
 }

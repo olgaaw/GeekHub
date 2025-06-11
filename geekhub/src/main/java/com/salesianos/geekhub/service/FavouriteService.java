@@ -57,12 +57,12 @@ public class FavouriteService {
         favouriteRepository.deleteByUserAndFavouriteUser(currentUser, favouriteUser);
     }
 
-    public List<Favourite> getMyFavourites(User user) {
-        return favouriteRepository.findAllByUserWithFavouriteUser(user);
+    public List<Favourite> getMyFavourites(UUID userId) {
+        return favouriteRepository.findAllByUserIdWithFavouriteUser(userId);
     }
 
-    public List<Favourite> getUsersWhoFavouritedMe(User user) {
-        return favouriteRepository.findAllByFavouriteUserWithUser(user);
+    public List<Favourite> getUsersWhoFavouritedMe(UUID userId) {
+        return favouriteRepository.findAllByFavouriteUserIdWithUser(userId);
     }
 
 
