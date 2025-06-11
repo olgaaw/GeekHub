@@ -32,11 +32,17 @@
 }
   
 .logo {
-    width: 350px;
+    width: 250px;
     height: auto;
     position: relative;
     z-index: 1;
-    margin-bottom: 16px;
+}
+
+.icon {
+    width: 100px;
+    height: auto;
+    position: relative;
+    z-index: 1;
 }
   
 .login-form {

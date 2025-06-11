@@ -3,6 +3,7 @@ export interface PostDetails {
         id: string;
         userId: string;
         username: string;
+        profilePicture: string,
         description: string;
         date: string;
         images: { imageUrl: string }[];

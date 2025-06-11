@@ -311,6 +311,49 @@ public class PostController {
         return ResponseEntity.noContent().build();
     }
 
+    @Operation(summary = "Obtiene los posts de los usuarios marcados como favoritos")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetUserProfileDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                {
+                                                    "userId": "b7c449e4-1316-4ffc-a218-7a585fa128f8",
+                                                    "username": "emartinez",
+                                                    "profilePicture": "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSd3IbpKVGNFbBqbvQOi_XzHjk11OYToxtSw&s",
+                                                    "id": "eb94e0c1-9264-48b4-bb79-ffaf759ac6ba",
+                                                    "description": "Este es un post de prueba de Ethan Martinez",
+                                                    "date": "2025-02-23T17:15:00.000+00:00",
+                                                    "images": [
+                                                        {
+                                                            "imageUrl": "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime.jpg"
+                                                        }
+                                                    ]
+                                                },
+                                                {
+                                                    "userId": "a7c449e4-1316-4ffc-a218-7a585fa128f9",
+                                                    "username": "dlee",
+                                                    "profilePicture": "https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg",
+                                                    "id": "aeb6a582-8d9b-45c3-8a4b-9084823d2431",
+                                                    "description": "Este es un post de prueba de Diana Lee",
+                                                    "date": "2025-02-23T15:00:00.000+00:00",
+                                                    "images": [
+                                                        {
+                                                            "imageUrl": "https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime.jpg"
+                                                        }
+                                                    ]
+                                                }   
+                                            ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun post",
+                    content = @Content),
+    })
     @GetMapping("timeline")
     public List<PostResponseDto> getTimeline(@AuthenticationPrincipal User user) {
         return postService.getTimelinePosts(user.getId())

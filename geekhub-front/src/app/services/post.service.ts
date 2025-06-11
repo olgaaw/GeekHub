@@ -45,6 +45,15 @@ export class PostService {
     );
   }
 
+  getTimelinePosts(): Observable<PostResponse[]> {
+    return this.http.get<PostResponse[]>(
+      `${environment.apiBaseUrl}/post/timeline`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
+
+
 
 
 }
