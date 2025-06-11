@@ -40,6 +40,10 @@ export class AuthService {
     return localStorage.getItem('token');
   }
 
+  getUserId(): string | null {
+    return localStorage.getItem('userId');
+  }
+
   isLoggedIn(): boolean {
     return !!this.getAccessToken();
   }
@@ -47,12 +51,12 @@ export class AuthService {
   register(request: CreateUserRequest): Observable<any> {
     return this.http.post(`${environment.apiBaseUrl}/auth/register`, request);
   }
-  
-  
+
+
   verifyActivation(token: string): Observable<any> {
     const body: ActivateAccountRequest = { token };
     return this.http.post<any>(`${environment.apiBaseUrl}/activate/account/`, body);
   }
-  
-  
+
+
 }

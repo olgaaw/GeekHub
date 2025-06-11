@@ -1,0 +1,36 @@
+<div class="modal fade show custom-modal-visible" tabindex="-1" aria-modal="true" role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">{{ title }}</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="close()"></button>
+            </div>
+
+            <div class="modal-body">
+                <ul class="list-group" *ngIf="users.length > 0; else noUsers">
+                    <li class="list-group-item user-item" *ngFor="let user of users">
+                        <div class="user-left">
+                            <img [src]="user.profilePicture || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'"
+                                class="profile-picture" />
+                            <div class="user-info">
+                                <strong>{{ user.name }}</strong>
+                                <small>{{ user.username }}</small>
+                            </div>
+                        </div>
+
+                        <button class="btn btn-sm" [ngClass]="isFavourite(user.id) ? 'btn-secondary' : 'btn-custom'"
+                            (click)="toggleFavourite(user.id)">
+                            {{ isFavourite(user.id) ? 'Siguiendo' : 'Seguir' }}
+                        </button>
+                    </li>
+                </ul>
+
+                <ng-template #noUsers>
+                    <p>No hay usuarios para mostrar.</p>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="modal-backdrop fade show"></div>

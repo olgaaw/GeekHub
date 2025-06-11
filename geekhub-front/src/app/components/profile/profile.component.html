@@ -15,16 +15,27 @@
       <div class="row justify-content-center">
         <div class="col-10">
           <div class="d-flex align-items-center gap-4 profile-header">
-            <img [src]="profileImageUrl ? profileImageUrl : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'" class="rounded-circle profile-picture" />
+            <img
+              [src]="profileImageUrl ? profileImageUrl : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'"
+              class="rounded-circle profile-picture" />
             <div>
               <h4>{{ userProfile.name }}</h4>
               <p class="text">{{ userProfile.username }}</p>
               <p>{{ userProfile.bio }}</p>
               <div class="d-flex gap-4 profile-stats">
                 <div><strong>{{ totalPosts }}</strong><br /><small>{{'POSTS' | translate}}</small></div>
-                <div><strong>{{totalFollowing}}</strong><br /><small>{{'FOLLOWING' | translate}}</small></div>
-                <div><strong>{{totalFollowers}}</strong><br /><small>{{'FOLLOWERS' | translate}}</small></div>
+                <div (click)="openFollowingDialog()" style="cursor: pointer;">
+                  <strong>{{ totalFollowing }}</strong><br /><small>{{'FOLLOWING' | translate}}</small>
+                </div>
+                <div (click)="openFollowersDialog()" style="cursor: pointer;">
+                  <strong>{{ totalFollowers }}</strong><br /><small>{{'FOLLOWERS' | translate}}</small>
+                </div>
               </div>
+
+              <app-user-list-dialog *ngIf="showDialog" [users]="dialogUsers" [title]="dialogTitle"
+                (closed)="showDialog = false">
+              </app-user-list-dialog>
+
             </div>
           </div>
 
@@ -81,7 +92,7 @@
                         <span>{{ post.commentLike }}</span>
                       </div>
                       <div><i class="bi bi-chat-left-text"></i> {{ post.commentNum }}</div>
-                    </div>                    
+                    </div>
 
                   </div>
                 </div>

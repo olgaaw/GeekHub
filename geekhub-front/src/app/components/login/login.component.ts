@@ -7,12 +7,13 @@ import { TranslateService } from '../../services/translate.service';
 @Component({
   selector: 'app-login',
   styleUrls: ['./login.component.css'],
-  templateUrl: './login.component.html',
+  templateUrl: './login.component.html'
+
 })
 export class LoginComponent implements OnInit {
 
   loginForm!: FormGroup;
-  showPassword = true;
+  showPassword = false;
 
   alertMessage: string | null = null;
   alertType: string = '';

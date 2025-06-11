@@ -5,25 +5,25 @@ INSERT INTO user_entity (id, username, email, password, name, surname, phone, ad
 VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f3','user', 'asmith@example.com', '{noop}1234', 'Alice', 'Smith', '0987654321', '456 Oak St', 90211, 'Female', '1992-02-02', 'https://t4.ftcdn.net/jpg/02/66/72/41/360_F_266724172_Iy8gdKgMa7XmrhYYxLCxyhx6J7070Pr8.jpg', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f8','bwhite', 'bwhite@example.com', '{noop}hashed_password_3', 'Bob', 'White', '5555555555', '789 Pine St', 90212, 'Male', '1988-03-03', 'profile3.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f8','bwhite', 'bwhite@example.com', '{noop}hashed_password_3', 'Bob', 'White', '5555555555', '789 Pine St', 90212, 'Male', '1988-03-03', 'https://static.nationalgeographic.es/files/styles/image_3200/public/75552.ngsversion.1422285553360.jpg?w=1900&h=1267', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f9','dlee', 'dlee@example.com', '{noop}hashed_password_5', 'Diana', 'Lee', '3333333333', '654 Cedar St', 90214, 'Female', '1985-05-05', 'profile5.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f9','dlee', 'dlee@example.com', '{noop}hashed_password_5', 'Diana', 'Lee', '3333333333', '654 Cedar St', 90214, 'Female', '1985-05-05', 'https://urgenciesveterinaries.com/wp-content/uploads/2023/09/survet-gato-caida-pelo-01.jpeg', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('b7c449e4-1316-4ffc-a218-7a585fa128f8','emartinez', 'emartinez@example.com', '{noop}hashed_password_6', 'Ethan', 'Martinez', '2222222222', '987 Birch St', 90215, 'Male', '1993-06-06', 'profile6.jpg', 'Biography example',  true, NOW());
+VALUES ('b7c449e4-1316-4ffc-a218-7a585fa128f8','emartinez', 'emartinez@example.com', '{noop}hashed_password_6', 'Ethan', 'Martinez', '2222222222', '987 Birch St', 90215, 'Male', '1993-06-06', 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcTSd3IbpKVGNFbBqbvQOi_XzHjk11OYToxtSw&s', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f0','fgarcia', 'fgarcia@example.com', '{noop}hashed_password_7', 'Fiona', 'Garcia', '1111111111', '135 Willow St', 90216, 'Female', '1991-07-07', 'profile7.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f0','fgarcia', 'fgarcia@example.com', '{noop}hashed_password_7', 'Fiona', 'Garcia', '1111111111', '135 Willow St', 90216, 'Female', '1991-07-07', 'https://www.petz.com.br/blog/wp-content/uploads/2025/01/gato-cor1-scaled.jpg', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f7','gthompson', 'gthompson@example.com', '{noop}hashed_password_8', 'George', 'Thompson', '6666666666', '246 Spruce St', 90217, 'Male', '1989-08-08', 'profile8.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f7','gthompson', 'gthompson@example.com', '{noop}hashed_password_8', 'George', 'Thompson', '6666666666', '246 Spruce St', 90217, 'Male', '1989-08-08', 'https://www.hospitalveterinariouax.com/var/site/storage/images/3/9/9/2/72993-1-esl-ES/hero-gato-blog.jpg', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f6','hrodriguez', 'hrodriguez@example.com', '{noop}hashed_password_9', 'Hannah', 'Rodriguez', '7777777777', '357 Fir St', 90218, 'Female', '1994-09-09', 'profile9.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f6','hrodriguez', 'hrodriguez@example.com', '{noop}hashed_password_9', 'Hannah', 'Rodriguez', '7777777777', '357 Fir St', 90218, 'Female', '1994-09-09', 'https://album.mediaset.es/eimg/2024/04/25/gatos-carey_ad7a.jpg?w=1200', 'Biography example',  true, NOW());
 
 INSERT INTO user_entity (id, username, email, password, name, surname, phone, address, cp, gender, birthday, profile_picture, bio, enabled, created_at)
-VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f5','ijones', 'ijones@example.com', '{noop}hashed_password_10', 'Isaac', 'Jones', '8888888888', '468 Cherry St', 90219, 'Male', '1996-10-10', 'profile10.jpg', 'Biography example',  true, NOW());
+VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f5','ijones', 'ijones@example.com', '{noop}hashed_password_10', 'Isaac', 'Jones', '8888888888', '468 Cherry St', 90219, 'Male', '1996-10-10', 'https://www.mirringo.com.co/Portals/mirringo/Images/articulos-actualidad-gatuna/ciclo-de-vida-de-los-gatos/Interna-1-ciclo-de-vida-de-los-gatos.jpg?ver=2024-03-20-160432-910', 'Biography example',  true, NOW());
 
 
 
@@ -210,6 +210,10 @@ VALUES ('6795a345-622e-4e96-971e-4f826a2b1705', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34
 -- admin tiene como favoritos a user y bwhite
 INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f3');
 INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f9');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f0');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f7');
 
 -- user tiene como favoritos a bwhite, dlee y emartinez
 INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'a7c449e4-1316-4ffc-a218-7a585fa128f8');
