@@ -10,18 +10,33 @@ import { FavouriteUserResponse } from '../models/favourite-user-response.model';
 })
 export class ProfileService {
 
-  constructor(private http: HttpClient) {}
+  constructor(private http: HttpClient) { }
+
+
+  private getAuthHeaders(): HttpHeaders | undefined {
+    const token = localStorage.getItem('token');
+    return token ? new HttpHeaders().set('Authorization', `Bearer ${token}`) : undefined;
+  }
 
   getProfileById(id: string): Observable<UserProfileDataResponse> {
-    return this.http.get<UserProfileDataResponse>(`${environment.apiBaseUrl}/user/${id}`);
+    return this.http.get<UserProfileDataResponse>(
+      `${environment.apiBaseUrl}/user/${id}`,
+      { headers: this.getAuthHeaders() }
+    );
   }
 
   getFollowers(userId: string): Observable<FavouriteUserResponse[]> {
-    return this.http.get<FavouriteUserResponse[]>(`${environment.apiBaseUrl}/favourite/followers/${userId}`);
+    return this.http.get<FavouriteUserResponse[]>(
+      `${environment.apiBaseUrl}/favourite/followers/${userId}`,
+      { headers: this.getAuthHeaders() }
+    );
   }
 
   getFollowing(userId: string): Observable<FavouriteUserResponse[]> {
-    return this.http.get<FavouriteUserResponse[]>(`${environment.apiBaseUrl}/favourite/following/${userId}`);
+    return this.http.get<FavouriteUserResponse[]>(
+      `${environment.apiBaseUrl}/favourite/following/${userId}`,
+      { headers: this.getAuthHeaders() }
+    );
   }
-  
+
 }

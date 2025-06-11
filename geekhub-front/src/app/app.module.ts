@@ -13,6 +13,7 @@ import { RegisterComponent } from './components/register/register.component';
 import { ActivateAccountComponent } from './components/activate-account/activate-account.component';
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
+import { UserListDialogComponent } from './shared/user-list-dialog/user-list-dialog.component';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { ProfileComponent } from './components/profile/profile.component';
     ActivateAccountComponent,
     NavbarComponent,
     ProfileComponent,
+    UserListDialogComponent
   ],
   imports: [
     BrowserModule,

@@ -4,9 +4,11 @@ import com.salesianos.geekhub.dto.interest.GetInterestDto;
 import com.salesianos.geekhub.model.User;
 
 import java.util.Set;
+import java.util.UUID;
 import java.util.stream.Collectors;
 
 public record GetUserProfileDataDto(
+        UUID id,
         String username,
         String name,
         String gender,
@@ -17,6 +19,7 @@ public record GetUserProfileDataDto(
 ) {
     public static GetUserProfileDataDto of(User user) {
         return new GetUserProfileDataDto(
+                user.getId(),
                 user.getUsername(),
                 user.getName(),
                 user.getGender(),

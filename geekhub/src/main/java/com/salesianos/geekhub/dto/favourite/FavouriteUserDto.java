@@ -8,12 +8,14 @@ import java.util.UUID;
 public record FavouriteUserDto(
         UUID id,
         String username,
+        String name,
         String profilePicture
 ) {
     public static FavouriteUserDto of(User user) {
         return new FavouriteUserDto(
                 user.getId(),
                 user.getUsername(),
+                user.getName(),
                 user.getProfilePicture()
         );
     }

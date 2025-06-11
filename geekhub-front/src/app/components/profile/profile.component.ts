@@ -5,6 +5,9 @@ import { ProfileService } from '../../services/profile.service';
 import { PostService } from '../../services/post.service';
 import { forkJoin } from 'rxjs';
 import { ExtendedPostDetails } from '../../models/post-detail.model';
+import { MatDialog } from '@angular/material/dialog';
+import { FavouriteUserResponse } from '../../models/favourite-user-response.model';
+import { UserListDialogComponent } from '../../shared/user-list-dialog/user-list-dialog.component';
 
 @Component({
   selector: 'app-profile',
@@ -20,6 +23,9 @@ export class ProfileComponent implements OnInit {
   userPosts: ExtendedPostDetails[] = [];
   totalFollowing: number = 0;
   totalFollowers: number = 0;
+  showDialog = false;
+  dialogUsers: FavouriteUserResponse[] = [];
+  dialogTitle = '';
 
   constructor(
     private profileService: ProfileService,
@@ -29,7 +35,7 @@ export class ProfileComponent implements OnInit {
 
   ngOnInit(): void {
     this.userId = this.route.snapshot.paramMap.get('id')!;
-  
+
     this.profileService.getProfileById(this.userId).subscribe(response => {
       this.userProfile = response;
       this.profileImageUrl = response.profilePicture;
@@ -42,15 +48,15 @@ export class ProfileComponent implements OnInit {
     this.profileService.getFollowers(this.userId).subscribe(followers => {
       this.totalFollowers = followers.length;
     });
-  
+
     this.postService.getAllPostsByUserId(this.userId).subscribe({
       next: posts => {
         this.totalPosts = posts.length;
-    
+
         const detailRequests = posts.map(post =>
           this.postService.getPostDetails(post.id)
         );
-    
+
         forkJoin(detailRequests).subscribe({
           next: postDetails => {
             this.userPosts = postDetails;
@@ -58,7 +64,7 @@ export class ProfileComponent implements OnInit {
         });
       },
     });
-    
+
   }
 
   toggleLike(post: ExtendedPostDetails) {
@@ -73,11 +79,28 @@ export class ProfileComponent implements OnInit {
       this.postService.likePost(post.post.id).subscribe({
         next: (res) => {
           post.likedByUser = true;
-          post.likeId = res.id; 
+          post.likeId = res.id;
           post.commentLike++;
         },
       });
     }
+  }
+
+  openFollowersDialog() {
+    this.profileService.getFollowers(this.userProfile.id).subscribe(users => {
+      this.dialogUsers = users;
+      this.dialogTitle = 'Seguidores';
+      this.showDialog = true;
+    });
+  }
+
+  openFollowingDialog() {
+    this.profileService.getFollowing(this.userProfile.id).subscribe(users => {
+      this.dialogUsers = users;
+      this.dialogTitle = 'Seguidos';
+      this.showDialog = true;
+    });
+
   }
 
 }
