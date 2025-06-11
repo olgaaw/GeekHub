@@ -34,8 +34,14 @@ public interface PostRepository extends JpaRepository<Post, UUID> {
     @Query("SELECT l.user FROM Like l WHERE l.post.id = :postId")
     Page<User> findUsersLikedPost(@Param("postId") UUID postId, Pageable pageable);
 
-
-
+    @EntityGraph(attributePaths = {"user", "images"})
+    @Query("""
+            SELECT p FROM Post p
+            JOIN Favourite f ON f.favouriteUser = p.user
+            WHERE f.user.id = :userId
+            ORDER BY p.dateP DESC
+            """)
+    List<Post> findTimelinePosts(@Param("userId") UUID userId);
 
 
 

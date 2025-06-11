@@ -133,7 +133,10 @@ public class PostService {
 
     }
 
-
+    @Transactional
+    public List<Post> getTimelinePosts(UUID userId) {
+        return postRepository.findTimelinePosts(userId);
+    }
 
 
 }
