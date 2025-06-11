@@ -80,9 +80,9 @@ public class FavouriteController {
                                      ]
                                     """)))
     })
-    @GetMapping("/following")
-    public ResponseEntity<List<FavouriteUserDto>> getMyFavourites(@AuthenticationPrincipal User user) {
-        List<Favourite> favourites = favouriteService.getMyFavourites(user);
+    @GetMapping("/following/{userId}")
+    public ResponseEntity<List<FavouriteUserDto>> getFollowingByUserId(@PathVariable UUID userId) {
+        List<Favourite> favourites = favouriteService.getMyFavourites(userId);
         List<FavouriteUserDto> dtoList = favourites.stream()
                 .map(f -> FavouriteUserDto.of(f.getFavouriteUser()))
                 .toList();
@@ -110,9 +110,9 @@ public class FavouriteController {
                                     ]
                                     """)))
     })
-    @GetMapping("/followers")
-    public ResponseEntity<List<FavouriteUserDto>> getUsersWhoFavouritedMe(@AuthenticationPrincipal User user) {
-        List<Favourite> favourites = favouriteService.getUsersWhoFavouritedMe(user);
+    @GetMapping("/followers/{userId}")
+    public ResponseEntity<List<FavouriteUserDto>> getFollowersByUserId(@PathVariable UUID userId) {
+        List<Favourite> favourites = favouriteService.getUsersWhoFavouritedMe(userId);
         List<FavouriteUserDto> dtoList = favourites.stream()
                 .map(f -> FavouriteUserDto.of(f.getUser()))
                 .toList();

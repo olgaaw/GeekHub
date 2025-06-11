@@ -18,6 +18,8 @@ export class ProfileComponent implements OnInit {
   totalPosts: number = 0;
   activeTab: 'details' | 'posts' = 'details';
   userPosts: ExtendedPostDetails[] = [];
+  totalFollowing: number = 0;
+  totalFollowers: number = 0;
 
   constructor(
     private profileService: ProfileService,
@@ -31,6 +33,14 @@ export class ProfileComponent implements OnInit {
     this.profileService.getProfileById(this.userId).subscribe(response => {
       this.userProfile = response;
       this.profileImageUrl = response.profilePicture;
+    });
+
+    this.profileService.getFollowing(this.userId).subscribe(following => {
+      this.totalFollowing = following.length;
+    });
+
+    this.profileService.getFollowers(this.userId).subscribe(followers => {
+      this.totalFollowers = followers.length;
     });
   
     this.postService.getAllPostsByUserId(this.userId).subscribe({
