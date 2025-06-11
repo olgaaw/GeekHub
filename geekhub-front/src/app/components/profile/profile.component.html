@@ -68,38 +68,10 @@
 
           <!-- POSTS -->
           <div *ngIf="activeTab === 'posts'">
-            <ng-container *ngFor="let post of userPosts">
-              <div class="card-post mb-4 p-3 text-white rounded">
-                <div class="d-flex">
-
-                  <div class="me-3">
-                    <img [src]="profileImageUrl" class="rounded-circle profile-picture-post" />
-                  </div>
-
-                  <div class="flex-grow-1">
-                    <h6 class="mb-1">{{ userProfile.username }}</h6>
-                    <p class="text mb-2">{{ post.post.description }}</p>
-
-                    <div class="d-flex flex-wrap gap-2 mt-2">
-                      <img *ngFor="let img of post.post.images" [src]="img.imageUrl" class="post-image" />
-                    </div>
-
-                    <div class="d-flex gap-4 mt-3 text-secondary align-items-center">
-                      <div class="d-flex align-items-center gap-1">
-                        <button class="btn btn-link p-0 text-danger" (click)="toggleLike(post)">
-                          <i class="bi" [ngClass]="post.likedByUser ? 'bi-heart-fill' : 'bi-heart'"></i>
-                        </button>
-                        <span>{{ post.commentLike }}</span>
-                      </div>
-                      <div><i class="bi bi-chat-left-text"></i> {{ post.commentNum }}</div>
-                    </div>
-
-                  </div>
-                </div>
-              </div>
-              <hr class="post-separator" />
-            </ng-container>
+            <app-post [posts]="userPosts" [profileImageUrl]="profileImageUrl" [username]="userProfile.username"
+              (likeToggle)="toggleLike($event)"></app-post>
           </div>
+
         </div>
       </div>
     </div>

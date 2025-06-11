@@ -1,0 +1,6 @@
+<div class="d-flex profile-container">
+    <app-navbar></app-navbar>
+     <div class="content flex-grow-1 mx-5 mt-5">
+    <app-post [posts]="timelinePosts" (likeToggle)="onToggleLike($event)"></app-post>
+  </div>
+</div>

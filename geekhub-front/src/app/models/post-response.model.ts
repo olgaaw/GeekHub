@@ -5,6 +5,7 @@ export interface PostImage {
 export interface PostResponse {
     userId: string;
     username: string;
+    profilePicture: string,
     id: string;
     description: string;
     date: string;

@@ -14,6 +14,8 @@ import { ActivateAccountComponent } from './components/activate-account/activate
 import { NavbarComponent } from './shared/navbar/navbar.component';
 import { ProfileComponent } from './components/profile/profile.component';
 import { UserListDialogComponent } from './shared/user-list-dialog/user-list-dialog.component';
+import { HomeComponent } from './components/home/home.component';
+import { PostComponent } from './shared/post/post.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +26,9 @@ import { UserListDialogComponent } from './shared/user-list-dialog/user-list-dia
     ActivateAccountComponent,
     NavbarComponent,
     ProfileComponent,
-    UserListDialogComponent
+    UserListDialogComponent,
+    HomeComponent,
+    PostComponent
   ],
   imports: [
     BrowserModule,

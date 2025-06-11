@@ -10,6 +10,7 @@ import java.util.stream.Collectors;
 public record PostResponseDto(
         UUID userId,
         String username,
+        String profilePicture,
         UUID id,
         String description,
         Date date,
@@ -20,6 +21,7 @@ public record PostResponseDto(
         return new PostResponseDto(
                 post.getUser().getId(),
                 post.getUser().getUsername(),
+                post.getUser().getProfilePicture(),
                 post.getId(),
                 post.getDescription(),
                 post.getDateP(),
