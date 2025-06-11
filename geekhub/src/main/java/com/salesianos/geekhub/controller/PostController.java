@@ -255,10 +255,10 @@ public class PostController {
                     content = @Content),
     })
     @GetMapping("{id}")
-    public GetPostDetailsDto getDetailsById(@PathVariable UUID id) {
+    public ResponseEntity<GetPostDetailsDto> getDetailsById(@PathVariable UUID id) {
         Post post = postService.findDetailsById(id);
 
-        return GetPostDetailsDto.of(post);
+        return ResponseEntity.ok(GetPostDetailsDto.of(post));
 
     }
 
@@ -310,5 +310,14 @@ public class PostController {
         postService.deleteByUser(postId, user);
         return ResponseEntity.noContent().build();
     }
+
+    @GetMapping("timeline")
+    public List<PostResponseDto> getTimeline(@AuthenticationPrincipal User user) {
+        return postService.getTimelinePosts(user.getId())
+                .stream()
+                .map(PostResponseDto::of)
+                .toList();
+    }
+
 
 }
