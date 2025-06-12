@@ -16,6 +16,8 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { UserListDialogComponent } from './shared/user-list-dialog/user-list-dialog.component';
 import { HomeComponent } from './components/home/home.component';
 import { PostComponent } from './shared/post/post.component';
+import { PostDetailComponent } from './components/post-detail/post-detail.component';
+import { CommentComponent } from './shared/comment/comment.component';
 
 @NgModule({
   declarations: [
@@ -28,7 +30,9 @@ import { PostComponent } from './shared/post/post.component';
     ProfileComponent,
     UserListDialogComponent,
     HomeComponent,
-    PostComponent
+    PostComponent,
+    PostDetailComponent,
+    CommentComponent
   ],
   imports: [
     BrowserModule,

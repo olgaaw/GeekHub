@@ -1,0 +1,25 @@
+<div *ngIf="comments.length > 0; else noComments">
+    <div *ngFor="let comment of comments" class="comment-wrapper">
+        <div class="comment">
+            <img [src]="comment.profilePicture" alt="Foto de perfil" class="profile-picture">
+            <div class="comment-body">
+                <strong>{{ comment.username }}</strong>
+                <p>{{ comment.content }}</p>
+                <small class="date">{{ comment.createdAt | date: 'short' }}</small>
+            </div>
+        </div>
+        <hr class="post-separator" />
+    </div>
+</div>
+
+<div class="new-comment-box">
+    <textarea [(ngModel)]="newComment" placeholder="Escribe un comentario..."></textarea>
+    <button (click)="submitComment()" [disabled]="!newComment.trim()">Publicar</button>
+</div>
+<div style="height: 120px;"></div>
+
+
+
+<ng-template #noComments>
+    <p>No hay comentarios aún.</p>
+</ng-template>
