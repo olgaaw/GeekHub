@@ -52,8 +52,11 @@ export class PostService {
     );
   }
 
-
-
+  createPost(formData: FormData): Observable<any> {
+    return this.http.post(`${environment.apiBaseUrl}/post/`, formData, {
+      headers: this.getAuthHeaders()
+    });
+  }
 
 
 }
