@@ -7,9 +7,10 @@ import { ExtendedPostDetails } from '../../models/post-detail.model';
   styleUrl: './post.component.css'
 })
 export class PostComponent {
- @Input() posts: ExtendedPostDetails[] = [];
+  @Input() posts: ExtendedPostDetails[] = [];
   @Input() profileImageUrl: string = '';
   @Input() username: string = '';
+  @Input() postId: string = '';
   @Output() likeToggle = new EventEmitter<ExtendedPostDetails>();
 
   onToggleLike(post: ExtendedPostDetails) {
@@ -22,6 +23,10 @@ export class PostComponent {
 
   getUsername(post: ExtendedPostDetails): string {
     return post.post?.username || this.username;
+  }
+
+  getPostId(post: ExtendedPostDetails): string {
+    return post.post?.id || this.postId;
   }
 
 }

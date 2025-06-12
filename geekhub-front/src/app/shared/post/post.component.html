@@ -20,7 +20,7 @@
             </button>
             <span>{{ post.commentLike }}</span>
           </div>
-          <div><i class="bi bi-chat-left-text"></i> {{ post.commentNum }}</div>
+          <div><i class="bi bi-chat-left-text" [routerLink]="['/post', getPostId(post)]" ></i> {{ post.commentNum }}</div>
         </div>
       </div>
     </div>
