@@ -1,0 +1,22 @@
+<div class="card post-box d-flex flex-column new-comment-box mt-3 mb-4">
+    <div class="d-flex align-items-start">
+        <img [src]="profilePicture ? profilePicture : 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'"
+            class="rounded-circle profile-picture me-3" alt="avatar" />
+        <textarea [(ngModel)]="newPostText" placeholder="¿Qué está pasando?"></textarea>
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mt-2 ms-5">
+        <div class="icon-group d-flex gap-3">
+            <label>
+                <i class="bi bi-image"></i>
+                <input type="file" (change)="onFileSelected($event)" multiple accept="image/*" style="display: none;">
+            </label>
+        </div>
+        <button class="btn" (click)="createPost()" [disabled]="!newPostText.trim()">Publicar</button>
+    </div>
+
+    <div *ngIf="selectedFiles.length > 0" class="ms-5 mt-2">
+        <span *ngFor="let file of selectedFiles">{{ file.name }} </span>
+    </div>
+</div>
+<hr class="post-separator" />

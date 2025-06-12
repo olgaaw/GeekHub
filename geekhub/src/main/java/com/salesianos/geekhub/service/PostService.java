@@ -42,18 +42,20 @@ public class PostService {
 
         List<Image> images = new ArrayList<>();
 
-        for (MultipartFile file : files) {
-            FileMetadata fileMetadata = storageService.store(file);
-
-            String imageUrl = fileMetadata.getURL();
-
-            if (imageUrl != null) {
-                Image image = new Image();
-                image.setImageUrl(imageUrl);
-                image.setPost(post);
-                images.add(image);
-            } else {
-                throw new StorageException("Error al generar URL para la imagen");
+        if (files != null) {
+            for (MultipartFile file : files) {
+                if (!file.isEmpty()) {
+                    FileMetadata fileMetadata = storageService.store(file);
+                    String imageUrl = fileMetadata.getURL();
+                    if (imageUrl != null) {
+                        Image image = new Image();
+                        image.setImageUrl(imageUrl);
+                        image.setPost(post);
+                        images.add(image);
+                    } else {
+                        throw new StorageException("Error al generar URL para la imagen");
+                    }
+                }
             }
         }
 

@@ -18,6 +18,7 @@ import { HomeComponent } from './components/home/home.component';
 import { PostComponent } from './shared/post/post.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { CommentComponent } from './shared/comment/comment.component';
+import { CreatePostComponent } from './shared/create-post/create-post.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { CommentComponent } from './shared/comment/comment.component';
     HomeComponent,
     PostComponent,
     PostDetailComponent,
-    CommentComponent
+    CommentComponent,
+    CreatePostComponent
   ],
   imports: [
     BrowserModule,

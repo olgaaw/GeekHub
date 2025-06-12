@@ -60,7 +60,7 @@ public class PostController {
                     )}),
     })
     @PostMapping
-    public ResponseEntity<PostResponseDto> crear(@RequestPart("files") MultipartFile[] files, @Valid @RequestPart("post") CreatePostRequestDto createPostRequestDto, @AuthenticationPrincipal User user) {
+    public ResponseEntity<PostResponseDto> crear(@RequestPart(value = "files", required = false) MultipartFile[] files, @Valid @RequestPart("post") CreatePostRequestDto createPostRequestDto, @AuthenticationPrincipal User user) {
         Post post = postService.crearPost(createPostRequestDto, files, user);
 
         return ResponseEntity.status(HttpStatus.CREATED).body(PostResponseDto.of(post));
