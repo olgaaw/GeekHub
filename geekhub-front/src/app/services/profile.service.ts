@@ -39,4 +39,10 @@ export class ProfileService {
     );
   }
 
+  editUser(formData: FormData) {
+    return this.http.put<any>(`${environment.apiBaseUrl}/user/edit`, formData,
+      { headers: this.getAuthHeaders() });
+  }
+
+
 }

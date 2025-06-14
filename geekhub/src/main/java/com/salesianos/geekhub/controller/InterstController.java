@@ -2,7 +2,9 @@ package com.salesianos.geekhub.controller;
 
 import com.salesianos.geekhub.dto.interest.EditInterestCmd;
 import com.salesianos.geekhub.dto.interest.GetInterestDto;
+import com.salesianos.geekhub.dto.post.PostResponseDto;
 import com.salesianos.geekhub.model.Interest;
+import com.salesianos.geekhub.model.Post;
 import com.salesianos.geekhub.model.User;
 import com.salesianos.geekhub.service.InterestService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -21,6 +23,7 @@ import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.UUID;
 
 @RestController
@@ -30,6 +33,61 @@ import java.util.UUID;
 public class InterstController {
 
     private final InterestService interestService;
+
+    @Operation(summary = "Obtiene todos los intereses")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "200",
+                    description = "Se han encontrado datos",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetInterestDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            [
+                                                   {
+                                                            "name": "Anime",
+                                                            "picture": "anime_picture.jpg"
+                                                        },
+                                                        {
+                                                            "name": "Videojuegos",
+                                                            "picture": "videojuegos_picture.jpg"
+                                                        },
+                                                        {
+                                                            "name": "Música",
+                                                            "picture": "musica_picture.jpg"
+                                                        },
+                                                        {
+                                                            "name": "Deportes",
+                                                            "picture": "deportes_picture.jpg"
+                                                        },
+                                                        {
+                                                            "name": "Cine",
+                                                            "picture": "cine_picture.jpg"
+                                                        },
+                                                        {
+                                                            "name": "Libros",
+                                                            "picture": "libros_picture.jpg"
+                                                        },
+                                                        {
+                                                            "name": "Viajes",
+                                                            "picture": "viajes_picture.jpg"
+                                                        },
+                                               ]
+                                            """
+                            )}
+                    )}),
+            @ApiResponse(responseCode = "404",
+                    description = "No se ha encontrado ningun interes",
+                    content = @Content),
+    })
+    @GetMapping
+    public ResponseEntity<List<GetInterestDto>> getAll() {
+        List<Interest> interests = interestService.findAll();
+        List<GetInterestDto> response = interests.stream()
+                .map(GetInterestDto::of)
+                .toList();
+
+        return ResponseEntity.ok(response);
+    }
 
     @Operation(summary = "Crea un interés")
     @ApiResponses(value = {
@@ -82,10 +140,10 @@ public class InterstController {
     }
 
 
-    @Operation(summary = "Un usuaio con rol ADMIN elimina un comentario del usuario loggeado por su id")
+    @Operation(summary = "Un usuario con rol ADMIN elimina un interés")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "204",
-                    description = "Se ha eliminado un comentario",
+                    description = "Se ha eliminado un interés",
                     content = @Content),
     })
     @PostAuthorize("hasRole('ADMIN')")

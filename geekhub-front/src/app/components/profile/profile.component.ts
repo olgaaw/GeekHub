@@ -8,6 +8,7 @@ import { ExtendedPostDetails } from '../../models/post-detail.model';
 import { MatDialog } from '@angular/material/dialog';
 import { FavouriteUserResponse } from '../../models/favourite-user-response.model';
 import { UserListDialogComponent } from '../../shared/user-list-dialog/user-list-dialog.component';
+import { EditProfileComponent } from '../edit-profile/edit-profile.component';
 
 @Component({
   selector: 'app-profile',
@@ -26,11 +27,15 @@ export class ProfileComponent implements OnInit {
   showDialog = false;
   dialogUsers: FavouriteUserResponse[] = [];
   dialogTitle = '';
+  showModal = false;
+  editProfileData: any = null;
+
 
   constructor(
     private profileService: ProfileService,
     private postService: PostService,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+    private dialog: MatDialog,
   ) { }
 
   ngOnInit(): void {
@@ -100,7 +105,25 @@ export class ProfileComponent implements OnInit {
       this.dialogTitle = 'Seguidos';
       this.showDialog = true;
     });
+  }
 
+  loadProfile() {
+    this.profileService.getProfileById(this.userId).subscribe(data => {
+      this.userProfile = data;
+      this.profileImageUrl = data.profilePicture;
+    });
+  }
+
+  openEditModal() {
+    this.showModal = true;
+  }
+
+  onModalClose() {
+    this.showModal = false;
+  }
+
+  onProfileUpdated() {
+    this.loadProfile();
   }
 
 }

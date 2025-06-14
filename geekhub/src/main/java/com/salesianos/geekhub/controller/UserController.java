@@ -22,6 +22,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.java.Log;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
@@ -32,6 +33,7 @@ import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -279,18 +281,45 @@ public class UserController {
     @Operation(summary = "Edita un usuario por su id")
     @ApiResponses(value = {
             @ApiResponse(responseCode = "200",
-                    description = "Usuario editado"),
+                    description = "Usuario editado",
+                    content = { @Content(mediaType = "application/json",
+                            array = @ArraySchema(schema = @Schema(implementation = GetUserProfileDataDto.class)),
+                            examples = {@ExampleObject(
+                                    value = """
+                                            {
+                                                "id": "a7c449e4-1316-4ffc-a218-7a585fa128f4",
+                                                "username": "admin",
+                                                "name": "John",
+                                                "gender": "Male",
+                                                "profilePicture": "http://localhost:8080/download/gato_718457.jpg",
+                                                "bio": "Biography example",
+                                                "cp": 90210,
+                                                "interests": [
+                                                    {
+                                                        "name": "Magic: The Gathering",
+                                                        "picture": "magic_the_gathering_picture.jpg"
+                                                    },
+                                                    {
+                                                        "name": "Dominion",
+                                                        "picture": "dominion_picture.jpg"
+                                                    }
+                                                ]
+                                            }
+                                             """
+                            )}
+                    )}),
             @ApiResponse(responseCode = "404",
                     description = "No se ha encontrado el usuario ",
                     content = @Content),
     })
-    @PutMapping("/user/edit")
-    public ResponseEntity<GetUserPrivateDataDto> edit(@RequestBody EditUserCmd editUserCmd, @AuthenticationPrincipal User user) {
+    @PutMapping(value = "/user/edit", consumes = MediaType.MULTIPART_FORM_DATA_VALUE)
+    public ResponseEntity<GetUserPrivateDataDto> edit(@RequestPart("editUserCmd") EditUserCmd editUserCmd, @AuthenticationPrincipal User user, @RequestPart(value = "file", required = false) MultipartFile file ) {
 
-        User updatedUser = userService.edit(editUserCmd, user);
+        User updatedUser = userService.edit(editUserCmd, user, file);
 
         return ResponseEntity.ok(GetUserPrivateDataDto.of(updatedUser));
     }
+
 
 
 

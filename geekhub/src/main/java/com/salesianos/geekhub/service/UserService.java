@@ -5,6 +5,9 @@ import com.salesianos.geekhub.dto.user.EditUserCmd;
 import com.salesianos.geekhub.error.ActivationExpiredException;
 import com.salesianos.geekhub.error.InterestNotFoundException;
 import com.salesianos.geekhub.error.UserNotFoundException;
+import com.salesianos.geekhub.files.exception.StorageException;
+import com.salesianos.geekhub.files.model.FileMetadata;
+import com.salesianos.geekhub.files.service.StorageService;
 import com.salesianos.geekhub.model.Interest;
 import com.salesianos.geekhub.model.Role;
 import com.salesianos.geekhub.model.User;
@@ -21,6 +24,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.server.ResponseStatusException;
 
 import java.time.Instant;
@@ -41,6 +45,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final SendGridMailSender mailSender;
     private final InterestRepository interestRepository;
+    private final StorageService storageService;
 
 
     @Value("${activation.duration}")
@@ -148,8 +153,9 @@ public class UserService {
 
 
 
-    public User edit(EditUserCmd editUserCmd, User userP) {
-        User user = userRepository.findById(userP.getId()).orElseThrow(() -> new UserNotFoundException(userP.getId()));
+    public User edit(EditUserCmd editUserCmd, User userP, MultipartFile file) {
+        User user = userRepository.findByIdWithInterests(userP.getId()).orElseThrow(() -> new UserNotFoundException(userP.getId()));
+        user.getInterests().size();
 
         if (editUserCmd.username() != null) {
             user.setUsername(editUserCmd.username());
@@ -175,23 +181,30 @@ public class UserService {
         if (editUserCmd.birthday() != null) {
             user.setBirthday(editUserCmd.birthday());
         }
-        if (editUserCmd.profilePicture() != null) {
-            user.setProfilePicture(editUserCmd.profilePicture());
-        }
         if (editUserCmd.bio() != null) {
             user.setBio(editUserCmd.bio());
         }
 
-        Set<Interest> interests = new HashSet<>();
+        if (file != null && !file.isEmpty()) {
+            FileMetadata fileMetadata = storageService.store(file);
+            String imageUrl = fileMetadata.getURL();
+            if (imageUrl != null) {
+                user.setProfilePicture(imageUrl);
+            } else {
+                throw new StorageException("Error al subir la imagen de perfil");
+            }
+        } else if (editUserCmd.profilePicture() != null) {
+            user.setProfilePicture(editUserCmd.profilePicture());
+        }
 
         if (editUserCmd.interests() != null && !editUserCmd.interests().isEmpty()) {
-            interests = editUserCmd.interests().stream()
+            Set<Interest> interests = editUserCmd.interests().stream()
                     .map(interestDto -> interestRepository.findByName(interestDto.name())
                             .orElseThrow(() -> new InterestNotFoundException("Interés no encontrado: " + interestDto.name())))
                     .collect(Collectors.toSet());
-        }
 
-        user.setInterests(interests);
+            user.setInterests(interests);
+        }
 
         return userRepository.save(user);
     }

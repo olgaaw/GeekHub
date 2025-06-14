@@ -1,0 +1,45 @@
+.custom-modal-visible {
+  display: block;
+}
+
+.modal-content,
+.modal-body,
+.modal-header,
+.modal-footer,
+.list-group {
+  background-color: #030303;
+  color: white;
+  border: none;
+}
+
+.btn-close {
+  filter: invert(1);
+  opacity: 1;
+}
+
+.btn-custom {
+  background-color: #6f42c1;
+  color: white;
+  width: 80px;
+}
+
+.btn-secondary {
+  background-color: #6c757d;
+  color: white;
+  width: 80px;
+}
+
+.form-control,
+.form-select {
+  background-color: #0e0e0e;
+  color: white;
+  border: 1px solid #1a1a1a;
+}
+
+label {
+  margin-bottom: 5px;
+}
+
+.modal-title {
+  color: white;
+}

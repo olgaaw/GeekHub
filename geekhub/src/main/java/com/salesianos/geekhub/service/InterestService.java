@@ -3,6 +3,7 @@ package com.salesianos.geekhub.service;
 import com.salesianos.geekhub.dto.interest.EditInterestCmd;
 import com.salesianos.geekhub.dto.interest.GetInterestDto;
 import com.salesianos.geekhub.error.InterestNotFoundException;
+import com.salesianos.geekhub.error.UserNotFoundException;
 import com.salesianos.geekhub.model.Comment;
 import com.salesianos.geekhub.model.Interest;
 import com.salesianos.geekhub.model.User;
@@ -23,6 +24,16 @@ public class InterestService {
 
     private final InterestRepository interestRepository;
     private final UserRepository userRepository;
+
+    public List<Interest> findAll() {
+        List<Interest> interests = interestRepository.findAll();
+
+        if (interests.isEmpty()) {
+            throw new InterestNotFoundException();
+        }
+
+        return interests;
+    }
 
     public Interest create(GetInterestDto interestDto) {
 
