@@ -2,6 +2,11 @@
   display: block;
 }
 
+.modal-header {
+  border-bottom: none;
+}
+
+
 .user-item {
   display: flex;
   align-items: center;

@@ -4,9 +4,10 @@
   <div class="flex-grow-1 profile-content mx-5 mt-5">
     <div class="container-fluid position-relative">
 
-      <button class="btn btn-settings position-absolute" type="button">
+      <button class="btn btn-settings position-absolute" type="button" (click)="openEditModal()">
         <i class="bi bi-pencil-square me-5"></i>
       </button>
+
 
       <button class="btn btn-settings position-absolute" type="button">
         <i class="bi bi-gear-fill"></i>
@@ -71,6 +72,11 @@
             <app-post [posts]="userPosts" [profileImageUrl]="profileImageUrl" [username]="userProfile.username"
               (likeToggle)="toggleLike($event)"></app-post>
           </div>
+
+          <app-edit-profile *ngIf="showModal" [show]="showModal" [profileData]="editProfileData"
+            (close)="onModalClose()" (updated)="onProfileUpdated()">
+          </app-edit-profile>
+
 
         </div>
       </div>

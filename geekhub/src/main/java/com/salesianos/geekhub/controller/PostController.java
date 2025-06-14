@@ -316,7 +316,7 @@ public class PostController {
             @ApiResponse(responseCode = "200",
                     description = "Se han encontrado datos",
                     content = { @Content(mediaType = "application/json",
-                            array = @ArraySchema(schema = @Schema(implementation = GetUserProfileDataDto.class)),
+                            array = @ArraySchema(schema = @Schema(implementation = PostResponseDto.class)),
                             examples = {@ExampleObject(
                                     value = """
                                             [

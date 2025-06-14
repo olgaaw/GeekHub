@@ -1,0 +1,48 @@
+<div class="modal fade show custom-modal-visible" *ngIf="show">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content">
+      <form (ngSubmit)="submitEditProfile()">
+        <div class="modal-header">
+          <h5 class="modal-title">Editar Perfil</h5>
+          <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+        </div>
+
+        <div class="modal-body">
+          <div class="mb-3">
+            <label>Nombre</label>
+            <input class="form-control" [(ngModel)]="editProfile.name" name="name" />
+          </div>
+
+          <div class="mb-3">
+            <label>Biografía</label>
+            <textarea class="form-control" [(ngModel)]="editProfile.bio" name="bio"></textarea>
+          </div>
+
+          <div class="mb-3">
+            <label>Código Postal</label>
+            <input class="form-control" [(ngModel)]="editProfile.cp" name="cp" />
+          </div>
+
+          <div class="mb-3">
+            <label>Intereses</label>
+            <select class="form-select" [(ngModel)]="editProfile.interests" name="interests" multiple>
+              <option *ngFor="let interest of allInterests" [value]="interest.name">{{ interest.name }}</option>
+            </select>
+          </div>
+
+          <div class="mb-3">
+            <label>Foto de Perfil</label>
+            <input type="file" class="form-control" (change)="onFileSelected($event)" />
+          </div>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-custom" type="submit">Guardar</button>
+          <button class="btn btn-secondary" type="button" (click)="closeModal()">Cancelar</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<div *ngIf="show" class="modal-backdrop fade show"></div>

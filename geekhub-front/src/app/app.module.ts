@@ -19,6 +19,11 @@ import { PostComponent } from './shared/post/post.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { CommentComponent } from './shared/comment/comment.component';
 import { CreatePostComponent } from './shared/create-post/create-post.component';
+import { EditProfileComponent } from './components/edit-profile/edit-profile.component';
+import { MatDialogModule } from '@angular/material/dialog';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatInputModule } from '@angular/material/input';
+import { MatSelectModule } from '@angular/material/select';
 
 @NgModule({
   declarations: [
@@ -34,16 +39,23 @@ import { CreatePostComponent } from './shared/create-post/create-post.component'
     PostComponent,
     PostDetailComponent,
     CommentComponent,
-    CreatePostComponent
+    CreatePostComponent,
+    EditProfileComponent
+
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     NgbModule,
     ReactiveFormsModule,
-    FormsModule
+    FormsModule,
+    MatDialogModule,
+    MatFormFieldModule,
+    MatInputModule,
+    MatSelectModule
+
   ],
-  providers: [  
+  providers: [
     provideAnimationsAsync(),
     provideHttpClient()],
   bootstrap: [AppComponent]
