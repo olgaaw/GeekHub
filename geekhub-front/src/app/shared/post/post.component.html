@@ -11,7 +11,7 @@
         <h6 class="mb-1 d-flex justify-content-between align-items-center">
           {{ getUsername(post) }}
 
-          <div ngbDropdown class="dropdown">
+          <div ngbDropdown class="dropdown ms-auto" *ngIf="canDelete(post)">
             <button class="btn btn-link text-white p-0" ngbDropdownToggle>
               <i class="bi bi-three-dots-vertical"></i>
             </button>
@@ -43,8 +43,8 @@
   <hr class="post-separator" />
 </ng-container>
 
-<div class="modal fade show" tabindex="-1" *ngIf="showDeleteModal" style="display: block"
-  aria-modal="true" role="dialog">
+<div class="modal fade show" tabindex="-1" *ngIf="showDeleteModal" style="display: block" aria-modal="true"
+  role="dialog">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content text-dark">
       <div class="modal-header">

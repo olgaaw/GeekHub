@@ -2,6 +2,7 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ExtendedPostDetails } from '../../models/post-detail.model';
 import { PostService } from '../../services/post.service';  // importa el servicio
 import { HttpErrorResponse } from '@angular/common/http';
+import { AuthService } from '../../services/auth.service';
 
 @Component({
   selector: 'app-post',
@@ -18,7 +19,7 @@ export class PostComponent {
   showDeleteModal = false;
   postToDelete?: ExtendedPostDetails;
 
-  constructor(private postService: PostService) { }
+  constructor(private postService: PostService, private authService: AuthService) { }
 
   onToggleLike(post: ExtendedPostDetails) {
     this.likeToggle.emit(post);
@@ -38,6 +39,11 @@ export class PostComponent {
 
   getUserId(post: ExtendedPostDetails): string {
     return post.post?.userId || this.userId;
+  }
+
+  canDelete(post: ExtendedPostDetails): boolean {
+    const loggedInUserId = localStorage.getItem('userId') || '';
+    return this.getUserId(post) === loggedInUserId || this.authService.isAdmin();
   }
 
   openDeleteModal(post: ExtendedPostDetails) {

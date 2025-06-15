@@ -19,7 +19,7 @@ export class PostDetailComponent {
 
   ngOnInit(): void {
     this.postId = this.route.snapshot.paramMap.get('postId')!;
-    console.log('post id', this.postId)
+
     this.postService.getPostDetails(this.postId).subscribe({
       next: detail => {
         this.postDetail = detail;
