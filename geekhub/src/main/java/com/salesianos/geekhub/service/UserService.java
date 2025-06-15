@@ -220,6 +220,7 @@ public class UserService {
 
 
 
+    @Transactional
     public List<User> search(List<SearchCriteria> searchCriteriaList) {
 
         UserSpecificationBuilder userSpecificationBuilder

@@ -1,0 +1,78 @@
+<div class="d-flex profile-container">
+  <app-navbar></app-navbar>
+
+  <div class="flex-grow-1 profile-content mx-5 mt-5">
+    <div class="container-fluid position-relative">
+
+      <form (ngSubmit)="onSearch()" class="mb-3">
+        <div class="d-flex align-items-center gap-2">
+          <input type="text" [(ngModel)]="searchInput" name="searchInput" class="form-control"
+            placeholder="Buscar por username" />
+
+          <button type="submit" class="btn btn-search">
+            Buscar
+          </button>
+
+          <div ngbDropdown class="d-inline-block">
+            <button class="btn btn-outline-secondary" ngbDropdownToggle>
+              <i class="bi bi-funnel-fill"></i>
+            </button>
+
+            <div ngbDropdownMenu class="p-3">
+              <div class="mb-2">
+                <label class="form-label">Género</label>
+                <select class="form-select" [(ngModel)]="gender" name="gender">
+                  <option value="">Todos</option>
+                  <option value="Male">Masculino</option>
+                  <option value="Female">Femenino</option>
+                  <option value="Other">Otro</option>
+                </select>
+              </div>
+
+              <div>
+                <label class="form-label">Intereses</label>
+                <div class="d-flex flex-wrap gap-2">
+                  <div *ngFor="let interest of interestsList" class="form-check">
+                    <input class="form-check-input" type="checkbox" [id]="interest.name" [value]="interest.name"
+                      (change)="toggleInterest(interest.name)" />
+                    <label class="form-check-label" [for]="interest.name">
+                      {{ interest.name }}
+                    </label>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </form>
+
+
+      <div class="mt-4" *ngIf="users.length > 0">
+        <ul class="list-group">
+          <li class="list-group-item user-item" *ngFor="let user of users">
+            <a [routerLink]="['/profile', user.id]" class="user-left text-decoration-none d-flex align-items-center">
+              <img
+                [src]="user.profilePicture || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'"
+                class="profile-picture" />
+              <div class="user-info ms-2 ">
+                <strong>{{ user.name }}</strong>
+                <small>{{ user.username }}</small>
+              </div>
+            </a>
+
+            <button class="btn btn-sm" [ngClass]="isFavourite(user.id) ? 'btn-secondary' : 'btn-custom'"
+              (click)="toggleFavourite(user.id)">
+              {{ isFavourite(user.id) ? 'Siguiendo' : 'Seguir' }}
+            </button>
+          </li>
+
+        </ul>
+      </div>
+
+      <div *ngIf="users.length === 0 && hasSearched" class="mt-4">
+        <p>No se encontraron usuarios.</p>
+      </div>
+
+    </div>
+  </div>
+</div>

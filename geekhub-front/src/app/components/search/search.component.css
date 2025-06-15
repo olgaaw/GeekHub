@@ -1,0 +1,94 @@
+.profile-container {
+    background-color: #030303;
+    color: white;
+    min-height: 600px;
+}
+
+.profile-content {
+    padding: 32px;
+    position: relative;
+}
+
+.user-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background-color: #030303;
+    color: white;
+    border: none;
+    padding: 10px;
+}
+
+.user-left {
+    display: flex;
+    align-items: center;
+    color: inherit;
+    text-decoration: none;
+}
+
+.profile-picture {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 50%;
+    margin-right: 12px;
+}
+
+.user-info {
+    display: flex;
+    flex-direction: column;
+}
+
+.btn-custom {
+    background-color: #6f42c1;
+    color: white;
+    width: 80px;
+}
+
+.btn-search {
+    align-self: flex-end;
+    padding: 6px 12px;
+    background-color: #6f42c1;
+    color: white;
+    border: none;
+    border-radius: 4px;
+}
+
+.dropdown-menu {
+    max-width: 350px;
+    max-height: 700px;
+    min-width: 300px;
+    overflow-y: auto;
+    overflow-x: hidden;
+    background-color: #1a1a1a;
+    color: white;
+    border: 1px solid #444;
+}
+
+input[type="checkbox"].form-check-input:checked {
+    background-color: #6f42c1;
+    border-color: #6f42c1;
+    box-shadow: none;
+}
+
+input[type="text"].form-control {
+    background-color: #3a3a3a;
+    color: white;
+    border: 1px solid #555;
+}
+
+
+input[type="text"].form-control:focus {
+    box-shadow: none;
+}
+
+
+select.form-select {
+    background-color: #3a3a3a;
+    color: white;
+    border: 1px solid #555;
+}
+
+input[type="text"].form-control::placeholder {
+    color: #cccccc;
+}

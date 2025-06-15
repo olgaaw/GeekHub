@@ -2,7 +2,9 @@
   <div class="card-post mb-4 p-3 text-white rounded">
     <div class="d-flex">
       <div class="me-3">
-        <img [src]="getProfileImage(post)" class="rounded-circle profile-picture-post" />
+        <a [routerLink]="['/profile', getUserId(post)]">
+          <img [src]="getProfileImage(post)" class="rounded-circle profile-picture-post" />
+        </a>
       </div>
 
       <div class="flex-grow-1">
@@ -20,7 +22,8 @@
             </button>
             <span>{{ post.commentLike }}</span>
           </div>
-          <div><i class="bi bi-chat-left-text" [routerLink]="['/post', getPostId(post)]" ></i> {{ post.commentNum }}</div>
+          <div><i class="bi bi-chat-left-text" [routerLink]="['/post', getPostId(post)]"></i> {{ post.commentNum }}
+          </div>
         </div>
       </div>
     </div>

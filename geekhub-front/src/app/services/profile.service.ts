@@ -44,5 +44,17 @@ export class ProfileService {
       { headers: this.getAuthHeaders() });
   }
 
+  searchUsers(query: string): Observable<any[]> {
+    return this.http.get<any[]>(
+      `${environment.apiBaseUrl}/`,
+      {
+        params: { search: query },
+        headers: this.getAuthHeaders()
+      }
+    );
+  }
+
+
+
 
 }

@@ -11,6 +11,7 @@ export class PostComponent {
   @Input() profileImageUrl: string = '';
   @Input() username: string = '';
   @Input() postId: string = '';
+  @Input() userId: string = '';
   @Output() likeToggle = new EventEmitter<ExtendedPostDetails>();
 
   onToggleLike(post: ExtendedPostDetails) {
@@ -27,6 +28,10 @@ export class PostComponent {
 
   getPostId(post: ExtendedPostDetails): string {
     return post.post?.id || this.postId;
+  }
+
+  getUserId(post: ExtendedPostDetails): string {
+    return post.post?.userId || this.userId;
   }
 
 }
