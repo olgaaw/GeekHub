@@ -1,5 +1,7 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ExtendedPostDetails } from '../../models/post-detail.model';
+import { PostService } from '../../services/post.service';  // importa el servicio
+import { HttpErrorResponse } from '@angular/common/http';
 
 @Component({
   selector: 'app-post',
@@ -13,6 +15,10 @@ export class PostComponent {
   @Input() postId: string = '';
   @Input() userId: string = '';
   @Output() likeToggle = new EventEmitter<ExtendedPostDetails>();
+  showDeleteModal = false;
+  postToDelete?: ExtendedPostDetails;
+
+  constructor(private postService: PostService) { }
 
   onToggleLike(post: ExtendedPostDetails) {
     this.likeToggle.emit(post);
@@ -32,6 +38,32 @@ export class PostComponent {
 
   getUserId(post: ExtendedPostDetails): string {
     return post.post?.userId || this.userId;
+  }
+
+  openDeleteModal(post: ExtendedPostDetails) {
+    this.postToDelete = post;
+    this.showDeleteModal = true;
+  }
+
+  closeDeleteModal() {
+    this.showDeleteModal = false;
+    this.postToDelete = undefined;
+  }
+
+  deletePost() {
+    if (!this.postToDelete) return;
+
+    const postId = this.getPostId(this.postToDelete);
+    this.postService.deletePostByUser(postId).subscribe({
+      next: () => {
+        this.posts = this.posts.filter(p => this.getPostId(p) !== postId);
+        this.closeDeleteModal();
+      },
+      error: (error: HttpErrorResponse) => {
+        alert(error.error?.message || 'Error eliminando la publicación');
+        this.closeDeleteModal();
+      }
+    });
   }
 
 }
