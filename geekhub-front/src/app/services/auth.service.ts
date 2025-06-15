@@ -23,6 +23,7 @@ export class AuthService {
           localStorage.setItem('refreshToken', response.refreshToken);
           localStorage.setItem('userId', response.id);
           localStorage.setItem('username', response.username);
+          localStorage.setItem('roles', JSON.stringify(response.roles));
         })
       );
   }
@@ -43,6 +44,12 @@ export class AuthService {
   getUserId(): string | null {
     return localStorage.getItem('userId');
   }
+
+  isAdmin(): boolean {
+    const roles = JSON.parse(localStorage.getItem('roles') || '[]');
+    return roles.includes('ADMIN');
+  }
+
 
   isLoggedIn(): boolean {
     return !!this.getAccessToken();

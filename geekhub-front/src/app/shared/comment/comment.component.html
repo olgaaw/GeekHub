@@ -7,10 +7,42 @@
                 <p>{{ comment.content }}</p>
                 <small class="date">{{ comment.createdAt | date: 'short' }}</small>
             </div>
+
+            <div class="dropdown ms-auto" ngbDropdown *ngIf="canDelete(comment)">
+                <button class="btn btn-link text-white p-0" ngbDropdownToggle>
+                    <i class="bi bi-three-dots-vertical"></i>
+                </button>
+                <div ngbDropdownMenu class="dropdown-menu-end">
+                    <button class="dropdown-item text-danger"
+                        (click)="confirmDelete(comment.commentId)">Eliminar</button>
+                </div>
+            </div>
         </div>
-        <hr class="post-separator" />
+    </div>
+    <hr class="post-separator" />
+</div>
+
+
+
+<div class="modal fade show" tabindex="-1" *ngIf="showDeleteModal" style="display: block" aria-modal="true"
+    role="dialog">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content text-dark">
+            <div class="modal-header">
+                <h5 class="modal-title">Confirmar eliminación</h5>
+                <button type="button" class="btn-close" aria-label="Close" (click)="cancelDelete()"></button>
+            </div>
+            <div class="modal-body">
+                <p>¿Seguro que deseas eliminar este comentario?</p>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+                <button type="button" class="btn btn-danger" (click)="deleteComment()">Eliminar</button>
+            </div>
+        </div>
     </div>
 </div>
+
 
 <div class="new-comment-box">
     <textarea [(ngModel)]="newComment" placeholder="Escribe un comentario..."></textarea>

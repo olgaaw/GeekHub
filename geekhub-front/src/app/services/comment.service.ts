@@ -30,4 +30,17 @@ export class CommentService {
     );
   }
 
+  deleteCommentByUser(commentId: string): Observable<any> {
+    return this.http.delete(`${environment.apiBaseUrl}/comment/${commentId}/delete`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+  deleteCommentByAdmin(commentId: string): Observable<any> {
+    return this.http.delete(`${environment.apiBaseUrl}/comment/${commentId}/delete/admin`, {
+      headers: this.getAuthHeaders()
+    });
+  }
+
+
 }
