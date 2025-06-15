@@ -3,6 +3,7 @@ package com.salesianos.geekhub.repository;
 import com.salesianos.geekhub.model.User;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.EntityGraph;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
@@ -27,7 +28,12 @@ public interface UserRepository extends JpaRepository<User, UUID> , JpaSpecifica
     @Query("SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.interests")
     List<User> findAllWithInterests();
 
-    @Override
     @EntityGraph(attributePaths = {"interests"})
     Page<User> findAll(Pageable pageable);
+
+
+    @EntityGraph(attributePaths = {"interests"})
+    List<User> findAll(Specification<User> spec);
+
+
 }

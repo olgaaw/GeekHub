@@ -9,14 +9,15 @@
             <div class="modal-body">
                 <ul class="list-group" *ngIf="users.length > 0; else noUsers">
                     <li class="list-group-item user-item" *ngFor="let user of users">
-                        <div class="user-left">
+                        <a [routerLink]="['/profile', user.id]"
+                            class="user-left text-decoration-none d-flex align-items-center">
                             <img [src]="user.profilePicture || 'https://upload.wikimedia.org/wikipedia/commons/8/89/Portrait_Placeholder.png'"
                                 class="profile-picture" />
-                            <div class="user-info">
+                            <div class="user-info ms-2">
                                 <strong>{{ user.name }}</strong>
                                 <small>{{ user.username }}</small>
                             </div>
-                        </div>
+                        </a>
 
                         <button class="btn btn-sm" [ngClass]="isFavourite(user.id) ? 'btn-secondary' : 'btn-custom'"
                             (click)="toggleFavourite(user.id)">
