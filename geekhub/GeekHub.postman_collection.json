@@ -250,13 +250,19 @@
 						"method": "PUT",
 						"header": [],
 						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"username\" : \"usuario1editado\",\r\n    \"name\" : \"Nombre editado\",\r\n    \"surname\" : \"Nuevo Apellido\",\r\n    \"bio\" : \"Ejemplo de biografia\",\r\n    \"profilePicture\" : \"profilePicture.jpg\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "editUserCmd",
+									"type": "file",
+									"src": "postman-cloud:///1eff2fbf-f25d-4fc0-91d1-7beb77a91301"
+								},
+								{
+									"key": "file",
+									"type": "file",
+									"src": "postman-cloud:///1eff2f83-018d-4640-abdb-321464b28133"
 								}
-							}
+							]
 						},
 						"url": {
 							"raw": "{{BASE_URL}}/user/edit",
@@ -457,6 +463,34 @@
 								"post",
 								"b8f8c53b-6a1b-4a56-bdcd-e2fbb34e1c77",
 								"likes"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get timeline",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/post/timeline",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"post",
+								"timeline"
 							]
 						}
 					},
@@ -737,6 +771,45 @@
 					"response": []
 				},
 				{
+					"name": "Get interest",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\" : \"World of Warcraft\",\r\n    \"picture\" : \"wow.jpg\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{BASE_URL}}/interest",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"interest"
+							]
+						}
+					},
+					"response": []
+				},
+				{
 					"name": "Edit interest",
 					"request": {
 						"auth": {
@@ -823,7 +896,7 @@
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "{{BASE_URL}}/?search=username:jdoe,",
+							"raw": "{{BASE_URL}}/?search=username:user,",
 							"host": [
 								"{{BASE_URL}}"
 							],
@@ -833,7 +906,7 @@
 							"query": [
 								{
 									"key": "search",
-									"value": "username:jdoe,"
+									"value": "username:user,"
 								}
 							]
 						}
@@ -980,6 +1053,127 @@
 									"key": "search",
 									"value": "age:25>,gender:Female,interests:Uno,"
 								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Favourite",
+			"item": [
+				{
+					"name": "Add favourite user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/favourite/add/a7c449e4-1316-4ffc-a218-7a585fa128f3\t",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"favourite",
+								"add",
+								"a7c449e4-1316-4ffc-a218-7a585fa128f3\t"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Remove favourite user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/favourite/remove/a7c449e4-1316-4ffc-a218-7a585fa128f3\t",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"favourite",
+								"remove",
+								"a7c449e4-1316-4ffc-a218-7a585fa128f3\t"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get my favourites (following)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/favourite/following/a7c449e4-1316-4ffc-a218-7a585fa128f4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"favourite",
+								"following",
+								"a7c449e4-1316-4ffc-a218-7a585fa128f4"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get users who favourited me (followers)",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{BASE_URL}}/favourite/followers/a7c449e4-1316-4ffc-a218-7a585fa128f4",
+							"host": [
+								"{{BASE_URL}}"
+							],
+							"path": [
+								"favourite",
+								"followers",
+								"a7c449e4-1316-4ffc-a218-7a585fa128f4"
 							]
 						}
 					},
