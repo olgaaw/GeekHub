@@ -34,7 +34,7 @@ export class RegisterComponent {
 
   constructor(
     private authService: AuthService,
-  ) {}
+  ) { }
 
 
   togglePassword(type: string) {
@@ -59,19 +59,19 @@ export class RegisterComponent {
   goToNextStep() {
     if (this.currentStep === 1) {
       if (!this.isStep1Valid()) {
-       this.showAlert('COMPLETE_ALL_FIELDS', 'danger')
+        this.showAlert('Todos los campos deben estar completos', 'danger')
         return;
       }
 
       const { password, confirmPassword } = this.registerData;
       if (password !== confirmPassword) {
-        this.showAlert('PASSWORD_MATCH', 'danger')
+        this.showAlert('Las contraseñas no coinciden', 'danger')
         return;
       }
 
     } else if (this.currentStep === 2) {
       if (!this.isStep2Valid()) {
-        this.showAlert('COMPLETE_ALL_FIELDS', 'danger')
+        this.showAlert('Todos los campos deben estar completos', 'danger')
         return;
       }
     }
@@ -81,7 +81,7 @@ export class RegisterComponent {
   goToPreviousStep() {
     this.currentStep--;
   }
-  
+
   submitRegistration() {
     const userToSend = {
       username: this.registerData.username,
@@ -104,7 +104,7 @@ export class RegisterComponent {
       },
     });
   }
-  
+
 
   showAlert(message: string, type: string) {
     this.alertMessage = message;
@@ -113,5 +113,5 @@ export class RegisterComponent {
       this.alertMessage = null;
     }, 3000);
   }
-  
+
 }

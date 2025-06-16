@@ -33,10 +33,10 @@ export class ActivateAccountComponent {
 
     this.authService.verifyActivation(token).subscribe({
       next: () => {
-        this.showAlert('ACCOUNT_VERIFIED', 'success');
+        this.showAlert('Su cuenta se ha verificado con éxito', 'success');
         setTimeout(() => this.router.navigate(['/login']), 1500);
       },
-      error: () => this.showAlert('INVALID_OR_EXPIRED', 'danger')
+      error: () => this.showAlert('Código inválido o expirado', 'danger')
     });
   }
 
