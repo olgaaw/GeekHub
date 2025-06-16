@@ -218,6 +218,15 @@ public class UserService {
         }
     }
 
+    @Transactional
+    public void deleteByAdmin(UUID id) {
+        User user = userRepository.findById(id)
+                .orElseThrow(() -> new ResponseStatusException(HttpStatus.NOT_FOUND, "User not found"));
+
+        refreshTokenRepository.deleteByUser(user);
+        userRepository.delete(user);
+    }
+
 
 
     @Transactional

@@ -460,6 +460,14 @@ public class UserController {
 
     }
 
+    @PostAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("user/delete/admin/{id}")
+    public ResponseEntity<?> deleteUserAdmin(@PathVariable UUID id) {
+        userService.deleteByAdmin(id);
+        return ResponseEntity.noContent().build();
+    }
+
+
     @GetMapping("/")
     public List<GetUserProfileDataDto> buscar(@RequestParam(value = "search", required = false) String search) {
         log.info("Search Query: " + search);
