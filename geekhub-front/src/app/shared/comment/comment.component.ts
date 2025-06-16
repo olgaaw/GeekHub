@@ -69,30 +69,30 @@ export class CommentComponent {
     if (!comment) return;
 
     if (this.authService.isAdmin()) {
-        this.commentService.deleteCommentByAdmin(this.selectedCommentId).subscribe({
-      next: () => {
-        this.loadComments();
-        this.cancelDelete();
-      },
-      error: () => {
-        alert('Error al eliminar el comentario');
-        this.cancelDelete();
-      }
-    });
+      this.commentService.deleteCommentByAdmin(this.selectedCommentId).subscribe({
+        next: () => {
+          this.loadComments();
+          this.cancelDelete();
+        },
+        error: () => {
+          alert('Error al eliminar el comentario');
+          this.cancelDelete();
+        }
+      });
     } else {
       this.commentService.deleteCommentByUser(this.selectedCommentId).subscribe({
-      next: () => {
-        this.loadComments();
-        this.cancelDelete();
-      },
-      error: () => {
-        alert('Error al eliminar el comentario');
-        this.cancelDelete();
-      }
-    });
+        next: () => {
+          this.loadComments();
+          this.cancelDelete();
+        },
+        error: () => {
+          alert('Error al eliminar el comentario');
+          this.cancelDelete();
+        }
+      });
     }
 
-  
+
   }
 
 }

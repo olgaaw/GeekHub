@@ -51,10 +51,6 @@ public class CommentService {
         Pageable pageable = PageRequest.of(page, size);
         Page<Comment> comments = commentRepository.findCommentsByPostIdPageable(postId, pageable);
 
-        if (comments.isEmpty()) {
-            throw new EntityNotFoundException("No existen comentarios en el post con id " + postId);
-        }
-
         return comments;
     }
 

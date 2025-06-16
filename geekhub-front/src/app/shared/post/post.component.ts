@@ -60,16 +60,38 @@ export class PostComponent {
     if (!this.postToDelete) return;
 
     const postId = this.getPostId(this.postToDelete);
-    this.postService.deletePostByUser(postId).subscribe({
-      next: () => {
-        this.posts = this.posts.filter(p => this.getPostId(p) !== postId);
-        this.closeDeleteModal();
-      },
-      error: (error: HttpErrorResponse) => {
-        alert(error.error?.message || 'Error eliminando la publicación');
-        this.closeDeleteModal();
-      }
-    });
+
+    if (this.authService.isAdmin()) {
+      const postId = this.getPostId(this.postToDelete);
+      console.log('Deleting post ID:', postId);
+      this.postService.deletePostByAdmin(postId).subscribe({
+
+        next: () => {
+          this.posts = this.posts.filter(p => this.getPostId(p) !== postId);
+          this.closeDeleteModal();
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.error?.message || 'Error eliminando la publicación');
+          this.closeDeleteModal();
+
+        }
+      });
+    } else {
+      this.postService.deletePostByUser(postId).subscribe({
+
+        next: () => {
+          this.posts = this.posts.filter(p => this.getPostId(p) !== postId);
+          this.closeDeleteModal();
+        },
+        error: (error: HttpErrorResponse) => {
+          alert(error.error?.message || 'Error eliminando la publicación');
+          this.closeDeleteModal();
+
+        }
+      });
+    }
+
+
   }
 
 }

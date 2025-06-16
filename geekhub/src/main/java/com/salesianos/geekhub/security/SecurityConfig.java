@@ -76,13 +76,13 @@ public class SecurityConfig {
         );
         http.authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.GET,  "/user/{id}", "post/user/{userId}").permitAll()
-                .requestMatchers(HttpMethod.GET,   "/post/{id}", "/favourite/following/{userId}", "/favourite/followers/{userId}", "/interest").authenticated()
+                .requestMatchers(HttpMethod.GET,   "/post/{id}", "/favourite/following/{userId}", "/favourite/followers/{userId}").authenticated()
                 .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/activate/account/", "/auth/refresh/token", "/auth/register/admin").permitAll()
                 .requestMatchers(HttpMethod.POST, "/post/{postId}/like", "/favourite/add/{favouriteUserId}", "/post/").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/comment/{commentId}/delete/admin").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/comment/{commentId}/delete/admin", "/post/{postId}/delete/admin").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/like/{likeId}/deletebyUser", "/favourite/remove/{favouriteUserId}").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/interest/{id}").hasRole("ADMIN")
-                .requestMatchers("/me/admin", "/user").hasRole("ADMIN")
+                .requestMatchers("/me/admin", "/user", "/interest").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**", "/download/**").permitAll()
                 .anyRequest().authenticated());
 
