@@ -68,11 +68,8 @@ export class CommentComponent {
     const comment = this.comments.find(c => c.commentId === this.selectedCommentId);
     if (!comment) return;
 
-    const deletion = this.canDelete(comment)
-      ? this.commentService.deleteCommentByAdmin(this.selectedCommentId)
-      : this.commentService.deleteCommentByUser(this.selectedCommentId);
-
-    deletion.subscribe({
+    if (this.authService.isAdmin()) {
+        this.commentService.deleteCommentByAdmin(this.selectedCommentId).subscribe({
       next: () => {
         this.loadComments();
         this.cancelDelete();
@@ -82,6 +79,20 @@ export class CommentComponent {
         this.cancelDelete();
       }
     });
+    } else {
+      this.commentService.deleteCommentByUser(this.selectedCommentId).subscribe({
+      next: () => {
+        this.loadComments();
+        this.cancelDelete();
+      },
+      error: () => {
+        alert('Error al eliminar el comentario');
+        this.cancelDelete();
+      }
+    });
+    }
+
+  
   }
 
 }

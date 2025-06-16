@@ -34,9 +34,21 @@ services:
     networks:
       - backend
 
+  angular-app:
+    build:
+      context: ./geekhub-front
+      dockerfile: Dockerfile
+    ports:
+      - "80:4200"
+    volumes:
+      - ./geekhub-front:/app
+      - /app/node_modules
+    container_name: angular-geekhub
+    restart: unless-stopped
+
   app:
     build:
-      context: .
+      context: ./geekhub
       dockerfile: Dockerfile
     ports:
       - "8081:8080"

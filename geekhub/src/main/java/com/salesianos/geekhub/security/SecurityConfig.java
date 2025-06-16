@@ -25,6 +25,7 @@ import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.cors.CorsConfigurationSource;
 
 import java.util.Arrays;
+import java.util.List;
 
 
 @EnableWebSecurity
@@ -66,7 +67,7 @@ public class SecurityConfig {
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
         http.csrf(csrf -> csrf.disable());
-        http.cors(Customizer.withDefaults());
+        http.cors(cors -> cors.configurationSource(corsConfigurationSource()));
         http.sessionManagement((session) -> session
                 .sessionCreationPolicy(SessionCreationPolicy.STATELESS));
         http.exceptionHandling(excepz -> excepz
@@ -75,13 +76,13 @@ public class SecurityConfig {
         );
         http.authorizeHttpRequests(authz -> authz
                 .requestMatchers(HttpMethod.GET,  "/user/{id}", "post/user/{userId}").permitAll()
-                .requestMatchers(HttpMethod.GET,   "/post/{id}", "/favourite/following/{userId}", "/favourite/followers/{userId}").authenticated()
+                .requestMatchers(HttpMethod.GET,   "/post/{id}", "/favourite/following/{userId}", "/favourite/followers/{userId}", "/interest").authenticated()
                 .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/activate/account/", "/auth/refresh/token", "/auth/register/admin").permitAll()
                 .requestMatchers(HttpMethod.POST, "/post/{postId}/like", "/favourite/add/{favouriteUserId}", "/post/").authenticated()
                 .requestMatchers(HttpMethod.DELETE, "/comment/{commentId}/delete/admin").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/like/{likeId}/deletebyUser", "/favourite/remove/{favouriteUserId}").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/interest/{id}").hasRole("ADMIN")
-                .requestMatchers("/me/admin", "/user", "/interest").hasRole("ADMIN")
+                .requestMatchers("/me/admin", "/user").hasRole("ADMIN")
                 .requestMatchers("/h2-console/**", "/swagger-ui/**", "/v3/api-docs/**", "/download/**").permitAll()
                 .anyRequest().authenticated());
 
@@ -95,16 +96,20 @@ public class SecurityConfig {
         return http.build();
     }
 
+
     @Bean
     CorsConfigurationSource corsConfigurationSource() {
-        CorsConfiguration configuration = new CorsConfiguration();
-        configuration.setAllowedOrigins(Arrays.asList("http://localhost:4200")); // o "*" en desarrollo
-        configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList("*"));
-        configuration.setAllowCredentials(true); // Si usas cookies/token en headers
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
 
-        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
-        source.registerCorsConfiguration("/**", configuration);
-        return source;
+        corsConfiguration.setAllowCredentials(true);
+        corsConfiguration.setAllowedHeaders(List.of("*"));
+        corsConfiguration.setAllowedMethods(List.of("GET", "POST", "PUT", "DELETE", "OPTIONS"));
+        corsConfiguration.setAllowedOrigins(List.of("http://localhost", "http://localhost:4200"));
+
+        UrlBasedCorsConfigurationSource configurationSource = new UrlBasedCorsConfigurationSource();
+
+        configurationSource.registerCorsConfiguration("/**", corsConfiguration);
+
+        return configurationSource;
     }
 }
