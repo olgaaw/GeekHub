@@ -3,15 +3,42 @@
 
   <div class="flex-grow-1 profile-content mx-5 mt-5">
     <div class="container-fluid position-relative">
-
-      <button class="btn btn-settings position-absolute" type="button" (click)="openEditModal()">
+      <button class="btn btn-edit position-absolute" type="button" (click)="openEditModal()">
         <i class="bi bi-pencil-square me-5"></i>
       </button>
 
+      <div ngbDropdown class="dropdown ms-auto" *ngIf="canDelete()">
+        <button class="btn btn-settings position-absolute" type="button" ngbDropdownToggle>
+          <i class="bi bi-gear-fill"></i>
+        </button>
+        <div ngbDropdownMenu class="dropdown-menu-end">
+          <button class="dropdown-item text-white" (click)="confirmDelete()">Eliminar</button>
+          <button class="dropdown-item text-white" (click)="logout()">Cerrar sesión</button>
+        </div>
+      </div>
 
-      <button class="btn btn-settings position-absolute" type="button">
-        <i class="bi bi-gear-fill"></i>
-      </button>
+      <div class="modal fade show" tabindex="-1" *ngIf="showDeleteModal" style="display: block" aria-modal="true"
+        role="dialog">
+        <div class="modal-dialog modal-dialog-centered">
+          <div class="modal-content text-dark">
+            <div class="modal-header">
+              <h5 class="modal-title">Confirmar eliminación</h5>
+              <button type="button" class="btn-close" aria-label="Close" (click)="cancelDelete()"></button>
+            </div>
+            <div class="modal-body">
+              <p>¿Seguro que deseas eliminar tu cuenta?</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+              <button type="button" class="btn btn-danger" (click)="deleteAccount()">Eliminar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
+
+
 
       <div class="row justify-content-center">
         <div class="col-10">

@@ -54,7 +54,12 @@ export class ProfileService {
     );
   }
 
-
+  deleteUser() {
+    return this.http.delete(
+      `${environment.apiBaseUrl}/user/delete`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
 
 
 }

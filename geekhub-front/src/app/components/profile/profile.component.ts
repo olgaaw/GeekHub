@@ -1,14 +1,13 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { UserProfileDataResponse } from '../../models/user-profile-data.model';
 import { ProfileService } from '../../services/profile.service';
 import { PostService } from '../../services/post.service';
 import { forkJoin } from 'rxjs';
 import { ExtendedPostDetails } from '../../models/post-detail.model';
-import { MatDialog } from '@angular/material/dialog';
 import { FavouriteUserResponse } from '../../models/favourite-user-response.model';
-import { UserListDialogComponent } from '../../shared/user-list-dialog/user-list-dialog.component';
-import { EditProfileComponent } from '../edit-profile/edit-profile.component';
+import { AuthService } from '../../services/auth.service';
+
 
 @Component({
   selector: 'app-profile',
@@ -29,13 +28,15 @@ export class ProfileComponent implements OnInit {
   dialogTitle = '';
   showModal = false;
   editProfileData: any = null;
+  showDeleteModal = false;
 
 
   constructor(
     private profileService: ProfileService,
     private postService: PostService,
     private route: ActivatedRoute,
-    private dialog: MatDialog,
+    private authService: AuthService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
@@ -124,6 +125,37 @@ export class ProfileComponent implements OnInit {
 
   onProfileUpdated() {
     this.loadProfile();
+  }
+
+  canDelete(): boolean {
+    const loggedInUserId = localStorage.getItem('userId') || '';
+    return this.userId === loggedInUserId || this.authService.isAdmin();
+  }
+
+  deleteAccount() {
+    this.profileService.deleteUser().subscribe({
+      next: () => {
+        localStorage.clear();
+
+      },
+    });
+    this.router.navigate(['/login']), 1500;
+  }
+
+  confirmDelete(): void {
+    const loggedInUserId = localStorage.getItem('userId') || '';
+    this.userId = loggedInUserId;
+    this.showDeleteModal = true;
+  }
+
+  cancelDelete(): void {
+    this.userId = '';
+    this.showDeleteModal = false;
+  }
+
+  logout(): void {
+    this.authService.logout;
+    this.router.navigate(['/login']), 1500;
   }
 
 }
