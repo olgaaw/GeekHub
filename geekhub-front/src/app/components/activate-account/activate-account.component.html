@@ -1,12 +1,12 @@
 <div class="login-background d-flex justify-content-center align-items-center">
     
     <div *ngIf="alertMessage" class="login-alert alert alert-{{alertType}}">
-        {{ alertMessage | translate }}
+        {{ alertMessage }}
     </div>
 
     <div class="login-form text-center w-25">
-        <h2 class="mb-2">{{ 'VERIFY_ACCOUNT' | translate }}</h2>
-        <p class="mb-4">{{ 'ENTER_VERIFICATION_CODE' | translate }}</p>
+        <h2 class="mb-2">Verifica tu cuenta</h2>
+        <p class="mb-4">Introduce el código de verificación que hemos mandado a tu correo para activar tu cuent</p>
 
         <div class="d-flex justify-content-between gap-2 mb-4">
             <input maxlength="1" class="form-control text-center code-box" [(ngModel)]="code[0]"
@@ -20,7 +20,7 @@
         </div>
 
         <button class="btn btn-primary w-100" (click)="submitCode()">
-            {{ 'VERIFY' | translate }}
+            Verificar
         </button>
 
     </div>

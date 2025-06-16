@@ -24,12 +24,12 @@
               <p class="text">{{ userProfile.username }}</p>
               <p>{{ userProfile.bio }}</p>
               <div class="d-flex gap-4 profile-stats">
-                <div><strong>{{ totalPosts }}</strong><br /><small>{{'POSTS' | translate}}</small></div>
-                <div (click)="openFollowingDialog()" style="cursor: pointer;">
-                  <strong>{{ totalFollowing }}</strong><br /><small>{{'FOLLOWING' | translate}}</small>
+                <div><strong>{{ totalPosts }}</strong><br /><small> Publicaciones </small></div>
+                <div (click)="openFollowingDialog()">
+                  <strong>{{ totalFollowing }}</strong><br /><small> Seguidos </small>
                 </div>
-                <div (click)="openFollowersDialog()" style="cursor: pointer;">
-                  <strong>{{ totalFollowers }}</strong><br /><small>{{'FOLLOWERS' | translate}}</small>
+                <div (click)="openFollowersDialog()">
+                  <strong>{{ totalFollowers }}</strong><br /><small> Seguidores </small>
                 </div>
               </div>
 
@@ -43,12 +43,12 @@
           <ul class="nav nav-tabs mb-4 justify-content-center">
             <li class="nav-item me-5">
               <a class="nav-link" [class.active]="activeTab === 'details'" (click)="activeTab = 'details'">
-                {{ 'DETAILS' | translate }}
+                Detalles
               </a>
             </li>
             <li class="nav-item ms-5">
               <a class="nav-link" [class.active]="activeTab === 'posts'" (click)="activeTab = 'posts'">
-                {{ 'POSTS' | translate }}
+                Publicaciones
               </a>
             </li>
           </ul>
@@ -56,14 +56,14 @@
 
           <!-- DETALLES -->
           <div *ngIf="activeTab === 'details'">
-            <h5 class="mt-4">{{'INTERESTS' | translate}}</h5>
+            <h5 class="mt-4"> Intereses </h5>
             <div class="d-flex flex-wrap gap-2">
               <ng-container *ngFor="let interest of userProfile.interests">
                 <span class="badge interest-badge">{{ interest.name }}</span>
               </ng-container>
             </div>
 
-            <h5 class="mt-4">{{'LOCATION' | translate}}</h5>
+            <h5 class="mt-4"> Localización </h5>
             <p class="text">{{userProfile.cp}}</p>
           </div>
 

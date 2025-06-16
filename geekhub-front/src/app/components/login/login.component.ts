@@ -62,7 +62,7 @@ export class LoginComponent implements OnInit {
         this.router.navigate(['/profile', userId]);
       },      
       error: () => {
-        this.showAlert('INVALID_CREDENTIALS', 'danger');
+        this.showAlert('Usuario o contraseña incorrectos', 'danger');
       }
     });
   }

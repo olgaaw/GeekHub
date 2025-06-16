@@ -37,7 +37,7 @@ INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa1
 INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f6', 1);
 INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f5', 1);
 
--- random_uuid() para h2, gen_random_uuid() para postgres
+-- random_uuid()() para h2, gen_gen_random_uuid()() para postgres
 INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f0', 'Anime', 'anime_picture.jpg');
 INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f1', 'Videojuegos', 'videojuegos_picture.jpg');
 INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f2', 'Música', 'musica_picture.jpg');
@@ -166,14 +166,14 @@ INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'a7c449e4-1316-4ffc-a218-7a585fa128f9', 'Este es un post de prueba de Diana Lee', '2025-02-23T16:00:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('3722a2b4-b372-4ca4-a9b1-d824295dc244', 'aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime.jpg');
+('3722a2b4-b372-4ca4-a9b1-d824295dc244', 'aeb6a582-8d9b-45c3-8a4b-9084823d2431', 'https://nintenduo.com/wp-content/uploads/2024/07/Remake-Zelda-Ocarina-of-Time.webp');
 
 
 INSERT INTO post_entity (id, user_id, description, dateP)
 VALUES ('eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'Este es un post de prueba de Ethan Martinez', '2025-02-23T18:15:00');
 
 INSERT INTO image_entity (id, post_id, image_url) VALUES
-('6f264004-2674-48d6-bc83-15c7b915b429', 'eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'https://www.nintendo.com/eu/media/images/10_share_images/games_15/nintendo_7/SI_N64_LegendOfZeldaOcarinaOfTime.jpg');
+('6f264004-2674-48d6-bc83-15c7b915b429', 'eb94e0c1-9264-48b4-bb79-ffaf759ac6ba', 'https://nintenduo.com/wp-content/uploads/2024/07/Remake-Zelda-Ocarina-of-Time.webp');
 
 
 INSERT INTO comment_entity(id, post_id, user_id, content, created_at)
@@ -208,38 +208,38 @@ VALUES ('6795a345-622e-4e96-971e-4f826a2b1705', 'b8f8c53b-6a1b-4a56-bdcd-e2fbb34
 
 
 -- admin tiene como favoritos a user y bwhite
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f3');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f8');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f9');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f0');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f7');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f3');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f9');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f0');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f4', 'a7c449e4-1316-4ffc-a218-7a585fa128f7');
 
 -- user tiene como favoritos a bwhite, dlee y emartinez
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'a7c449e4-1316-4ffc-a218-7a585fa128f8');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'a7c449e4-1316-4ffc-a218-7a585fa128f9');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'a7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'a7c449e4-1316-4ffc-a218-7a585fa128f9');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f3', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
 
 -- bwhite tiene como favoritos a dlee y emartinez
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f9');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f8', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f9');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f8', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
 
 -- dlee tiene como favoritos a emartinez y fgarcia
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f9', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f9', 'a7c449e4-1316-4ffc-a218-7a585fa128f0');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f9', 'b7c449e4-1316-4ffc-a218-7a585fa128f8');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f9', 'a7c449e4-1316-4ffc-a218-7a585fa128f0');
 
 -- emartinez tiene como favoritos a fgarcia, gthompson y admin
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f0');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f7');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f4');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f0');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f7');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'b7c449e4-1316-4ffc-a218-7a585fa128f8', 'a7c449e4-1316-4ffc-a218-7a585fa128f4');
 
 -- fgarcia tiene como favoritos a gthompson y user
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f0', 'a7c449e4-1316-4ffc-a218-7a585fa128f7');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f0', 'a7c449e4-1316-4ffc-a218-7a585fa128f3');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f0', 'a7c449e4-1316-4ffc-a218-7a585fa128f7');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f0', 'a7c449e4-1316-4ffc-a218-7a585fa128f3');
 
 -- gthompson tiene como favoritos a admin y user
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f7', 'a7c449e4-1316-4ffc-a218-7a585fa128f4');
-INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f7', 'a7c449e4-1316-4ffc-a218-7a585fa128f3');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f7', 'a7c449e4-1316-4ffc-a218-7a585fa128f4');
+INSERT INTO favourite_entity (id, user_id, favourite_user_id) VALUES (gen_random_uuid(), 'a7c449e4-1316-4ffc-a218-7a585fa128f7', 'a7c449e4-1316-4ffc-a218-7a585fa128f3');
 
 
 
