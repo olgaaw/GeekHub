@@ -21,6 +21,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -308,6 +309,19 @@ public class PostController {
     @DeleteMapping("/{postId}/delete")
     public ResponseEntity<?> deleteByUser(@PathVariable UUID postId, @AuthenticationPrincipal User user){
         postService.deleteByUser(postId, user);
+        return ResponseEntity.noContent().build();
+    }
+
+    @Operation(summary = "Elimina un post por un admin")
+    @ApiResponses(value = {
+            @ApiResponse(responseCode = "204",
+                    description = "Se ha eliminado un post",
+                    content = @Content),
+    })
+    @PostAuthorize("hasRole('ADMIN')")
+    @DeleteMapping("/{postId}/delete/admin")
+    public ResponseEntity<?> deleteByAdmin(@PathVariable UUID postId, @AuthenticationPrincipal User user){
+        postService.deleteByAdmin(postId, user);
         return ResponseEntity.noContent().build();
     }
 

@@ -65,6 +65,13 @@ export class PostService {
     );
   }
 
+    deletePostByAdmin(postId: string) {
+    return this.http.delete(
+      `${environment.apiBaseUrl}/post/${postId}/delete/admin`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
 
 
 }

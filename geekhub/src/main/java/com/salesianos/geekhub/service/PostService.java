@@ -135,6 +135,13 @@ public class PostService {
 
     }
 
+    public void deleteByAdmin(UUID id, User user) {
+        Post post = postRepository.findPostById(id);
+
+        postRepository.deleteById(id);
+    }
+
+
     @Transactional
     public List<Post> getTimelinePosts(UUID userId) {
         return postRepository.findTimelinePosts(userId);
