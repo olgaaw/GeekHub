@@ -78,6 +78,12 @@ public class User implements UserDetails {
     @ToString.Exclude
     private Set<Favourite> favoritedBy = new HashSet<>();
 
+    @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, orphanRemoval = true)
+    @Builder.Default
+    @ToString.Exclude
+    private List<Comment> comments = new ArrayList<>();
+
+
 
 
 

@@ -133,13 +133,30 @@ export class ProfileComponent implements OnInit {
   }
 
   deleteAccount() {
-    this.profileService.deleteUser().subscribe({
-      next: () => {
-        localStorage.clear();
-
-      },
-    });
-    this.router.navigate(['/login']), 1500;
+    this.userId = this.route.snapshot.paramMap.get('id')!;
+    if (this.authService.isAdmin()) {
+      this.profileService.deleteUserByAdmin(this.userId).subscribe({
+        next: () => {
+          localStorage.clear();
+          this.router.navigate(['/login']), 1500;
+        },
+        error: () => {
+          alert('Error al eliminar el usuario');
+          this.cancelDelete();
+        }
+      });
+    } else {
+      this.profileService.deleteUser().subscribe({
+        next: () => {
+          localStorage.clear();
+          this.router.navigate(['/login']), 1500;
+        },
+        error: () => {
+          alert('Error al eliminar el usuario');
+          this.cancelDelete();
+        }
+      });
+    }
   }
 
   confirmDelete(): void {

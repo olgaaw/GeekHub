@@ -61,5 +61,12 @@ export class ProfileService {
     );
   }
 
+    deleteUserByAdmin(userId: string) {
+    return this.http.delete(
+      `${environment.apiBaseUrl}/user/delete/admin/${userId}`,
+      { headers: this.getAuthHeaders() }
+    );
+  }
+
 
 }
