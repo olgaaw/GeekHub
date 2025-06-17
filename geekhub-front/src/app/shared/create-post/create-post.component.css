@@ -14,12 +14,12 @@
 
 
 textarea::placeholder {
-    color: #666;
+    color: #7a7a7a;
 }
 
 .icon-group i {
     padding-left: 50px;
-    color: #4e4e4e;
+    color: #7a7a7a;
 }
 
 .icon-group i:hover {
@@ -62,4 +62,8 @@ textarea::placeholder {
     border: none;
     border-bottom: 1px solid #444;
     margin-top: 16px;
+}
+
+.selected-files {
+    color: #7a7a7a;
 }
