@@ -15,17 +15,18 @@ import java.util.UUID;
 public interface PostRepository extends JpaRepository<Post, UUID> {
 
     @EntityGraph(attributePaths = {"user", "images"})
+    @Query("SELECT p FROM Post p WHERE p.user.id = :userId ORDER BY p.dateP DESC")
     List<Post> findAllByUserId(UUID userId);
 
 
 
-    @Query(value = "SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.id = :userId",
+    @Query(value = "SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.id = :userId ORDER BY p.dateP DESC",
             countQuery = "SELECT COUNT(p) FROM Post p WHERE p.user.id = :userId")
     Page<Post> findPostsByUserIdWithImages(@Param("userId") UUID userId, Pageable pageable);
 
 
 
-    @Query("SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.username = :username")
+    @Query("SELECT p FROM Post p LEFT JOIN FETCH p.images WHERE p.user.username = :username ORDER BY p.dateP DESC")
     Page<Post> findPostsByUsername(@Param("username") String username, Pageable page);
 
     @Query("SELECT p FROM Post p WHERE p.id = :postId")

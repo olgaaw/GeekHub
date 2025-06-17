@@ -1,6 +1,6 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ExtendedPostDetails } from '../../models/post-detail.model';
-import { PostService } from '../../services/post.service';  // importa el servicio
+import { PostService } from '../../services/post.service';
 import { HttpErrorResponse } from '@angular/common/http';
 import { AuthService } from '../../services/auth.service';
 
@@ -63,7 +63,6 @@ export class PostComponent {
 
     if (this.authService.isAdmin()) {
       const postId = this.getPostId(this.postToDelete);
-      console.log('Deleting post ID:', postId);
       this.postService.deletePostByAdmin(postId).subscribe({
 
         next: () => {
@@ -78,7 +77,6 @@ export class PostComponent {
       });
     } else {
       this.postService.deletePostByUser(postId).subscribe({
-
         next: () => {
           this.posts = this.posts.filter(p => this.getPostId(p) !== postId);
           this.closeDeleteModal();

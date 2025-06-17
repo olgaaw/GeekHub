@@ -36,6 +36,7 @@
           </div>
           <div><i class="bi bi-chat-left-text" [routerLink]="['/post', getPostId(post)]"></i> {{ post.commentNum }}
           </div>
+          <small class="date">{{ post.post.date| date: 'short' }}</small>
         </div>
       </div>
     </div>

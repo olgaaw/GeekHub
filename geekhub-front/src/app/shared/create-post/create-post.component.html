@@ -16,7 +16,7 @@
     </div>
 
     <div *ngIf="selectedFiles.length > 0" class="ms-5 mt-2">
-        <span *ngFor="let file of selectedFiles">{{ file.name }} </span>
+        <span class= "selected-files" *ngFor="let file of selectedFiles">{{ file.name }} </span>
     </div>
 </div>
 <hr class="post-separator" />
