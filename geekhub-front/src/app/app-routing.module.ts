@@ -7,6 +7,7 @@ import { ProfileComponent } from './components/profile/profile.component';
 import { HomeComponent } from './components/home/home.component';
 import { PostDetailComponent } from './components/post-detail/post-detail.component';
 import { SearchComponent } from './components/search/search.component';
+import { InterestComponent } from './components/interest/interest.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'login', pathMatch: 'full' },
@@ -17,6 +18,7 @@ const routes: Routes = [
   { path: 'home', component: HomeComponent },
   { path: 'post/:postId', component: PostDetailComponent },
   { path: 'search', component: SearchComponent },
+  { path: 'interest', component: InterestComponent },
   { path: '**', redirectTo: 'login' }
 ];
 

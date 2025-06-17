@@ -4,6 +4,9 @@ import com.salesianos.geekhub.dto.interest.EditInterestCmd;
 import com.salesianos.geekhub.dto.interest.GetInterestDto;
 import com.salesianos.geekhub.error.InterestNotFoundException;
 import com.salesianos.geekhub.error.UserNotFoundException;
+import com.salesianos.geekhub.files.exception.StorageException;
+import com.salesianos.geekhub.files.model.FileMetadata;
+import com.salesianos.geekhub.files.service.StorageService;
 import com.salesianos.geekhub.model.Comment;
 import com.salesianos.geekhub.model.Interest;
 import com.salesianos.geekhub.model.User;
@@ -13,6 +16,7 @@ import jakarta.persistence.EntityNotFoundException;
 import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,6 +28,7 @@ public class InterestService {
 
     private final InterestRepository interestRepository;
     private final UserRepository userRepository;
+    private final StorageService storageService;
 
     public List<Interest> findAll() {
         List<Interest> interests = interestRepository.findAll();
@@ -35,22 +40,42 @@ public class InterestService {
         return interests;
     }
 
-    public Interest create(GetInterestDto interestDto) {
+    public Interest create(GetInterestDto interestDto, MultipartFile file) {
 
         Interest interest = Interest.builder()
                 .name(interestDto.name())
                 .picture(interestDto.picture())
                 .build();
 
+        if (file != null && !file.isEmpty()) {
+            FileMetadata fileMetadata = storageService.store(file);
+            String imageUrl = fileMetadata.getURL();
+            if (imageUrl != null) {
+                interest.setPicture(imageUrl);
+            } else {
+                throw new StorageException("Error al subir la imagen");
+            }
+        }
+
+
+
         return interestRepository.save(interest);
     }
 
-    public Interest edit(UUID id, EditInterestCmd editInterest) {
+    public Interest edit(UUID id, EditInterestCmd editInterest, MultipartFile file) {
         Interest interest = interestRepository.findById(id)
                 .orElseThrow(() -> new InterestNotFoundException());
 
         interest.setName(editInterest.name());
-        interest.setPicture(editInterest.picture());
+        if (file != null && !file.isEmpty()) {
+            FileMetadata fileMetadata = storageService.store(file);
+            String imageUrl = fileMetadata.getURL();
+            if (imageUrl != null) {
+                interest.setPicture(imageUrl);
+            } else {
+                throw new StorageException("Error al subir la imagen");
+            }
+        }
 
         return interestRepository.save(interest);
     }

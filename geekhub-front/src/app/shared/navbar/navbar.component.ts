@@ -15,4 +15,12 @@ export class NavbarComponent {
     this.userId = this.authService.getUserId();
   }
 
+  isAdmin(): boolean {
+    if (this.authService.isAdmin()) {
+      return true
+    } else {
+      return false
+    }
+  }
+
 }

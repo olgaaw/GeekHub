@@ -37,42 +37,41 @@ INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa1
 INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f6', 1);
 INSERT INTO user_roles(user_id, roles) VALUES ('a7c449e4-1316-4ffc-a218-7a585fa128f5', 1);
 
--- random_uuid()() para h2, gen_gen_random_uuid()() para postgres
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f0', 'Anime', 'anime_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f1', 'Videojuegos', 'videojuegos_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f2', 'Música', 'musica_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f3', 'Deportes', 'deportes_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f4', 'Cine', 'cine_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f5', 'Libros', 'libros_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f6', 'Viajes', 'viajes_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f7', 'Fotografía', 'fotografia_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f8', 'Cocina', 'cocina_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f9', 'Tecnología', 'tecnologia_picture.jpg');
+-- random_uuid() para h2, gen_gen_random_uuid() para postgres
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f0', 'Anime', 'https://www.mundiario.com/asset/thumbnail,1280,720,center,center/media/cineseries/images/2025/03/04/2025030421102062739.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f1', 'Videojuegos', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f2', 'Música', 'https://di1w2o32ai2v6.cloudfront.net/images/detailed/8/OMORI_ORCHESTRA_keyart_eplus_thnf-rg.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f3', 'Deportes', 'https://img2.rtve.es/i/?w=1600&i=01740081001200.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f4', 'Cine', 'https://hips.hearstapps.com/hmg-prod/images/el-senor-de-los-anillos-la-comunidad-del-anillo-2001-1590531995.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f5', 'Libros', 'https://proassetspdlcom.cdnstatics2.com/usuaris/libros/thumbs/fc37f6eb-b246-47d5-82d9-24f4790290f3/p_360_620/portada_el-senor-de-los-anillos-n-0103-la-comunidad-del-anillo-ne_j-r-r-tolkien_202209201501.webp');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f6', 'Viajes', 'https://m.media-amazon.com/images/S/pv-target-images/44071bb75e4a15a92bfc61c4d017fa38d423b4121e4f2c220efd9f34ce17aedd._SX1080_FMjpg_.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f7', 'Fotografía', 'https://i0.wp.com/calleparasiempre.com/wp-content/uploads/2025/02/Fotografia-callejera-en-Espana-1024x683.jpg?resize=620%2C414&ssl=1');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f8', 'Cocina', 'https://www.bazarmagazin.com/bzrwp/wp-content/uploads/2024/04/dongeonmeshi.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa128f9', 'Tecnología', 'https://img.pccomponentes.com/pcblog/98/que-es-una-placa-base-tipos-instalar.jpg');
 
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a0', 'Naruto', 'naruto_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a1', 'Attack on Titan', 'attack_on_titan_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a2', 'My Hero Academia', 'my_hero_academia_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a3', 'One Piece', 'one_piece_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a4', 'Demon Slayer', 'demon_slayer_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a5', 'Death Note', 'death_note_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a6', 'Fullmetal Alchemist', 'fullmetal_alchemist_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a7', 'Sword Art Online', 'sword_art_online_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a8', 'Dragon Ball Z', 'dragon_ball_z_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a9', 'Tokyo Ghoul', 'tokyo_ghoul_picture.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a0', 'Naruto', 'https://www.mundiario.com/asset/thumbnail,1280,720,center,center/media/cineseries/images/2025/03/04/2025030421102062739.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a1', 'Attack on Titan', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a2', 'My Hero Academia', 'https://di1w2o32ai2v6.cloudfront.net/images/detailed/8/OMORI_ORCHESTRA_keyart_eplus_thnf-rg.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a3', 'One Piece', 'https://img2.rtve.es/i/?w=1600&i=01740081001200.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a4', 'Demon Slayer', 'https://hips.hearstapps.com/hmg-prod/images/el-senor-de-los-anillos-la-comunidad-del-anillo-2001-1590531995.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a5', 'Death Note', 'https://proassetspdlcom.cdnstatics2.com/usuaris/libros/thumbs/fc37f6eb-b246-47d5-82d9-24f4790290f3/p_360_620/portada_el-senor-de-los-anillos-n-0103-la-comunidad-del-anillo-ne_j-r-r-tolkien_202209201501.webp');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a6', 'Fullmetal Alchemist', 'https://m.media-amazon.com/images/S/pv-target-images/44071bb75e4a15a92bfc61c4d017fa38d423b4121e4f2c220efd9f34ce17aedd._SX1080_FMjpg_.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a7', 'Sword Art Online', 'https://i0.wp.com/calleparasiempre.com/wp-content/uploads/2025/02/Fotografia-callejera-en-Espana-1024x683.jpg?resize=620%2C414&ssl=1');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a8', 'Dragon Ball Z', 'https://www.bazarmagazin.com/bzrwp/wp-content/uploads/2024/04/dongeonmeshi.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('d1c449e4-1316-4ffc-a218-7a585fa129a9', 'Tokyo Ghoul', 'https://img.pccomponentes.com/pcblog/98/que-es-una-placa-base-tipos-instalar.jpg');
 
-
-INSERT INTO interest_entity(id, name, picture) VALUES ('6d2e8f63-bc3e-4f4c-a99d-3f51a678c8a1', 'The Legend of Zelda: Breath of the Wild', 'zelda_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('91a3f24e-7b22-4e94-b5de-9b0e682b4f32', 'Final Fantasy VII', 'final_fantasy_vii_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('c7e6d9a4-36f1-4e7a-bb61-b8a8f3c5e78b', 'Minecraft', 'minecraft_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('db59fd1b-12a6-4f47-bf07-6c497e38e052', 'Overwatch', 'overwatch_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('e5d12fa3-7f98-4a5c-9182-dc5f22c68b5a', 'Dark Souls', 'dark_souls_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('2a896f07-79c5-4018-9b35-10d79e0b4f68', 'Among Us', 'among_us_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('836f5c2d-d591-4b6b-a4b2-03d2cb9bfa5c', 'The Witcher 3: Wild Hunt', 'witcher_3_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('c4e8d1f2-6572-4be3-aad7-e9fd5db5ea1f', 'God of War', 'god_of_war_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('51fef827-daf9-4036-b3d8-4b8e85cf29c6', 'Resident Evil 2', 'resident_evil_2_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('e9cb6f3b-d3c8-46e8-b98a-09e7dba452bf', 'Cyberpunk 2077', 'cyberpunk_2077_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('3f72bc94-4d58-4566-9d2a-fbc9165b6c8b', 'The Last of Us', 'the_last_of_us_picture.jpg');
-INSERT INTO interest_entity(id, name, picture) VALUES ('a6f1b7e1-ef88-45c5-888b-5f60b1c7dfd3', 'Halo: Combat Evolved', 'halo_picture.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('6d2e8f63-bc3e-4f4c-a99d-3f51a678c8a1', 'The Legend of Zelda: Breath of the Wild', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('91a3f24e-7b22-4e94-b5de-9b0e682b4f32', 'Final Fantasy VII', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('c7e6d9a4-36f1-4e7a-bb61-b8a8f3c5e78b', 'Minecraft', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('db59fd1b-12a6-4f47-bf07-6c497e38e052', 'Overwatch', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('e5d12fa3-7f98-4a5c-9182-dc5f22c68b5a', 'Dark Souls', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('2a896f07-79c5-4018-9b35-10d79e0b4f68', 'Among Us', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('836f5c2d-d591-4b6b-a4b2-03d2cb9bfa5c', 'The Witcher 3: Wild Hunt', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('c4e8d1f2-6572-4be3-aad7-e9fd5db5ea1f', 'God of War', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('51fef827-daf9-4036-b3d8-4b8e85cf29c6', 'Resident Evil 2', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('e9cb6f3b-d3c8-46e8-b98a-09e7dba452bf', 'Cyberpunk 2077', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('3f72bc94-4d58-4566-9d2a-fbc9165b6c8b', 'The Last of Us', 'https://images8.alphacoders.com/608/608737.jpg');
+INSERT INTO interest_entity(id, name, picture) VALUES ('a6f1b7e1-ef88-45c5-888b-5f60b1c7dfd3', 'Halo: Combat Evolved', 'https://images8.alphacoders.com/608/608737.jpg');
 INSERT INTO interest_entity(id, name, picture) VALUES ('b92a1ea8-6037-4952-9b0d-3746b5e7a6e1', 'Red Dead Redemption 2', 'red_dead_redemption_2_picture.jpg');
 INSERT INTO interest_entity(id, name, picture) VALUES ('f5d4f089-9673-4a56-92e5-4f70f23b6f49', 'Assassins Creed Valhalla', 'assassins_creed_valhalla_picture.jpg');
 INSERT INTO interest_entity(id, name, picture) VALUES ('c38d8b9d-bf16-4b8a-9bcb-8e1d9e837bfa', 'Fortnite', 'fortnite_picture.jpg');
