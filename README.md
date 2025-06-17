@@ -1,41 +1,71 @@
 # GeekHub
 
-![image](https://github.com/user-attachments/assets/72dba567-d688-4dd1-b711-b358cd470d50)
+<div align="center">
+  <img src="https://github.com/user-attachments/assets/adf8cba2-af5f-486f-9eea-7dcdf1e07e43" alt="ghicon" width="150"/>
+  <img src="https://github.com/user-attachments/assets/b068c847-b084-4b50-9c1c-ba061a1db55a" alt="ghlogo" width="400"/>
+</div>
 
+---
 
-## Descripción
+## 📌 Descripción
 
-Este proyecto consiste en el desarrollo de una API REST utilizando Spring Boot 3, diseñada para la creación de una red social para poner en contacto a personas que compartan los mismos intereses.
+**GeekHub** es una red social web desarrollada con Spring Boot 3 y Angular 18, orientada a personas que comparten intereses relacionados con la cultura geek: videojuegos, anime, ciencia ficción, tecnología, cómics, etc. Permite a los usuarios crear publicaciones, seguir perfiles afines y compartir contenido dentro de una comunidad con gustos similares.
 
-### Funcionalidades de la API
-- **Creación de usuario**: permite registrar un usuario para acceder a las funcionalidadesd de la aplicación.
-- **Subida de posts**: permite crear publicaciones con contenido de texto e imágenes.
-- **Comentarios y likes**: tiene la posibilidad de comentar publicaciones y dar likes
-- **Filtros de búsqueda**: para enontrar perfiles con intereses similares se puede buscar mediante varios filtros, como interés, edad o localización del usuario.
+### 🎯 Funcionalidades principales
 
+- **Login**: Iniciar sesión con cuenta existente o ir al registro.
+- **Registro**: Formulario en dos pasos para crear una cuenta (credenciales y datos personales).
+- **Activación de cuenta**: Validación por código enviado por email tras el registro.
+- **Perfil de usuario**: Visualización y edición de datos personales y publicaciones.
+- **Publicaciones**: Crear publicaciones con texto o imágenes desde la pantalla home.
+- **Home**: Muestra publicaciones recientes de los perfiles que sigues.
+- **Buscador avanzado**: Filtrar usuarios por intereses, ubicación, edad o género.
+- **Gestión de intereses**: Como administrador puedes crear, editar y eliminar intereses.
 
-## Prototipo en Figma
+---
 
-https://www.figma.com/design/OcFYE6LZ5E8aH8oqUtctge/GeekHub?node-id=0-1&t=ucrtdycZPrM0Djvu-1
+## 🎨 Prototipos en Figma
 
+- 🖥️ [Diseño Web (Figma)](https://www.figma.com/proto/A1Wx1f1BrY8gbem5pOfPvB/GeekHub-web?t=h3ESz7kHFjbndur6-1)  
+- 📱 [Diseño Móvil (Figma)](https://www.figma.com/proto/OcFYE6LZ5E8aH8oqUtctge/GeekHub?node-id=0-1&t=h3ESz7kHFjbndur6-1)
 
-## Tecnologías Utilizadas
+---
 
-- **Spring Boot 3**: Framework para el desarrollo de aplicaciones Java.
-- **Spring Data JPA**: Para la persistencia de datos.
-- **PostgreSQL**: Base de datos utilizada para almacenar la información.
-- **OpenAPI / Swagger**: Para la documentación de la API.
-- **Postman**: Para probar la API REST.
+## 🛠️ Tecnologías Utilizadas
 
-## Ejecución del proyecto
+### Backend
+- **Java 17 + Spring Boot 3**
+- **Spring Data JPA** – ORM con Hibernate
+- **PostgreSQL** – Base de datos principal
+- **Spring Security** – Autenticación y autorización
+- **SendGrid** – Envío de correos electrónicos
+- **Apache Tika** – Análisis de archivos subidos
+- **Swagger / OpenAPI** – Documentación de la API
+- **H2 Database** – Base de datos
+- **Docker + Docker Compose** – Servicios
 
-1. **Clonar repositorio:** utilizando 
-`git clone` 
-2. **Configurar la base de datos:**
-   - Ejecutar los comandos `mvn clean y mvn install`
-   - Ejecutar el comando `docker-compose up -d`
-  
-3. **Acceso a la base de datos** 
+### Frontend
+- **Angular 18**
+- **Bootstrap 5** 
+- **Angular Material**
+
+---
+
+## ⚙️ Ejecución del Proyecto
+
+### 1. Clonar el repositorio
+
+```bash
+git clone https://github.com/olgaaw/GeekHub
+```
+### 2. Compilar y levantar servicios
+```bash
+mvn clean install
+docker-compose up -d --build
+```
+Esto iniciará los contenedores necesarios en Docker para la base de datos, backend y frontend.
+
+### 3. Acceso a la base de datos 
   -  **PostgreSQL**
      * Imagen: postgres:16-alpine
      * Usuario: geekhub
@@ -51,19 +81,17 @@ https://www.figma.com/design/OcFYE6LZ5E8aH8oqUtctge/GeekHub?node-id=0-1&t=ucrtdy
    * Puerto mapeado: 5050 (local) → 80 (contenedor)
 
      
-5. **Ejecutar la aplicación:** con `mvn spring-boot run`
+### 4. Acceso a la aplicación
+* 🌐 Aplicación web: http://localhost:80
 
-
-6. **Acceso a la documentación:**
-`localhost:8080/swagger-ui.html`
+* 📘 Documentación de la API: http://localhost:8080/swagger-ui.html
 
 Se adjunta una colección de postman para ir probando los diferentes endpoints de la API REST.
 
-### Usuarios principales para las pruebas
+## 🔑 Usuarios principales para las pruebas
 - **Role_ADMIN:**
     -  Usuario: admin
     -  Cotraseña: admin
-    -  
 - **Role_USER:**
     -  Usuario: user
     -  Cotraseña: 1234
