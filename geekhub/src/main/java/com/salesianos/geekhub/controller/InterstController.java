@@ -22,6 +22,7 @@ import org.springframework.security.access.prepost.PostAuthorize;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;
 import java.util.UUID;
@@ -107,11 +108,13 @@ public class InterstController {
     })
     @PreAuthorize("hasRole('ADMIN')")
     @PostMapping
-    public ResponseEntity<GetInterestDto> createInterest(@RequestBody GetInterestDto interestDto) {
-        Interest interest = interestService.create(interestDto);
+    public ResponseEntity<GetInterestDto> createInterest(@RequestPart("interestDto") GetInterestDto interestParam, @RequestPart(value = "file", required = false) MultipartFile file
+    ) {
+        Interest interest = interestService.create(interestParam, file);
         return ResponseEntity.status(HttpStatus.CREATED)
                 .body(GetInterestDto.of(interest));
     }
+
 
     @Operation(summary = "Edita un interés")
     @ApiResponses(value = {
@@ -134,8 +137,9 @@ public class InterstController {
     })
     @PreAuthorize("hasRole('ADMIN')")
     @PutMapping("/{id}")
-    public ResponseEntity<GetInterestDto> editInterest(@PathVariable UUID id, @RequestBody EditInterestCmd editInterest) {
-        Interest interest = interestService.edit(id, editInterest);
+    public ResponseEntity<GetInterestDto> editInterest(@PathVariable UUID id, @RequestPart("interestDto") EditInterestCmd editInterest,
+                                                       @RequestPart(value = "file", required = false) MultipartFile file) {
+        Interest interest = interestService.edit(id, editInterest, file);
         return ResponseEntity.ok(GetInterestDto.of(interest));
     }
 

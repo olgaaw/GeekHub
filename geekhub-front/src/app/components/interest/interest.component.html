@@ -1,0 +1,115 @@
+<div class="d-flex profile-container">
+    <app-navbar></app-navbar>
+
+    <div class="flex-grow-1 profile-content mx-5 mt-5">
+        <div class="container-fluid">
+
+            <div class="row mb-4">
+                <div class="col">
+                    <div class="class text-end">
+                        <button type="button" class="btn btn-create" (click)="openModal()">
+                            <i class="bi bi-plus-circle"></i> Añadir interés
+                        </button>
+                    </div>
+
+                    <div class="modal fade show" *ngIf="showModal" style="display: block;">
+                        <div class="modal-dialog modal-dialog-centered">
+                            <div class="modal-content">
+                                <form (ngSubmit)="createOrUpdateInterest()">
+                                    <div class="modal-header">
+                                        <h5 class="modal-title">{{ editingInterest ? 'Editar Interés' : 'Añadir Nuevo Interés' }}</h5>
+                                        <button type="button" class="btn-close" (click)="closeModal()" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body">
+                                        <div class="mb-3">
+                                            <label>Nombre</label>
+                                            <input class="form-control" [(ngModel)]="newInterestName" name="name"/>
+                                        </div>
+                                        <div class="mb-3">
+                                            <label>Imagen</label>
+                                            <input type="file" class="form-control" (change)="onFileSelected($event)" />
+                                        </div>
+                                    </div>
+                                    <div class="modal-footer">
+                                        <button class="btn btn-create" type="submit">{{ editingInterest ? 'Guardar Cambios' : 'Crear' }}</button>
+                                        <button class="btn btn-secondary" type="button" (click)="closeModal()">Cancelar</button>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div *ngIf="showModal" class="modal-backdrop fade show"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <div class="col-md-3 mb-4" *ngFor="let interest of interests">
+                    <div class="card position-relative">
+                        <img [src]="interest.picture" class="card-img-top" alt="{{interest.name}}">
+
+                        <div ngbDropdown class="position-absolute top-0 end-0 m-2">
+                            <button class="btn btn-dropdown" ngbDropdownToggle>
+                                <i class="bi bi-three-dots"></i>
+                            </button>
+                            <div ngbDropdownMenu class="dropdown-menu-end">
+                                <button class="dropdown-item" (click)="openModal(interest)">Editar</button>
+                                <button class="dropdown-item text-danger"
+                                    (click)="confirmDelete(interest)">Eliminar</button>
+                            </div>
+                        </div>
+
+                        <div class="card-body">
+                            <h5 class="card-title">{{ interest.name }}</h5>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade show" tabindex="-1" *ngIf="showModal" style="display: block;" aria-modal="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <form (ngSubmit)="createOrUpdateInterest()">
+                            <div class="modal-header">
+                                <h5 class="modal-title">{{ editingInterest ? 'Editar Interés' : 'Añadir Nuevo Interés'
+                                    }}</h5>
+                                <button type="button" class="btn-close" (click)="closeModal()"></button>
+                            </div>
+                            <div class="modal-body">
+                                <div class="mb-3">
+                                    <label>Nombre</label>
+                                    <input class="form-control" [(ngModel)]="newInterestName" name="name" />
+                                </div>
+                                <div class="mb-3">
+                                    <label>Imagen</label>
+                                    <input type="file" class="form-control" (change)="onFileSelected($event)" />
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button class="btn btn-primary" type="submit">{{ editingInterest ? 'Guardar Cambios' : 'Crear' }}</button>
+                                <button class="btn btn-secondary" type="button" (click)="closeModal()">Cancelar</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+
+            <div class="modal fade show" tabindex="-1" *ngIf="showDeleteModal" style="display: block;" aria-modal="true">
+                <div class="modal-dialog modal-dialog-centered">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title">Confirmar eliminación</h5>
+                            <button type="button" class="btn-close" (click)="cancelDelete()"></button>
+                        </div>
+                        <div class="modal-body">
+                            <p>¿Seguro que deseas eliminar el interés?</p>
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" (click)="cancelDelete()">Cancelar</button>
+                            <button type="button" class="btn btn-secondary" (click)="deleteInterest()">Eliminar</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

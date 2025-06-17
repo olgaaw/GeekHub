@@ -79,7 +79,7 @@ public class SecurityConfig {
                 .requestMatchers(HttpMethod.GET,   "/post/{id}", "/favourite/following/{userId}", "/favourite/followers/{userId}").authenticated()
                 .requestMatchers(HttpMethod.POST, "/auth/login", "/auth/register", "/activate/account/", "/auth/refresh/token", "/auth/register/admin").permitAll()
                 .requestMatchers(HttpMethod.POST, "/post/{postId}/like", "/favourite/add/{favouriteUserId}", "/post/").authenticated()
-                .requestMatchers(HttpMethod.DELETE, "/comment/{commentId}/delete/admin", "/post/{postId}/delete/admin").hasRole("ADMIN")
+                .requestMatchers(HttpMethod.DELETE, "/comment/{commentId}/delete/admin", "/post/{postId}/delete/admin", "/interest/{interestId}/delete").hasRole("ADMIN")
                 .requestMatchers(HttpMethod.DELETE, "/like/{likeId}/deletebyUser", "/favourite/remove/{favouriteUserId}", "/user/delete/admin/{id}").authenticated()
                 .requestMatchers(HttpMethod.PUT, "/interest/{id}").hasRole("ADMIN")
                 .requestMatchers("/me/admin", "/user", "/interest").hasRole("ADMIN")

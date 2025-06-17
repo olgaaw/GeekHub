@@ -25,6 +25,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { SearchComponent } from './components/search/search.component';
+import { InterestComponent } from './components/interest/interest.component';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { SearchComponent } from './components/search/search.component';
     CommentComponent,
     CreatePostComponent,
     EditProfileComponent,
-    SearchComponent
+    SearchComponent,
+    InterestComponent
 
   ],
   imports: [
